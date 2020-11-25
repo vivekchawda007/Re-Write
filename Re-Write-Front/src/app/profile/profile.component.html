@@ -1,0 +1,104 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Update Profile</h1>
+  </div>
+  <div style="top:90px"></div>
+  <div class="card-wrapper" style="width : 70%">
+    <div class="card fat">
+      <div class="card-body">
+        <form
+          [formGroup]="addUserForm"
+          (ngSubmit)="addUser()"
+          class="my-login-validation"
+          novalidate=""
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input
+                  id="firstName"
+                  formControlName="firstName"
+                  type="email"
+                  class="form-control"
+                  name="firstName"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input
+                  id="lastName"
+                  formControlName="lastName"
+                  type="email"
+                  class="form-control"
+                  name="lastName"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  id="email"
+                  formControlName="emailAddress"
+                  type="email"
+                  class="form-control"
+                  name="email"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="contact">Contact Number</label>
+                <input
+                  id="contact"
+                  type="number"
+                  formControlName="contactNumber"
+                  class="form-control"
+                  name="contact"
+                  required
+                  data-eye
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-primary dropdown-toggle btn-block"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Select Unit
+                  </button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">IT</a>
+                    <a class="dropdown-item" href="#">ADMIN</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group m-0">
+            <button type="submit" class="btn btn-danger btn-block">
+              Add User
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
