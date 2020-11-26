@@ -28,8 +28,22 @@ CREATE TABLE public.volunteer (
 	last_name varchar(100) NOT NULL,
 	mobile_number varchar(100) NOT NULL,
 	finger_print BYTEA NOT null,
-	 PRIMARY KEY(id)
+	end_date timestamp not null,
+	is_active bool default true,
+	is_deleted bool default false,
+	created_by varchar(100) not null,
+	created_date timestamp not null DEFAULT now(),
+	modified_by varchar(100) not null,
+	modified_date timestamp not null DEFAULT now(),
+	PRIMARY KEY(id),
+	CONSTRAINT fk_created_by
+      FOREIGN KEY(created_by) 
+	  REFERENCES user_detail(id),
+	  CONSTRAINT fk_modified_by
+      FOREIGN KEY(modified_by) 
+	  REFERENCES user_detail(id)
 );
+
 
 
 
@@ -39,7 +53,19 @@ CREATE TABLE public.user_detail (
 	password varchar(100) NOT null,
 	is_new bool not null,
 	role_id varchar(40) NOT null,
+	is_active bool default true,
+	is_deleted bool default false,
+	created_by varchar(100) not null,
+	created_date timestamp not null DEFAULT now(),
+	modified_by varchar(100) not null,
+	modified_date timestamp not null DEFAULT now(),
 	PRIMARY KEY(id),
+	CONSTRAINT fk_created_by
+      FOREIGN KEY(created_by) 
+	  REFERENCES user_detail(id),
+	  CONSTRAINT fk_modified_by
+      FOREIGN KEY(modified_by) 
+	  REFERENCES user_detail(id),
 	 CONSTRAINT fk_role_id
       FOREIGN KEY(role_id) 
 	  REFERENCES role_detail(id)

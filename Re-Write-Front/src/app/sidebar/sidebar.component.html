@@ -38,7 +38,44 @@
       aria-expanded="true"
       aria-controls="collapseTwo"
     >
-      <i class="fas fa-fw fa-cog"></i> <span>User Management</span>
+      <i class="fas fa-fw fa-cog"></i> <span>Volunteer</span>
+    </a>
+    <div
+      id="collapseTwo"
+      class="collapse"
+      aria-labelledby="headingTwo"
+      data-parent="#accordionSidebar"
+    >
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Volunteer Operations</h6>
+        <a
+          class="collapse-item"
+          style="cursor: pointer;"
+          data-dismis="collapseTwo"
+          (click)="navigateToAddUser()"
+          >Add Volunteer</a
+        >
+        <a
+          class="collapse-item"
+          style="cursor: pointer;"
+          (click)="NavigateToAddUnit()"
+          >List Volunteer</a
+        >
+      </div>
+    </div>
+  </li>
+  <!-- Nav Item - Utilities Collapse Menu -->
+  <li class="nav-item">
+    <a
+      id="accorId"
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapseTwo"
+      aria-expanded="true"
+      aria-controls="collapseTwo"
+    >
+      <i class="fas fa-fw fa-cog"></i> <span>User</span>
     </a>
     <div
       id="collapseTwo"
@@ -53,41 +90,43 @@
           style="cursor: pointer;"
           data-dismis="collapseTwo"
           (click)="navigateToAddUser()"
-          >Add User</a
+          >Manage User</a
         >
         <a
           class="collapse-item"
           style="cursor: pointer;"
           (click)="NavigateToAddUnit()"
-          >Add Unit</a
+          >List User</a
         >
       </div>
     </div>
   </li>
-  <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
     <a
+      id="accorId"
       class="nav-link collapsed"
       href="#"
       data-toggle="collapse"
-      data-target="#collapseUtilities"
+      data-target="#collapseTwo"
       aria-expanded="true"
-      aria-controls="collapseUtilities"
+      aria-controls="collapseTwo"
     >
-      <i class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
+      <i class="fas fa-fw fa-cog"></i> <span>Audit</span>
     </a>
     <div
-      id="collapseUtilities"
+      id="collapseTwo"
       class="collapse"
-      aria-labelledby="headingUtilities"
+      aria-labelledby="headingTwo"
       data-parent="#accordionSidebar"
     >
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Custom Utilities:</h6>
-        <a class="collapse-item" href="utilities-color.html">Colors</a>
-        <a class="collapse-item" href="utilities-border.html">Borders</a>
-        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-        <a class="collapse-item" href="utilities-other.html">Other</a>
+        <h6 class="collapse-header">Audit Info</h6>
+        <a
+          class="collapse-item"
+          style="cursor: pointer;"
+          (click)="NavigateToAddUnit()"
+          >Audit List</a
+        >
       </div>
     </div>
   </li>
