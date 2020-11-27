@@ -47,10 +47,10 @@ export class LoginComponent implements OnInit {
 
   resetPassword() {
     const user: User = new User();
-    user.emailId = this.f.userName.value;
+   /*  user.emailId = this.f.userName.value;
     user.password = this.g.secondPassword.value;
     user.userId = this.savedUserId;
-    user.passwordChanged = 1;
+    user.passwordChanged = 1; */
     this.userService.updateUser(user).subscribe(
       result => {
         this.authService.login();
@@ -62,17 +62,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.login();
     const user: User = new User();
-    user.emailId = this.f.userName.value;
-    user.password = this.f.password.value;
+    user.userName = this.f.userName.value;
+     user.password = this.f.password.value;
     this.userService.loginUser(user).subscribe(
       result => {
         const map = new Map(Object.entries(result));
        
-        if (this.passwordChanged != "1") {
+       /*  if (this.passwordChanged != "1") {
           $("#myModal").modal("show");
-        } else {
+        }  */ {
           localStorage.setItem("currentUser", JSON.stringify(result));
           this.authService.login();
         }

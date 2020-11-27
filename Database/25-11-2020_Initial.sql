@@ -46,7 +46,6 @@ CREATE TABLE public.volunteer (
 
 
 
-
 CREATE TABLE public.user_detail (
 	id varchar(40) NOT NULL DEFAULT uuid_generate_v4(),
 	user_name varchar(100) NOT null,
@@ -55,9 +54,9 @@ CREATE TABLE public.user_detail (
 	role_id varchar(40) NOT null,
 	is_active bool default true,
 	is_deleted bool default false,
-	created_by varchar(100) not null,
+	created_by varchar(100),
 	created_date timestamp not null DEFAULT now(),
-	modified_by varchar(100) not null,
+	modified_by varchar(100),
 	modified_date timestamp not null DEFAULT now(),
 	PRIMARY KEY(id),
 	CONSTRAINT fk_created_by

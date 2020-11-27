@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0 text-gray-800">New User</h1>
+    </div>
+    <div style="top:90px"></div>
+    <div class="card-wrapper" style="width : 70%">
+      <div class="card fat">
+        <div class="card-body">
+          <form
+            [formGroup]="addUserForm"
+            (ngSubmit)="addUser()"
+            class="my-login-validation"
+            novalidate=""
+          >
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="userName">User Name</label>
+                  <input
+                    id="userName"
+                    formControlName="userName"
+                    type="text"
+                    class="form-control"
+                    name="userName"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <div class="btn-group">
+                    
+                    <select formControlName="roleName">
+                        <option value="">Select Role</option>
+                        <option *ngFor="let role of roles" [ngValue]="role.id" (change)="changeRole($event)">{{role.name}}
+                        </option>
+                     </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="form-group m-0">
+              <button type="submit" class="btn btn-danger btn-block">
+                Add User
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

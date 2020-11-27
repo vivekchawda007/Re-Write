@@ -4,13 +4,13 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name="USER_DETAIL")
+@Table(name="USER_DETAIL", uniqueConstraints={@UniqueConstraint(columnNames={"USER_NAME"})})
 public class UserDetail {
 	
 	@Id
@@ -26,14 +26,51 @@ public class UserDetail {
 	@Column(name="IS_ACTIVE")
 	private boolean isActive;
 	
-	@Column(name="IS_DELETE")
+	@Column(name="is_deleted")
 	private boolean isDelete;
+	
+	@Column(name="is_new")
+	private boolean isNew;
 	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
 	@Column(name="MODIFIED_DATE")
 	private Date modifiedDate;
+	
+	@Column(name="ROLE_ID")
+	private String roleId;
+
+	@Column(name="created_by")
+	private String createdBy;
+
+	@Column(name="modified_by")
+	private String modifiedBy;
+
+	
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public boolean isNew() {
+		return isNew;
+	}
+
+	public void setNew(boolean isNew) {
+		this.isNew = isNew;
+	}
 
 	public String getId() {
 		return id;
@@ -90,6 +127,15 @@ public class UserDetail {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
 
 	
 }

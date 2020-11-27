@@ -25,17 +25,7 @@ export class UserService {
         return this.http.get('/users/' + id);
     } */
 
-    addUser(user: User): Observable<any> {
-      let resp = {
-        id: "",
-        username: "vjcworld",
-        firstName: "Vivek",
-        lastName: "Chawda",
-        token: "fake-jwt-token"
-      };
-  
-      return this.resp;
-    }
+   
   
  /* else {
       // else return 400 bad request
@@ -60,7 +50,7 @@ export class UserService {
     });
   } */
 
-  public loginUser(user: User): Observable<any> {
+ /*  public loginUser(user: User): Observable<any> {
     let resp = {
       id: "",
       username: "vjcworld",
@@ -70,11 +60,15 @@ export class UserService {
     };
 
     return this.resp;
-  }
-
- /*  loginUser(user: User) {
-    return this.http.post("http://localhost:8081/vms/loginUser", user);
   } */
+
+  loginUser(user: User) {
+    return this.http.post("http://localhost:8080/rewrite/api/v1/validate-user", user);
+  } 
+
+  addUser(user: User) {
+    return this.http.post("http://localhost:8080/rewrite/api/v1/add-user", user);
+  } 
 
   updateUser(user: User) {
     return this.http.put('http://localhost:8081/vms/updateUser', user);

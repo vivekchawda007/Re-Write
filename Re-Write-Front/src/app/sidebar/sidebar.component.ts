@@ -10,8 +10,8 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {}
   navigateToAddUser() {
-    document.getElementById("accorId").click();
-    this.router.navigateByUrl("register");
+    document.getElementById("accorId2").click();
+    this.router.navigateByUrl("add-user");
   }
 
   NavigateToAddUnit() {

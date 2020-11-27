@@ -16,6 +16,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UnitComponent } from './unit/unit.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 
@@ -28,7 +29,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     DashboardComponent,
     UnitComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddUserComponent
   
   ],
   imports: [

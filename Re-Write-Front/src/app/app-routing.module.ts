@@ -9,6 +9,7 @@ import { UnitComponent } from "./unit/unit.component";
 import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { AddUserComponent } from './add-user/add-user.component';
 const routes: Routes = [
   { path: "", component: DashboardComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "unit", component: UnitComponent },
   { path: "sidebar", component: SidebarComponent },
   { path: "profile", component: ProfileComponent },
+  { path: "add-user", component: AddUserComponent },
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" }

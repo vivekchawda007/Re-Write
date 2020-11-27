@@ -21,11 +21,12 @@ public class UserDetailService {
 		UserDetail userDetail = new UserDetail();
 		userDetail.setId(UUID.randomUUID().toString());
 		userDetail.setUserName(user.getUserName());
-		userDetail.setPassword(user.getPassword());
+		userDetail.setPassword("Vivek123");
 		userDetail.setCreatedDate(new Date());
 		userDetail.setModifiedDate(new Date());
 		userDetail.setActive(Boolean.TRUE);
 		userDetail.setDelete(Boolean.FALSE);
+		userDetail.setRoleId(user.getRole());
 		userRepo.save(userDetail);
 	}
 
