@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
-
+declare var $:any;
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -11,6 +11,7 @@ import { UserService } from '../services/user.service';
 export class AddUserComponent implements OnInit {
   submitted = false;
   addUserForm: FormGroup;
+  msgs = [];
   roles: any = [{
     'id':'4ff79590-0ec1-45cd-9c65-f0ad371943eb',
     'name' : 'Reviewer'
@@ -56,23 +57,22 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(user)
       .subscribe(result => {
         alert(result)
-        /*  this.loading = false;
-         this.getGroups();
-         $('#myModal').modal('hide');*/
+        
          
-        /*  this.msgs = [];
-         this.msgs.push({severity:'error', summary:'Error', detail:"Hii"});  */
+         $('#myModal').modal('hide');
+         
+          this.msgs = [];
+         this.msgs.push({severity:'error', summary:'Error', detail:"Hii"});  
       },
         error => {
           alert(error);
-          /*  $('#myModal').modal('hide');
+          $('#myModal').modal('hide');
            this.msgs = [];
            this.msgs.push({
              severity: 'error',
              summary: 'Error',
              detail: 'Error While Saving Group'
            })
-         }); */
-        });
+         });
   }
 }

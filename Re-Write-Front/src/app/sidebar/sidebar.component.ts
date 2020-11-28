@@ -14,9 +14,9 @@ export class SidebarComponent implements OnInit {
     this.router.navigateByUrl("add-user");
   }
 
-  NavigateToAddUnit() {
-    document.getElementById("accorId").click();
-    this.router.navigateByUrl("unit");
+  navigateToAddVolunteer() {
+    document.getElementById("accorId1").click();
+    this.router.navigateByUrl("add-volunteer");
   }
 
   navigateToDashboard() {

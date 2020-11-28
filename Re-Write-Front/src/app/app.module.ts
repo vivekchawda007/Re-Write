@@ -17,7 +17,11 @@ import { UnitComponent } from './unit/unit.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { AddUserComponent } from './add-user/add-user.component';
-
+import { AddVolunteerComponent } from './add-volunteer/add-volunteer.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -30,7 +34,8 @@ import { AddUserComponent } from './add-user/add-user.component';
     DashboardComponent,
     UnitComponent,
     ProfileComponent,
-    AddUserComponent
+    AddUserComponent,
+    AddVolunteerComponent
   
   ],
   imports: [
@@ -38,13 +43,22 @@ import { AddUserComponent } from './add-user/add-user.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
-  ],
+    FormsModule,
+    MatDialogModule,
+
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })],
+
   providers: [
     AuthGuard,
         AlertService,
         AuthService,
         AuthenticationService,
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} },
         UserService],
   bootstrap: [AppComponent]
 })

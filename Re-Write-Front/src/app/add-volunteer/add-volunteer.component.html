@@ -1,0 +1,52 @@
+<div class="card" tabindex="-1">
+
+    <div class="card-header card-header-danger">
+        <h4 class="card-title ">Add Survey</h4>
+        <p class="card-category">Fill Survey Information and click Add</p>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="addSurveyForm">
+            <mat-dialog-content>
+                <mat-form-field>
+                    <input matInput placeholder="Survey Name" formControlName="name">
+                    <mat-error *ngIf="hasError('name', 'required')">Survey Name is required</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Question</mat-label>
+                    <textarea matInput formControlName="question" 
+                        cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Type</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option value="NUMERIC">NUMERIC</mat-option>
+                        <mat-option value="EMOTIONAL SCALE">EMOTIONAL SCALE</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="hasError('type', 'required')">Survey type is required</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Catagories</mat-label>
+                    <textarea matInput formControlName="catagories" 
+                        cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Catagory Question</mat-label>
+                    <textarea matInput formControlName="catquestion" 
+                        cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+                <mat-checkbox matInput formControlName="allowcoupon">Allow Coupon</mat-checkbox>
+
+                <mat-form-field>
+                    <mat-label>Catagories Title</mat-label>
+                    <textarea matInput formControlName="catagoriestitle" 
+                        cdkAutosizeMinRows="2" cdkAutosizeMaxRows="5"></textarea>
+                </mat-form-field>
+            </mat-dialog-content>
+            <mat-dialog-actions>
+                <button mat-raised-button color="primary" [disabled]="!addSurveyForm.valid && submitted" (click)="save()">Add</button>
+                <button mat-raised-button color="warn" (click)="close()">Close</button>
+            </mat-dialog-actions>
+        </form>
+    </div>
+</div>

@@ -22,6 +22,7 @@ public class UserDetailService {
 		userDetail.setId(UUID.randomUUID().toString());
 		userDetail.setUserName(user.getUserName());
 		userDetail.setPassword("Vivek123");
+		userDetail.setCreatedBy(user.getCreatedBy());
 		userDetail.setCreatedDate(new Date());
 		userDetail.setModifiedDate(new Date());
 		userDetail.setActive(Boolean.TRUE);

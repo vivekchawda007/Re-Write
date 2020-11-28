@@ -5,6 +5,7 @@ public class User {
 	private String userName;
 	private String password;
 	private String role;
+	private String createdBy;
 	
 	public String getUserName() {
 		return userName;
@@ -23,6 +24,12 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 	
 	

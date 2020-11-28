@@ -27,14 +27,14 @@ CREATE TABLE public.volunteer (
 	first_name varchar(100) NOT NULL,
 	last_name varchar(100) NOT NULL,
 	mobile_number varchar(100) NOT NULL,
-	finger_print BYTEA NOT null,
+	finger_print varchar(500) NOT null,
 	end_date timestamp not null,
 	is_active bool default true,
 	is_deleted bool default false,
 	created_by varchar(100) not null,
 	created_date timestamp not null DEFAULT now(),
-	modified_by varchar(100) not null,
-	modified_date timestamp not null DEFAULT now(),
+	modified_by varchar(100),
+	modified_date timestamp,
 	PRIMARY KEY(id),
 	CONSTRAINT fk_created_by
       FOREIGN KEY(created_by) 
@@ -57,7 +57,7 @@ CREATE TABLE public.user_detail (
 	created_by varchar(100),
 	created_date timestamp not null DEFAULT now(),
 	modified_by varchar(100),
-	modified_date timestamp not null DEFAULT now(),
+	modified_date timestamp,
 	PRIMARY KEY(id),
 	CONSTRAINT fk_created_by
       FOREIGN KEY(created_by) 

@@ -67,7 +67,11 @@ export class UserService {
   } 
 
   addUser(user: User) {
-    return this.http.post("http://localhost:8080/rewrite/api/v1/add-user", user);
+    return this.http.get("http://localhost:8080/rewrite/api/v1/get-fingerprint");
+  } 
+
+  addVolunteer(user: User) {
+    return this.http.post("http://localhost:8080/rewrite/api/v1/add-volunteer", user);
   } 
 
   updateUser(user: User) {
