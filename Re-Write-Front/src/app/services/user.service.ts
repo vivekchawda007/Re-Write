@@ -67,6 +67,7 @@ export class UserService {
   } 
 
   addUser(user: User) {
+   
     return this.http.get("http://localhost:8080/rewrite/api/v1/get-fingerprint");
   } 
 
