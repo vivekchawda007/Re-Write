@@ -10,7 +10,9 @@ import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { AddUserComponent } from './add-user/add-user.component';
-import { AddVolunteerComponent } from './add-volunteer/add-volunteer.component';
+import { VolunterComponent } from './volunteer/volunter/volunter.component';
+
+
 const routes: Routes = [
   { path: "", component: DashboardComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
@@ -20,7 +22,7 @@ const routes: Routes = [
   { path: "sidebar", component: SidebarComponent },
   { path: "profile", component: ProfileComponent },
   { path: "add-user", component: AddUserComponent },
-  { path: "add-volunteer", component: AddVolunteerComponent },
+  { path: "volunteer", component: VolunterComponent },
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" }

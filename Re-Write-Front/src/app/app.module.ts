@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,11 +18,17 @@ import { UnitComponent } from './unit/unit.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { AddUserComponent } from './add-user/add-user.component';
-import { AddVolunteerComponent } from './add-volunteer/add-volunteer.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import { VolunterComponent } from './volunteer/volunter/volunter.component';
+import { AddVolunteerComponent } from './volunteer/add-volunteer/add-volunteer.component';
+
 
 
 @NgModule({
@@ -35,7 +42,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     UnitComponent,
     ProfileComponent,
     AddUserComponent,
-    AddVolunteerComponent
+    AddVolunteerComponent,
+    VolunterComponent
   
   ],
   imports: [
@@ -45,7 +53,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     HttpClientModule,
     FormsModule,
     MatDialogModule,
-
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',

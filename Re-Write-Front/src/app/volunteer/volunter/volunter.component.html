@@ -1,0 +1,65 @@
+<div class="main-content" id="someId" aria-label="someId" tabindex="-1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <div style="float: right;">
+                            <a (click)="openAddModal()">
+                                <i class="material-icons" style="font-size: 40px" matTooltip="Add Survey">
+                                    add_box
+                                </i>
+                            </a>
+                        </div>
+                        <h4 class="card-title ">Surveys</h4>
+                        <p class="card-category">List of available survey</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        No.
+                                    </th>
+                                    <th>
+                                        Survey Name
+                                    </th>
+                                    <th style="padding-left: 7%">
+                                        Action
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let survey of surveys; let i = index" [attr.data-index]="i">
+                                        <td>
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            {{survey.name}}
+                                        </td>
+                                        <td>
+                                            <a (click)="openViewModal(survey.surveyid)">
+                                                <i class="material-icons" matTooltip="View Single Survey">
+                                                    visibility
+                                                </i>
+                                            </a>
+                                            <a (click)="openDeleteModal(survey.surveyid)" matTooltip="Delete Survey">
+                                                <i class="material-icons">
+                                                    delete
+                                                </i>
+                                            </a>
+                                            <a (click)="openEditModal(survey.surveyid)" matTooltip="Edit Survey">
+                                                <i class="material-icons">
+                                                    edit
+                                                </i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
