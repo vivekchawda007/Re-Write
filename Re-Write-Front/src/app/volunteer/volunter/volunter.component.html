@@ -6,13 +6,13 @@
                     <div class="card-header card-header-danger">
                         <div style="float: right;">
                             <a (click)="openAddModal()">
-                                <i class="material-icons" style="font-size: 40px" matTooltip="Add Survey">
+                                <i class="material-icons" style="font-size: 40px" matTooltip="Add Volunteer">
                                     add_box
                                 </i>
                             </a>
                         </div>
-                        <h4 class="card-title ">Surveys</h4>
-                        <p class="card-category">List of available survey</p>
+                        <h4 class="card-title ">Volunteers</h4>
+                        <p class="card-category">List of Volunteers</p>
                     </div>
                     <div class="card-body">
                         <div class="table-container">
@@ -22,32 +22,32 @@
                                         No.
                                     </th>
                                     <th>
-                                        Survey Name
+                                        Volunteer Name
                                     </th>
                                     <th style="padding-left: 7%">
                                         Action
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let survey of surveys; let i = index" [attr.data-index]="i">
+                                    <tr *ngFor="let Volunteer of Volunteers; let i = index" [attr.data-index]="i">
                                         <td>
                                             {{i+1}}
                                         </td>
                                         <td>
-                                            {{survey.name}}
+                                            {{Volunteer.name}}
                                         </td>
                                         <td>
-                                            <a (click)="openViewModal(survey.surveyid)">
-                                                <i class="material-icons" matTooltip="View Single Survey">
+                                            <a (click)="openViewModal(Volunteer.volunteerid)">
+                                                <i class="material-icons" matTooltip="View Single Volunteer">
                                                     visibility
                                                 </i>
                                             </a>
-                                            <a (click)="openDeleteModal(survey.surveyid)" matTooltip="Delete Survey">
+                                            <a (click)="openDeleteModal(Volunteer.volunteerid)" matTooltip="Delete Volunteer">
                                                 <i class="material-icons">
                                                     delete
                                                 </i>
                                             </a>
-                                            <a (click)="openEditModal(survey.surveyid)" matTooltip="Edit Survey">
+                                            <a (click)="openEditModal(Volunteer.volunteerid)" matTooltip="Edit Volunteer">
                                                 <i class="material-icons">
                                                     edit
                                                 </i>

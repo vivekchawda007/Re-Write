@@ -11,9 +11,9 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./add-volunteer.component.css']
 })
 export class AddVolunteerComponent implements OnInit {
-  survey;
+  Volunteer;
   checked = false;
-  addSurveyForm: FormGroup;
+  addVolunteerForm: FormGroup;
 
   submitted = true;
   data: ShareData
@@ -36,7 +36,7 @@ export class AddVolunteerComponent implements OnInit {
 
 
   ngOnInit() {
-    this.addSurveyForm = this.formBuilder.group({
+    this.addVolunteerForm = this.formBuilder.group({
       name: ['', Validators.required],
       question: [''],
       type: ['', Validators.required],
@@ -47,10 +47,10 @@ export class AddVolunteerComponent implements OnInit {
   }
 
   public hasError = (controlName: string, errorName: string) => {
-    return this.addSurveyForm.controls[controlName].hasError(errorName);
+    return this.addVolunteerForm.controls[controlName].hasError(errorName);
   }
   get f() {
-    return this.addSurveyForm.controls;
+    return this.addVolunteerForm.controls;
   }
  /*  save() {
     this.submitted= false;

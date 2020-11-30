@@ -22,16 +22,17 @@ export class VolunterComponent implements OnInit {
     
   }
 
-  openAddModal(surveyId) {
+  openAddModal(volunteerId) {
  
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
+    dialogConfig.width = "80%"
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(AddVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result != null) {
-       // this.surveys.push(result);
+       // this.volunteers.push(result);
       }
     });
   }
