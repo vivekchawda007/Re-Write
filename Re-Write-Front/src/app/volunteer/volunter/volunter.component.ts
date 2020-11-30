@@ -26,7 +26,7 @@ export class VolunterComponent implements OnInit {
  
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    dialogConfig.width = "80%"
+    dialogConfig.width = "60%"
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.autoFocus = true;

@@ -63,16 +63,16 @@ export class UserService {
   } */
 
   loginUser(user: User) {
-    return this.http.post("http://localhost:8080/rewrite/api/v1/validate-user", user);
+    return this.http.post("http://localhost:8081/rewrite/api/v1/validate-user", user);
   } 
 
   addUser(user: User) {
    
-    return this.http.get("http://localhost:8080/rewrite/api/v1/get-fingerprint");
+    return this.http.get("http://localhost:8081/rewrite/api/v1/get-fingerprint");
   } 
 
   addVolunteer(user: User) {
-    return this.http.post("http://localhost:8080/rewrite/api/v1/add-volunteer", user);
+    return this.http.post("http://localhost:8081/rewrite/api/v1/add-volunteer", user);
   } 
 
   updateUser(user: User) {

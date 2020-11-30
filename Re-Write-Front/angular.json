@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+             
               "src/styles.css",
               "src/assets/scss/material-dashboard.scss",
               "src/assets/css/demo.css"
