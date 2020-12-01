@@ -107,6 +107,7 @@ export class AddVolunteerComponent implements OnInit {
    }
  */
   startCamera() {
+    
     this.liveVideo = true;
     this.pictureClicked = false;
     const webcamElement = document.getElementById('webcam');

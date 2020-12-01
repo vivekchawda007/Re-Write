@@ -18,7 +18,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UnitComponent } from './unit/unit.component';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
-import { AddUserComponent } from './add-user/add-user.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -29,6 +28,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { VolunterComponent } from './volunteer/volunter/volunter.component';
 import { AddVolunteerComponent } from './volunteer/add-volunteer/add-volunteer.component';
+import { UserComponent } from './user/user/user.component';
 
 
 
@@ -42,9 +42,9 @@ import { AddVolunteerComponent } from './volunteer/add-volunteer/add-volunteer.c
     DashboardComponent,
     UnitComponent,
     ProfileComponent,
-    AddUserComponent,
     AddVolunteerComponent,
-    VolunterComponent
+    VolunterComponent,
+    UserComponent
   
   ],
   imports: [

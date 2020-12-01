@@ -1,0 +1,29 @@
+i {
+    font-size: 30px;
+    margin: 3%;
+    cursor: pointer;
+  }
+  
+  .table-container{
+    height: 65vh;
+    overflow: scroll;
+  }
+  
+  @media only screen and (max-width: 500px) {
+    i {
+      font-size: 17px;
+      margin: 3%;
+      cursor: pointer;
+    }
+  }
+  .registerGrowl.ui-growl {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  color:red
+  }
+  
+  
+  
+  

@@ -9,7 +9,7 @@ import { UnitComponent } from "./unit/unit.component";
 import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { AddUserComponent } from './add-user/add-user.component';
+import { UserComponent } from './user/user/user.component';
 import { VolunterComponent } from './volunteer/volunter/volunter.component';
 
 
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: "unit", component: UnitComponent },
   { path: "sidebar", component: SidebarComponent },
   { path: "profile", component: ProfileComponent },
-  { path: "add-user", component: AddUserComponent },
+  { path: "user", component: UserComponent },
   { path: "volunteer", component: VolunterComponent },
 
   // otherwise redirect to home

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { User } from '../models/user';
-import { UserService } from '../services/user.service';
+import { User } from '../../models/user';
+import {UserService} from '../../services/user.service';
 declare var $:any;
 @Component({
   selector: 'app-add-user',
@@ -9,6 +9,7 @@ declare var $:any;
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
+
   submitted = false;
   addUserForm: FormGroup;
   msgs = [];

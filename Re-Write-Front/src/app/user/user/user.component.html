@@ -1,0 +1,65 @@
+<div class="main-content" id="someId" aria-label="someId" tabindex="-1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <div style="float: right;">
+                            <a (click)="openAddModal()">
+                                <i class="material-icons" style="font-size: 40px" matTooltip="Add Volunteer">
+                                    add_box
+                                </i>
+                            </a>
+                        </div>
+                        <h4 class="card-title ">Volunteers</h4>
+                        <p class="card-category">List of Volunteers</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>
+                                        No.
+                                    </th>
+                                    <th>
+                                        Volunteer Name
+                                    </th>
+                                    <th style="padding-left: 7%">
+                                        Action
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let Volunteer of Volunteers; let i = index" [attr.data-index]="i">
+                                        <td>
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            {{Volunteer.name}}
+                                        </td>
+                                        <td>
+                                            <a (click)="openViewModal(Volunteer.volunteerid)">
+                                                <i class="material-icons" matTooltip="View Single Volunteer">
+                                                    visibility
+                                                </i>
+                                            </a>
+                                            <a (click)="openDeleteModal(Volunteer.volunteerid)" matTooltip="Delete Volunteer">
+                                                <i class="material-icons">
+                                                    delete
+                                                </i>
+                                            </a>
+                                            <a (click)="openEditModal(Volunteer.volunteerid)" matTooltip="Edit Volunteer">
+                                                <i class="material-icons">
+                                                    edit
+                                                </i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
