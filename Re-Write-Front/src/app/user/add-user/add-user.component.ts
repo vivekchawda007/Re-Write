@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, Inject, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { take } from 'rxjs/operators';
+import { FingerprintService } from '../../fingerprint.service';
 import { User } from '../../models/user';
 import {UserService} from '../../services/user.service';
 declare var $:any;
@@ -10,7 +15,37 @@ declare var $:any;
 })
 export class AddUserComponent implements OnInit {
 
-  submitted = false;
+  
+  constructor(
+    private renderer: Renderer2,
+    private dialogRef: MatDialogRef<AddUserComponent>,
+    private formBuilder: FormBuilder,
+    private fingerPrintService: FingerprintService,
+    private _ngZone: NgZone,
+    private toastrService: ToastrService,
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) data) {
+
+  }
+  Volunteer;
+  checked = false;
+  addVolunteerForm: FormGroup;
+  primaryDiv = true;
+  secondaryDiv = false;
+  submitted = true;
+  data: ShareData;
+  fingerDataImage;
+  pictureClicked = false;
+  liveVideo = true;
+  imageData;
+
+  @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1))
+      .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
   addUserForm: FormGroup;
   msgs = [];
   roles: any = [{
@@ -26,17 +61,22 @@ export class AddUserComponent implements OnInit {
     'name' : 'Volunteer'
   }];
   
-  constructor(private formBuilder: FormBuilder,
-    private userService: UserService) { }
 
    
   ngOnInit() {
-    this.addUserForm = this.formBuilder.group({
-      roleName: ['', [Validators.required]],
-      userName: ['', [Validators.required]]
-    })
-  }
+    this.addVolunteerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      mobileNumber: [''],
+      address: [''],
+    });
 
+    
+  }
+  public hasError = (controlName: string, errorName: string) => {
+    return this.addVolunteerForm.controls[controlName].hasError(errorName);
+  }
+ 
   get roleName() {
     return this.addUserForm.get('roleName');
   }

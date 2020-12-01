@@ -1,55 +1,87 @@
-<div class="container-fluid">
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">New User</h1>
-    </div>
-    <div style="top:90px"></div>
-    <div class="card-wrapper">
-      <div class="card fat">
-        <div class="card-body">
-          <form
-            [formGroup]="addUserForm"
-            (ngSubmit)="addUser()"
-           
-          >
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="userName">User Name :</label>
-                  <input
-                    id="userName"
-                    formControlName="userName"
-                    type="text"
-                    class="form-control"
-                    name="userName"
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <div class="btn-group">
-                    <label for="userName">Role : </label>
-                    <select formControlName="roleName">
-                        <option value="">Select Role</option>
-                        <option *ngFor="let role of roles" [ngValue]="role.id" (change)="changeRole($event)">{{role.name}}
-                        </option>
-                     </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div class="form-group m-0">
-              <button type="submit" class="btn btn-danger">
-                Add User
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+<div class="card" id="secondaryForm" tabindex="-1" *ngIf="secondaryDiv">
+
+  <div class="card-header card-header-danger">
+      <h4 class="card-title ">Add Volunteer</h4>
+      <p class="card-category">Fill Volunteer Information and click Block</p>
   </div>
-  
+  <div class="card-body">
+      <div class="row">
+          <div class="col-lg-6">
+              <form [formGroup]="addVolunteerForm">
+                  <mat-dialog-content>
+                      <mat-form-field>
+                          <input matInput placeholder="First Name" formControlName="firstName">
+                          <mat-error *ngIf="hasError('firstName', 'required')">First Name is required</mat-error>
+                      </mat-form-field>
+                      <br/>
+                      <mat-form-field>
+                          <input matInput placeholder="Last Name" formControlName="lastName">
+                          <mat-error *ngIf="hasError('lastName', 'required')">Last Name is required</mat-error>
+                      </mat-form-field>
+                      <br/>
+                      <mat-form-field>
+                          <input matInput placeholder="Mobile Number" formControlName="mobileNumber">
+                      </mat-form-field>
+                      <br/>
+                      <mat-form-field>
+                          <mat-label>Address</mat-label>
+                          <textarea matInput formControlName="address" cdkAutosizeMinRows="2"
+                              cdkAutosizeMaxRows="5"></textarea>
+                      </mat-form-field>
+                      <br/>
+                  </mat-dialog-content>
+                  <mat-dialog-actions>
+                      <button mat-raised-button color="primary" [disabled]="!addVolunteerForm.valid && submitted"
+                          (click)="save()">Block</button>
+                      <button mat-raised-button color="warn" (click)="close()">Close</button>
+                  </mat-dialog-actions>
+              </form>
+          </div>
+          <div class="col-lg-6">
+
+              <img src="{{'data:image/jpg;base64,' + fingerDataImage}}" style="height: 150px; width: 100px ;margin-left: 125px;"
+                  class="img-thumbnail" alt="Cinque Terre">
+              <br />
+              <br/>
+              <img  *ngIf="pictureClicked" src="{{imageData}}" style="height: 175px; width: 175px ;margin-left: 90px;"
+              class="img-thumbnail" alt="Cinque Terre">
+              <canvas id="canvas" class="d-none"></canvas>
+              <video *ngIf="liveVideo" id="webcam" class="img-thumbnail" autoplay playsinline width="175px" height="175px" style="margin-left: 90px;"></video>
+              <br/>
+              <br />
+              <button mat-raised-button color="primary" id = "openCameraId"
+              (click)="startCamera()" style="margin-left: 30px;" >Start Camera 
+              <i
+              class="material-icons" (click)="startCamera()">camera</i></button>
+              &nbsp;
+              <button mat-raised-button color="warn"
+              (click)="clickPicture()" >Click Picture
+              <i
+              class="material-icons" (click)="clickPicture()">camera_enhance</i></button>
+              
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="card" id="primaryForm" tabindex="-1" *ngIf="primaryDiv">
+
+  <div class="card-header card-header-danger">
+      <h4 class="card-title ">Check Volunteer</h4>
+      <p class="card-category">Submit your fingerprint on the device after click on "Fingerprint" button </p>
+  </div>
+  <div class="card-body" style="margin-left: 32%;">
+
+
+
+      <img src="../../../assets/img/fingerprint.png" height="250px" width="250px" class="img-rounded"
+          alt="Cinque Terre">
+      <br />
+      <br />
+      <mat-dialog-actions>
+          <button style="margin-left: 5%;" mat-raised-button color="warn" (click)="getFingerPrint()">Fingerprint <i
+                  class="material-icons" (click)="getFingerPrint()">fingerprint</i></button>
+          <button mat-raised-button color="warn" (click)="close()">Close</button>
+      </mat-dialog-actions>
+  </div>
+</div>

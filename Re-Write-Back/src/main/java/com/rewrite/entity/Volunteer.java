@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="VOLUNTEER")
-public class VolunteerDetail {
+public class Volunteer {
 	
 	@Id
 	@Column(name="id")
@@ -23,10 +23,22 @@ public class VolunteerDetail {
 	private String lastName;
 	
 	@Column(name="MOBILE_NUMBER")
-	private String	 mobileNumber;
+	private String mobileNumber;
+	
+	@Column(name="ADDRESS")
+	private String address;
 	
 	@Column(name="FINGER_PRINT")
-	private String	 fingerPrint;
+	private String fingerPrint;
+	
+	@Column(name="MANUFACTURER")
+	private String manufacturer;
+	
+	@Column(name="SERIAL_NUMBER")
+	private String serialNumber;
+	
+	@Column(name="MODEL")
+	private String	 model ;
 	
 	@Column(name="IS_DELETED")
 	private boolean isDelete;
@@ -154,6 +166,38 @@ public class VolunteerDetail {
 
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public String getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 	
 	

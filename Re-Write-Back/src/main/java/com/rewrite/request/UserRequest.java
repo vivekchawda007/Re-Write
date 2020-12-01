@@ -1,6 +1,6 @@
-package com.rewrite.Request;
+package com.rewrite.request;
 
-public class User {
+public class UserRequest {
 	
 	private String userName;
 	private String password;

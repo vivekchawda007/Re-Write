@@ -1,4 +1,4 @@
-package com.rewrite.Response;
+package com.rewrite.response;
 
 public class RewriteResponse {
 	

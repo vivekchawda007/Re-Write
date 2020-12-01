@@ -27,7 +27,10 @@ CREATE TABLE public.volunteer (
 	first_name varchar(100) NOT NULL,
 	last_name varchar(100) NOT NULL,
 	mobile_number varchar(100) NOT NULL,
-	finger_print varchar(500) NOT null,
+	address varchar(500) ,
+	manufacturer varchar(100),
+	serialNumber varchar(100),
+	model varchar(100),
 	end_date timestamp not null,
 	is_active bool default true,
 	is_deleted bool default false,
@@ -35,6 +38,7 @@ CREATE TABLE public.volunteer (
 	created_date timestamp not null DEFAULT now(),
 	modified_by varchar(100),
 	modified_date timestamp,
+	finger_print varchar(500) NOT null,
 	PRIMARY KEY(id),
 	CONSTRAINT fk_created_by
       FOREIGN KEY(created_by) 
@@ -44,7 +48,16 @@ CREATE TABLE public.volunteer (
 	  REFERENCES user_detail(id)
 );
 
-
+REATE TABLE public.volunteer_detail (
+	id varchar(40) NOT NULL DEFAUL uuid_generate_v4(),
+	volunteer_id varchar(40),
+	finger_print_image blob ,
+	volunteer_image blob,
+	PRIMARY KEY(id),
+	CONSTRAINT fk_volunteer
+      FOREIGN KEY(volunteer_id) 
+	REFERENCES volunteer(id),
+);
 
 CREATE TABLE public.user_detail (
 	id varchar(40) NOT NULL DEFAULT uuid_generate_v4(),

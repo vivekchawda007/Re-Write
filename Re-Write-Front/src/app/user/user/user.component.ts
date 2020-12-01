@@ -3,7 +3,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-import { AddVolunteerComponent } from 'src/app/volunteer/add-volunteer/add-volunteer.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
@@ -38,6 +37,7 @@ export class UserComponent implements OnInit {
       });
     }
   
+    
    /*  openEditModal(surveyId) {
       var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
       element.disabled = true;
