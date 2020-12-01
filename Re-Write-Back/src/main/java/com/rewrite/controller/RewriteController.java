@@ -1,19 +1,13 @@
 package com.rewrite.controller;
 
-import java.net.URL;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.rewrite.entity.UserDetail;
 import com.rewrite.request.UserRequest;
@@ -23,9 +17,6 @@ import com.rewrite.rest.RestClient;
 import com.rewrite.service.SecugenService;
 import com.rewrite.service.UserDetailService;
 import com.rewrite.service.VolunteerService;
-
-import kong.unirest.HttpResponse;
-import kong.unirest.Unirest;
 
 @RestController
 @CrossOrigin("*")
