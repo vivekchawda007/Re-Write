@@ -14,7 +14,6 @@ import com.rewrite.request.UserRequest;
 import com.rewrite.request.VolunteerRequest;
 import com.rewrite.response.RewriteResponse;
 import com.rewrite.rest.RestClient;
-import com.rewrite.service.SecugenService;
 import com.rewrite.service.UserDetailService;
 import com.rewrite.service.VolunteerService;
 
@@ -28,8 +27,6 @@ public class RewriteController {
 	@Autowired
 	VolunteerService volunteerService;
 	
-	@Autowired
-	SecugenService secugenService;
 
 	@Autowired
 	RestClient restClient;
@@ -58,8 +55,7 @@ public class RewriteController {
 
 	@GetMapping(value = "/api/v1/get-fingerprint")
 	public String addFingerPrint(@RequestHeader HttpHeaders header) {
-		SecugenService secugenService = new SecugenService();
-		String response = secugenService.getFingerPrint(header);
+		String response = volunteerService.getFingerPrint(header);
 		 return response;
 
 	}

@@ -17,146 +17,100 @@ public class FingerPrintResponse {
 	@JsonProperty("ErrorCode")
 	private Integer ErrorCode;
 	@JsonProperty("Manufacturer")
-	private String manufacturer;
+	private String Manufacturer;
 	@JsonProperty("Model")
-	private String model;
+	private String Model;
 	@JsonProperty("SerialNumber")
-	private String serialNumber;
+	private String SerialNumber;
 	@JsonProperty("ImageWidth")
-	private Integer imageWidth;
+	private Integer ImageWidth;
 	@JsonProperty("ImageHeight")
-	private Integer imageHeight;
+	private Integer ImageHeight;
 	@JsonProperty("ImageDPI")
-	private Integer imageDPI;
+	private Integer ImageDPI;
 	@JsonProperty("ImageQuality")
-	private Integer imageQuality;
+	private Integer ImageQuality;
 	@JsonProperty("NFIQ")
-	private Integer nFIQ;
+	private Integer NFIQ;
 	@JsonProperty("ImageDataBase64")
-	private Object imageDataBase64;
+	private Object ImageDataBase64;
 	@JsonProperty("BMPBase64")
-	private String bMPBase64;
-	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-	@JsonProperty("ErrorCode")
+	private String BMPBase64;
+	private String TemplateBase64;
+	
+	public String getTemplateBase64() {
+		return TemplateBase64;
+	}
+	public void setTemplateBase64(String templateBase64) {
+		TemplateBase64 = templateBase64;
+	}
 	public Integer getErrorCode() {
 		return ErrorCode;
 	}
-
-	@JsonProperty("ErrorCode")
 	public void setErrorCode(Integer errorCode) {
-		this.ErrorCode = errorCode;
+		ErrorCode = errorCode;
 	}
-
-	@JsonProperty("Manufacturer")
 	public String getManufacturer() {
-		return manufacturer;
+		return Manufacturer;
 	}
-
-	@JsonProperty("Manufacturer")
 	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
+		Manufacturer = manufacturer;
 	}
-
-	@JsonProperty("Model")
 	public String getModel() {
-		return model;
+		return Model;
 	}
-
-	@JsonProperty("Model")
 	public void setModel(String model) {
-		this.model = model;
+		Model = model;
 	}
-
-	@JsonProperty("SerialNumber")
 	public String getSerialNumber() {
-		return serialNumber;
+		return SerialNumber;
 	}
-
-	@JsonProperty("SerialNumber")
 	public void setSerialNumber(String serialNumber) {
-		this.serialNumber = serialNumber;
+		SerialNumber = serialNumber;
 	}
-
-	@JsonProperty("ImageWidth")
 	public Integer getImageWidth() {
-		return imageWidth;
+		return ImageWidth;
 	}
-
-	@JsonProperty("ImageWidth")
 	public void setImageWidth(Integer imageWidth) {
-		this.imageWidth = imageWidth;
+		ImageWidth = imageWidth;
 	}
-
-	@JsonProperty("ImageHeight")
 	public Integer getImageHeight() {
-		return imageHeight;
+		return ImageHeight;
 	}
-
-	@JsonProperty("ImageHeight")
 	public void setImageHeight(Integer imageHeight) {
-		this.imageHeight = imageHeight;
+		ImageHeight = imageHeight;
 	}
-
-	@JsonProperty("ImageDPI")
 	public Integer getImageDPI() {
-		return imageDPI;
+		return ImageDPI;
 	}
-
-	@JsonProperty("ImageDPI")
 	public void setImageDPI(Integer imageDPI) {
-		this.imageDPI = imageDPI;
+		ImageDPI = imageDPI;
 	}
-
-	@JsonProperty("ImageQuality")
 	public Integer getImageQuality() {
-		return imageQuality;
+		return ImageQuality;
 	}
-
-	@JsonProperty("ImageQuality")
 	public void setImageQuality(Integer imageQuality) {
-		this.imageQuality = imageQuality;
+		ImageQuality = imageQuality;
 	}
-
-	@JsonProperty("NFIQ")
 	public Integer getNFIQ() {
-		return nFIQ;
+		return NFIQ;
 	}
-
-	@JsonProperty("NFIQ")
 	public void setNFIQ(Integer nFIQ) {
-		this.nFIQ = nFIQ;
+		NFIQ = nFIQ;
 	}
-
-	@JsonProperty("ImageDataBase64")
 	public Object getImageDataBase64() {
-		return imageDataBase64;
+		return ImageDataBase64;
 	}
-
-	@JsonProperty("ImageDataBase64")
 	public void setImageDataBase64(Object imageDataBase64) {
-		this.imageDataBase64 = imageDataBase64;
+		ImageDataBase64 = imageDataBase64;
 	}
-
-	@JsonProperty("BMPBase64")
 	public String getBMPBase64() {
-		return bMPBase64;
+		return BMPBase64;
 	}
-
-	@JsonProperty("BMPBase64")
 	public void setBMPBase64(String bMPBase64) {
-		this.bMPBase64 = bMPBase64;
+		BMPBase64 = bMPBase64;
 	}
 
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
-	}
 
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
-	}
 
 }

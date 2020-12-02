@@ -17,9 +17,7 @@ public class VolunteerResponse {
 	private FingerPrintResponse fingerPrintInfo;
 	@JsonProperty("volunteerInfo")
 	private VolunteerInfo volunteerInfo;
-	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+	
 	@JsonProperty("fingerPrintInfo")
 	public FingerPrintResponse getFingerPrintInfo() {
 		return fingerPrintInfo;
@@ -40,13 +38,4 @@ public class VolunteerResponse {
 		this.volunteerInfo = volunteerInfo;
 	}
 
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
-	}
-
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
-	}
 }

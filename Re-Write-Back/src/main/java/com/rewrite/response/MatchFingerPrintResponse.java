@@ -14,40 +14,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class MatchFingerPrintResponse {
 
 	@JsonProperty("ErrorCode")
-	private Integer errorCode;
+	private Integer ErrorCode;
 	@JsonProperty("MatchingScore")
-	private Integer matchingScore;
-	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-	@JsonProperty("ErrorCode")
+	private Integer MatchingScore;
 	public Integer getErrorCode() {
-		return errorCode;
+		return ErrorCode;
 	}
-
-	@JsonProperty("ErrorCode")
 	public void setErrorCode(Integer errorCode) {
-		this.errorCode = errorCode;
+		ErrorCode = errorCode;
 	}
-
-	@JsonProperty("MatchingScore")
 	public Integer getMatchingScore() {
-		return matchingScore;
+		return MatchingScore;
 	}
-
-	@JsonProperty("MatchingScore")
 	public void setMatchingScore(Integer matchingScore) {
-		this.matchingScore = matchingScore;
+		MatchingScore = matchingScore;
 	}
-
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
-	}
-
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
-	}
+	
+	
 
 }

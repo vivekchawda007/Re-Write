@@ -15,64 +15,37 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FingerPrintRequest {
 
 	@JsonProperty("Timeout")
-	private Integer timeout;
+	private Integer Timeout;
 	@JsonProperty("Quality")
-	private Integer quality;
+	private Integer Quality;
 	@JsonProperty("licstr")
 	private String licstr;
 	@JsonProperty("templateFormat")
 	private String templateFormat;
-	@JsonIgnore
-	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
-	@JsonProperty("Timeout")
 	public Integer getTimeout() {
-		return timeout;
+		return Timeout;
 	}
-
-	@JsonProperty("Timeout")
 	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
+		Timeout = timeout;
 	}
-
-	@JsonProperty("Quality")
 	public Integer getQuality() {
-		return quality;
+		return Quality;
 	}
-
-	@JsonProperty("Quality")
 	public void setQuality(Integer quality) {
-		this.quality = quality;
+		Quality = quality;
 	}
-
-	@JsonProperty("licstr")
 	public String getLicstr() {
 		return licstr;
 	}
-
-	@JsonProperty("licstr")
 	public void setLicstr(String licstr) {
 		this.licstr = licstr;
 	}
-
-	@JsonProperty("templateFormat")
 	public String getTemplateFormat() {
 		return templateFormat;
 	}
-
-	@JsonProperty("templateFormat")
 	public void setTemplateFormat(String templateFormat) {
 		this.templateFormat = templateFormat;
 	}
-
-	@JsonAnyGetter
-	public Map<String, Object> getAdditionalProperties() {
-		return this.additionalProperties;
-	}
-
-	@JsonAnySetter
-	public void setAdditionalProperty(String name, Object value) {
-		this.additionalProperties.put(name, value);
-	}
+	
 
 }

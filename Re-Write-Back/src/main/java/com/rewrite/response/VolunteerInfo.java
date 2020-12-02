@@ -39,6 +39,15 @@ public class VolunteerInfo {
 	private String fingerPrintImage;
 	@JsonProperty("volunteerImage")
 	private String volunteerImage;
+	private Boolean isNew;
+	public Boolean getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(Boolean isNew) {
+		this.isNew = isNew;
+	}
+
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 

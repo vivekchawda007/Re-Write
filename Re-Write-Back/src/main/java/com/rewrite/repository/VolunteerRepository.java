@@ -8,4 +8,5 @@ import com.rewrite.entity.Volunteer;
 @Repository
 public interface VolunteerRepository extends JpaRepository<Volunteer, String> {
 	
+
 }
