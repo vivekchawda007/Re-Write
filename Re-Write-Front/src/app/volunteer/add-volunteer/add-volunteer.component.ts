@@ -8,6 +8,8 @@ import { take } from 'rxjs/operators';
 import { FingerprintService } from '../../fingerprint.service';
 import { get } from 'scriptjs';
 import Webcam from 'webcam-easy';
+import { Volunteer } from '../../models/volunteer'
+import { VolunteerService } from '../../volunteer.service'
 @Component({
   selector: 'app-add-volunteer',
   templateUrl: './add-volunteer.component.html',
@@ -21,10 +23,13 @@ export class AddVolunteerComponent implements OnInit {
     private formBuilder: FormBuilder,
     private fingerPrintService: FingerprintService,
     private _ngZone: NgZone,
+    
     private toastrService: ToastrService,
+    private volunteerService: VolunteerService,
     @Inject(MAT_DIALOG_DATA) data) {
 
   }
+  volunteerAdd : Volunteer;
   Volunteer;
   checked = false;
   addVolunteerForm: FormGroup;
@@ -36,6 +41,10 @@ export class AddVolunteerComponent implements OnInit {
   pictureClicked = false;
   liveVideo = true;
   imageData;
+  fingerPrintData;
+  manufacturer: string;
+  model: string;
+  serialNumber: string;
 
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
@@ -48,9 +57,14 @@ export class AddVolunteerComponent implements OnInit {
     this.fingerPrintService.getFingerPrint().subscribe(
       result => {
         const map = new Map(Object.entries(result));
-        this.fingerDataImage = map.get("BMPBase64");
+        this.fingerDataImage = map.get("fingerPrintInfo").BMPBase64;
+        this.fingerPrintData = map.get("fingerPrintInfo").TemplateBase64;
+        this.model = map.get("fingerPrintInfo").Model;
+        this.serialNumber = map.get("fingerPrintInfo").SerialNumber;
+        this.manufacturer = map.get("fingerPrintInfo").Manufacturer;
         this.primaryDiv = false;
         this.secondaryDiv = true;
+
       },
       error => {
         console.log(error);
@@ -75,48 +89,51 @@ export class AddVolunteerComponent implements OnInit {
   get f() {
     return this.addVolunteerForm.controls;
   }
-  /*  save() {
-     this.submitted= false;
-     const survey: Survey = new Survey();
-     survey.name = this.f.name.value;
-     survey.question = this.f.question.value;
-     survey.catagories = this.f.catagories.value;
-     survey.type = this.f.type.value;
-     survey.catquestion = this.f.catquestion.value;
-     if (this.f.allowcoupon.value == true) {
-       survey.allowcoupon = 1;
-     } else {
-       survey.allowcoupon = 0;
-     }
-     survey.catagoriestitle = this.f.catagoriestitle.value;
- 
-     this.surveyService.addSurvey(survey)
-       .subscribe(result => {
-         this.surveyList = result as SurveyAdd;
-         console.log("Survey Successfully Added !");
-         this.toastrService.success("Survey created succesfully.")
-         this.dialogRef.close(this.surveyList.output);
-         
-       },
-         error => {
-           this.toastrService.error("Error while creating survey.")
-           console.log("Error while creating survey !");
-         });
-     var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-     element.disabled = false;
-   }
- */
+  save() {
+    this.submitted = false;
+
+    const volunteer: Volunteer = new Volunteer();
+    volunteer.firstName = this.f.firstName.value;
+    volunteer.lastName = this.f.lastName.value;
+    volunteer.createdBy = "b9805a32-6410-42a2-8b2b-3be94a753722";
+    volunteer.mobileNumber = this.f.mobileNumber.value;
+    volunteer.fingerPrint = this.fingerPrintData
+    volunteer.endDate = new Date();
+    volunteer.fingerPrintImage = this.fingerDataImage;
+    volunteer.volunteerImage = this.imageData;
+    volunteer.address = this.f.address.value;
+    volunteer.model = this.model;
+    volunteer.manufacturer = this.manufacturer;
+    volunteer.serialNumber = this.serialNumber;
+
+    this.volunteerService.addVolunteer(volunteer)
+      .subscribe(result => {
+        this.volunteerAdd = result as Volunteer;
+        console.log("Volunteer Successfully Added !");
+        this.toastrService.success("Voluntter added successfully !")
+
+        this.dialogRef.close( this.volunteerAdd);
+
+      },
+        error => {
+          this.toastrService.error("Error while saving volunteer. Please contact admin.")
+          console.log("Error while creating survey !");
+        });
+    //var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
+    //element.disabled = false;
+  }
+
   startCamera() {
-    
+
     this.liveVideo = true;
     this.pictureClicked = false;
     const webcamElement = document.getElementById('webcam');
     const canvasElement = document.getElementById('canvas');
     const snapSoundElement = document.getElementById('snapSound');
     const webcam = new Webcam(webcamElement, 'environment', canvasElement, snapSoundElement);
-    
+
     webcam.start();
-   
+
   }
 
   clickPicture() {
@@ -126,9 +143,12 @@ export class AddVolunteerComponent implements OnInit {
     const webcam = new Webcam(webcamElement, 'environment', canvasElement, snapSoundElement);
     webcam.start();
     var clickPicture = webcam.snap();
+    webcam.stop();
     this.imageData = clickPicture;
     this.liveVideo = false;
     this.pictureClicked = true;
+   
+    
 
   }
   close() {

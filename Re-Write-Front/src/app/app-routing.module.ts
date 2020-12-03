@@ -9,8 +9,8 @@ import { UnitComponent } from "./unit/unit.component";
 import { AppComponent } from "./app.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { UserComponent } from './user/user/user.component';
 import { VolunterComponent } from './volunteer/volunter/volunter.component';
+import { UserComponent } from './user/user/user.component';
 
 
 const routes: Routes = [
@@ -21,8 +21,8 @@ const routes: Routes = [
   { path: "unit", component: UnitComponent },
   { path: "sidebar", component: SidebarComponent },
   { path: "profile", component: ProfileComponent },
-  { path: "user", component: UserComponent },
   { path: "volunteer", component: VolunterComponent },
+  { path: "user", component: UserComponent },
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" }

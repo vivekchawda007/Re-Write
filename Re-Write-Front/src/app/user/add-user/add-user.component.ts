@@ -1,13 +1,14 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, Inject, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { FingerprintService } from '../../fingerprint.service';
-import { User } from '../../models/user';
-import {UserService} from '../../services/user.service';
-declare var $:any;
+import { get } from 'scriptjs';
+import Webcam from 'webcam-easy';
+
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -15,7 +16,6 @@ declare var $:any;
 })
 export class AddUserComponent implements OnInit {
 
-  
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<AddUserComponent>,
@@ -23,15 +23,14 @@ export class AddUserComponent implements OnInit {
     private fingerPrintService: FingerprintService,
     private _ngZone: NgZone,
     private toastrService: ToastrService,
-    private userService: UserService,
     @Inject(MAT_DIALOG_DATA) data) {
 
   }
   Volunteer;
   checked = false;
   addVolunteerForm: FormGroup;
-  primaryDiv = true;
-  secondaryDiv = false;
+
+  secondaryDiv = true;
   submitted = true;
   data: ShareData;
   fingerDataImage;
@@ -46,23 +45,7 @@ export class AddUserComponent implements OnInit {
     this._ngZone.onStable.pipe(take(1))
       .subscribe(() => this.autosize.resizeToFitContent(true));
   }
-  addUserForm: FormGroup;
-  msgs = [];
-  roles: any = [{
-    'id':'4ff79590-0ec1-45cd-9c65-f0ad371943eb',
-    'name' : 'Reviewer'
-  },
-  {
-    'id':'4bf54a19-9bc8-44eb-8fba-abcc095f410b',
-    'name' : 'Registrar'
-  },
-  {
-    'id':'42e77ad4-32c0-4510-9703-cf27d9251d08',
-    'name' : 'Volunteer'
-  }];
-  
-
-   
+ 
   ngOnInit() {
     this.addVolunteerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -71,49 +54,50 @@ export class AddUserComponent implements OnInit {
       address: [''],
     });
 
-    
   }
+
+
   public hasError = (controlName: string, errorName: string) => {
     return this.addVolunteerForm.controls[controlName].hasError(errorName);
   }
- 
-  get roleName() {
-    return this.addUserForm.get('roleName');
-  }
   get f() {
-    return this.addUserForm.controls;
+    return this.addVolunteerForm.controls;
   }
-
-  changeRole(e) {
-    this.roleName.setValue(e.target.value, {
-      onlySelf: true
-    })
-  }
-
-  addUser() {
-    this.submitted = true;
-    const user: User = new User();
-    user.userName = this.f.userName.value;
-    user.role = this.f.roleName.value;
-    this.userService.addUser(user)
-      .subscribe(result => {
-        alert(result)
-        
+  /*  save() {
+     this.submitted= false;
+     const survey: Survey = new Survey();
+     survey.name = this.f.name.value;
+     survey.question = this.f.question.value;
+     survey.catagories = this.f.catagories.value;
+     survey.type = this.f.type.value;
+     survey.catquestion = this.f.catquestion.value;
+     if (this.f.allowcoupon.value == true) {
+       survey.allowcoupon = 1;
+     } else {
+       survey.allowcoupon = 0;
+     }
+     survey.catagoriestitle = this.f.catagoriestitle.value;
+ 
+     this.surveyService.addSurvey(survey)
+       .subscribe(result => {
+         this.surveyList = result as SurveyAdd;
+         console.log("Survey Successfully Added !");
+         this.toastrService.success("Survey created succesfully.")
+         this.dialogRef.close(this.surveyList.output);
          
-         $('#myModal').modal('hide');
-         
-          this.msgs = [];
-         this.msgs.push({severity:'error', summary:'Error', detail:"Hii"});  
-      },
-        error => {
-          alert(error);
-          $('#myModal').modal('hide');
-           this.msgs = [];
-           this.msgs.push({
-             severity: 'error',
-             summary: 'Error',
-             detail: 'Error While Saving Group'
-           })
+       },
+         error => {
+           this.toastrService.error("Error while creating survey.")
+           console.log("Error while creating survey !");
          });
+     var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
+     element.disabled = false;
+   }
+ */
+
+  close() {
+    this.dialogRef.close();
+    /*  var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
+     element.disabled = false; */
   }
 }

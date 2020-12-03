@@ -15,8 +15,8 @@ public class VolunteerRequest {
 	private String model;
 	private String createdBy;
 	private Date endDate;
-	private Blob fingerPrintImage;
-	private Blob volunteerImage;
+	private String fingerPrintImage;
+	private String volunteerImage;
 	public String getFirstName() {
 		return firstName;
 	}
@@ -77,19 +77,17 @@ public class VolunteerRequest {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-	public Blob getFingerPrintImage() {
+	public String getFingerPrintImage() {
 		return fingerPrintImage;
 	}
-	public void setFingerPrintImage(Blob fingerPrintImage) {
+	public void setFingerPrintImage(String fingerPrintImage) {
 		this.fingerPrintImage = fingerPrintImage;
 	}
-	public Blob getVolunteerImage() {
+	public String getVolunteerImage() {
 		return volunteerImage;
 	}
-	public void setVolunteerImage(Blob volunteerImage) {
+	public void setVolunteerImage(String volunteerImage) {
 		this.volunteerImage = volunteerImage;
 	}
-	
-	
 	
 }

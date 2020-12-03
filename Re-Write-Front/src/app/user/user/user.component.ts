@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-
 import { AddUserComponent } from '../add-user/add-user.component';
 
 @Component({
@@ -12,7 +11,6 @@ import { AddUserComponent } from '../add-user/add-user.component';
 })
 export class UserComponent implements OnInit {
 
-  
 
   constructor(private router: Router,private dialog: MatDialog,private toastr: ToastrService
 
@@ -26,7 +24,7 @@ export class UserComponent implements OnInit {
    
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
-      dialogConfig.width = "60%"
+      dialogConfig.width = "30%"
       dialogConfig.hasBackdrop = true;
       dialogConfig.closeOnNavigation = true;
       dialogConfig.autoFocus = true;
@@ -37,7 +35,6 @@ export class UserComponent implements OnInit {
       });
     }
   
-    
    /*  openEditModal(surveyId) {
       var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
       element.disabled = true;

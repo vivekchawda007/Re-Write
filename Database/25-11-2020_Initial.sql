@@ -48,15 +48,15 @@ CREATE TABLE public.volunteer (
 	  REFERENCES user_detail(id)
 );
 
-REATE TABLE public.volunteer_detail (
-	id varchar(40) NOT NULL DEFAUL uuid_generate_v4(),
-	volunteer_id varchar(40),
-	finger_print_image blob ,
-	volunteer_image blob,
+CREATE TABLE public.volunteer_detail (
+	id varchar(40) NOT NULL DEFAULT uuid_generate_v4(),	
+	volunteer_id varchar(100),
+	finger_print_image bytea,
+	volunteer_image bytea,
 	PRIMARY KEY(id),
-	CONSTRAINT fk_volunteer
+	  CONSTRAINT fk_volunteer_detail
       FOREIGN KEY(volunteer_id) 
-	REFERENCES volunteer(id),
+	REFERENCES volunteer(id)
 );
 
 CREATE TABLE public.user_detail (

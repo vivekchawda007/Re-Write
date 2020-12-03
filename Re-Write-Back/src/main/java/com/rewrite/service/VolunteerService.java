@@ -2,6 +2,7 @@ package com.rewrite.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,9 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.rewrite.entity.Volunteer;
+import com.rewrite.entity.VolunteerDetail;
+import com.rewrite.repository.VolunteerDetailRepository;
 import com.rewrite.repository.VolunteerRepository;
-import com.rewrite.request.MatchFingerPrintRequest;
 import com.rewrite.request.VolunteerRequest;
 import com.rewrite.response.FingerPrintResponse;
 import com.rewrite.response.MatchFingerPrintResponse;
@@ -27,9 +29,13 @@ public class VolunteerService {
 
 	@Autowired
 	VolunteerRepository volunteerRepo;
+	
+	@Autowired
+	VolunteerDetailRepository volunteerDetailRepo;
 
-	public void addVolunteer(VolunteerRequest volunteerReq) {
+	public String addVolunteer(VolunteerRequest volunteerReq) {
 		Volunteer volunteer = new Volunteer();
+		VolunteerDetail detail = new VolunteerDetail();
 		volunteer.setId(UUID.randomUUID().toString());
 		volunteer.setFirstName(volunteerReq.getFirstName());
 		volunteer.setLastName(volunteerReq.getLastName());
@@ -45,7 +51,36 @@ public class VolunteerService {
 		volunteer.setModifiedDate(new Date());
 		volunteer.setActive(Boolean.TRUE);
 		volunteer.setDelete(Boolean.FALSE);
-		volunteerRepo.save(volunteer);
+		detail.setId(UUID.randomUUID().toString());
+		detail.setVolunteerId(volunteer.getId());
+		detail.setFingerPrintImage(volunteerReq.getFingerPrintImage().getBytes());
+		detail.setVolunteerImage(volunteerReq.getVolunteerImage().getBytes());
+		
+		Volunteer volunteerSaved =volunteerRepo.save(volunteer);
+		VolunteerDetail volunteerDetailSaved = volunteerDetailRepo.save(detail);
+		
+		VolunteerInfo volunteerInfo = new VolunteerInfo();
+		volunteerInfo.setAddress(volunteer.getAddress());
+		volunteerInfo.setCreatedBy(volunteer.getCreatedBy());
+		volunteerInfo.setEndDate(volunteer.getEndDate());
+		volunteerInfo.setFingerPrint(volunteer.getFingerPrint());
+		volunteerInfo.setFirstName(volunteer.getFirstName());
+		volunteerInfo.setLastName(volunteer.getLastName());
+		volunteerInfo.setManufacturer(volunteer.getManufacturer());
+		volunteerInfo.setMobileNumber(volunteer.getMobileNumber());
+		volunteerInfo.setModel(volunteer.getModel());
+		volunteerInfo.setSerialNumber(volunteer.getSerialNumber());
+		volunteerInfo.setIsNew(Boolean.FALSE);
+		VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(volunteer.getId());
+		volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
+		volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ?  new String(volunteerDetail.getVolunteerImage()) :null);
+		
+		
+		Gson gsonResponse = new Gson();
+		String finalVolunteerResponse = gsonResponse.toJson(volunteerInfo);
+		
+		return finalVolunteerResponse;
+		
 	}
 
 	public List<Volunteer> get(String fingerPrint) {
@@ -87,9 +122,9 @@ public class VolunteerService {
 				volunteerInfo.setSerialNumber(volunteer.getSerialNumber());
 				volunteerInfo.setIsNew(Boolean.FALSE);
 				volunteerResponse.setVolunteerInfo(volunteerInfo);
-				
-				// volunteerInfo.setFingerPrintImage();
-				// volunteerInfo.setVolunteerImage(volunteerImage);
+				VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(volunteer.getId());
+				volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
+				volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ?  new String(volunteerDetail.getVolunteerImage()) :null);
 				break;
 			}
 		}
@@ -127,6 +162,30 @@ public class VolunteerService {
 			return false;
 		}
 
+	}
+	
+	
+	public VolunteerResponse getVolunteer(String id) {
+		VolunteerResponse response = new VolunteerResponse();
+		VolunteerInfo volunteerInfo = new VolunteerInfo();
+		Optional<Volunteer> optional =  volunteerRepo.findById(id);
+		VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(id);
+		if(optional.isPresent()) {
+			Volunteer vol = optional.get();
+			volunteerInfo.setFirstName(vol.getFirstName());
+			volunteerInfo.setLastName(vol.getLastName());
+			volunteerInfo.setAddress(vol.getAddress());
+			volunteerInfo.setMobileNumber(vol.getMobileNumber());
+			volunteerInfo.setFingerPrintImage(volunteerDetail.getVolunteerImage() != null ?  new String(volunteerDetail.getVolunteerImage()) :null);
+			volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage()) :null);
+			response.setVolunteerInfo(volunteerInfo);
+		}
+		return response;
+	}
+	
+	
+	public List<Volunteer> getAllVolunteer(){
+		return volunteerRepo.findAll();
 	}
 
 }

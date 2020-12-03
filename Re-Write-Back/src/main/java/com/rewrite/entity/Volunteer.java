@@ -2,9 +2,12 @@ package com.rewrite.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -63,7 +66,7 @@ public class Volunteer {
 
 	@Column(name="MODIFIED_DATE")
 	private Date modifiedDate;
-
+	
 	public String getId() {
 		return id;
 	}
@@ -199,6 +202,5 @@ public class Volunteer {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	
-	
+
 }

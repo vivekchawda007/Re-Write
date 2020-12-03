@@ -24,30 +24,36 @@
                                     <th>
                                         Volunteer Name
                                     </th>
+                                    <th>
+                                        Mobile Number
+                                    </th>
                                     <th style="padding-left: 7%">
                                         Action
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let Volunteer of Volunteers; let i = index" [attr.data-index]="i">
+                                    <tr *ngFor="let volunteer of volunteers; let i = index" [attr.data-index]="i">
                                         <td>
                                             {{i+1}}
                                         </td>
                                         <td>
-                                            {{Volunteer.name}}
+                                            {{volunteer.firstName + volunteer.lastName}}
                                         </td>
                                         <td>
-                                            <a (click)="openViewModal(Volunteer.volunteerid)">
+                                            {{volunteer.mobileNumber}}
+                                        </td>
+                                        <td>
+                                            <a (click)="openViewModal(volunteer.volunteerid)" style="margin-left: 17%;">
                                                 <i class="material-icons" matTooltip="View Single Volunteer">
                                                     visibility
                                                 </i>
                                             </a>
-                                            <a (click)="openDeleteModal(Volunteer.volunteerid)" matTooltip="Delete Volunteer">
+                                            <a (click)="openDeleteModal(volunteer.volunteerid)" matTooltip="Delete Volunteer">
                                                 <i class="material-icons">
                                                     delete
                                                 </i>
                                             </a>
-                                            <a (click)="openEditModal(Volunteer.volunteerid)" matTooltip="Edit Volunteer">
+                                            <a (click)="openEditModal(volunteer.volunteerid)" matTooltip="Edit Volunteer">
                                                 <i class="material-icons">
                                                     edit
                                                 </i>
