@@ -1,5 +1,5 @@
 export class Volunteer {
-
+    volunteerId : string;
     firstName: string;
     lastName : string;
     createdBy : string;

@@ -1,0 +1,51 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">View Volunteer</h4>
+                        <p class="card-category">Volunteer name - {{this.volunteer.volunteerInfo.firstName +" "+ this.volunteer.volunteerInfo.lastName}}
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <mat-dialog-content>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Volunteer First Name"
+                                        value={{this.volunteer.volunteerInfo.firstName}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Volunteer Last Name" value={{this.volunteer.volunteerInfo.lastName}}
+                                        disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Volunteer Mobile Number"
+                                        value={{this.volunteer.volunteerInfo.mobileNumber}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Volunteer Address" value={{this.volunteer.volunteerInfo.address}}
+                                        disabled>
+                                </mat-form-field>
+
+                                <img src="{{this.volunteer.volunteerInfo.volunteerImage}}"
+                                    style="height: 100px; width: 100px ;" class="img-thumbnail"
+                                    alt="Volunteer Fingerprint">
+
+
+                                <img src="{{this.volunteer.volunteerInfo.fingerPrintImage}}"
+                                    style="height: 100px; width: 100px ;" class="img-thumbnail"
+                                    alt="Volunteer image">
+
+                            </mat-dialog-content>
+                            <mat-dialog-actions>
+                                <button mat-raised-button class="pointerEnable" color="warn"
+                                    (click)="close()">Close</button>
+                            </mat-dialog-actions>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

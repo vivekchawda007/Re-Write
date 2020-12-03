@@ -37,23 +37,23 @@
                                             {{i+1}}
                                         </td>
                                         <td>
-                                            {{volunteer.firstName + volunteer.lastName}}
+                                            {{volunteer.firstName +" "+volunteer.lastName}}
                                         </td>
                                         <td>
                                             {{volunteer.mobileNumber}}
                                         </td>
                                         <td>
-                                            <a (click)="openViewModal(volunteer.volunteerid)" style="margin-left: 17%;">
+                                            <a (click)="openViewModal(volunteer.id)" style="margin-left: 17%;">
                                                 <i class="material-icons" matTooltip="View Single Volunteer">
                                                     visibility
                                                 </i>
                                             </a>
-                                            <a (click)="openDeleteModal(volunteer.volunteerid)" matTooltip="Delete Volunteer">
+                                            <a (click)="openDeleteModal(volunteer.id)" matTooltip="Delete Volunteer">
                                                 <i class="material-icons">
                                                     delete
                                                 </i>
                                             </a>
-                                            <a (click)="openEditModal(volunteer.volunteerid)" matTooltip="Edit Volunteer">
+                                            <a (click)="openEditModal(volunteer.id)" matTooltip="Edit Volunteer">
                                                 <i class="material-icons">
                                                     edit
                                                 </i>

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 import { Volunteers } from '../../models/volunteers'
 import { VolunteerService } from '../../volunteer.service'
 import { AddVolunteerComponent } from '../add-volunteer/add-volunteer.component';
+import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.component';
 
 
 @Component({
@@ -20,13 +22,14 @@ export class VolunterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.volunteerService.getVolunteer()
+    this.volunteerService.getVolunteers()
       .subscribe(result => {
         console.log(result)
         this.volunteers = result as Volunteers;
       },
         error => {
           console.log("Error While Fetching Survey, Please refresh page.")
+          this.toastr.error("Error while fetching volunteer. Please refresh page.")
         });
   }
 
@@ -43,7 +46,16 @@ export class VolunterComponent implements OnInit {
     dialogConfig.autoFocus = true;
     this.dialog.open(AddVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result != null) {
-        this.volunteers.push(result);
+        this.volunteers = [];
+        this.volunteerService.getVolunteers()
+        .subscribe(result => {
+          console.log(result)
+          this.volunteers = result as Volunteers;
+        },
+          error => {
+            console.log("Error While Fetching Survey, Please refresh page.")
+            this.toastr.error("Error while fetching volunteer. Please refresh page.")
+          });
       }
     });
   }
@@ -91,17 +103,27 @@ export class VolunterComponent implements OnInit {
        }
      });
    }
- 
-   openViewModal(surveyId) {
-     var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-     element.disabled = true;
-     const shareData: ShareData = new ShareData();
-     shareData.surveys = this.surveys;
-     shareData.surveyid = surveyId;
+ */
+   openViewModal(volunteerId) {
+     const shareData: ShareDataVolunteer = new ShareDataVolunteer();
+     shareData.volunteers = this.volunteers;
+     shareData.volunteerId = volunteerId;
      const dialogConfig = new MatDialogConfig();
      dialogConfig.autoFocus = false;
      dialogConfig.data = shareData;
-     this.dialog.open(ViewSurveyComponent, dialogConfig);
-   } */
-
+     this.dialog.open(ViewVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
+      if (result != null) {
+        this.volunteers = [];
+        this.volunteerService.getVolunteers()
+        .subscribe(result => {
+          console.log(result)
+          this.volunteers = result as Volunteers;
+        },
+          error => {
+            console.log("Error While Fetching Survey, Please refresh page.")
+            this.toastr.error("Error while fetching volunteer. Please refresh page.")
+          });
+      }
+    });
+  }
 }

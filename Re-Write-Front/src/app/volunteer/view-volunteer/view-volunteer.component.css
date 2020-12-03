@@ -1,0 +1,19 @@
+.body{
+    width: 100%
+}
+
+.mat-dialog-actions{
+    margin-bottom: 0px
+}
+
+input{
+    color: black !important
+}
+
+textarea {
+    color: black !important
+}
+
+mat-label {
+    font-size: 11px !important
+  }
