@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
    
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
-      dialogConfig.width = "30%"
+      dialogConfig.width = "20%"
       dialogConfig.hasBackdrop = true;
       dialogConfig.closeOnNavigation = true;
       dialogConfig.autoFocus = true;

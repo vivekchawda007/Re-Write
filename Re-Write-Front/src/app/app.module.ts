@@ -31,6 +31,7 @@ import { AddVolunteerComponent } from './volunteer/add-volunteer/add-volunteer.c
 import { UserComponent } from './user/user/user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { ViewVolunteerComponent } from './volunteer/view-volunteer/view-volunteer.component';
+import { EditVolunteerComponent } from './volunteer/edit-volunteer/edit-volunteer.component';
 
 
 
@@ -49,6 +50,7 @@ import { ViewVolunteerComponent } from './volunteer/view-volunteer/view-voluntee
     UserComponent,
     AddUserComponent,
     ViewVolunteerComponent,
+    EditVolunteerComponent,
   
   ],
   imports: [

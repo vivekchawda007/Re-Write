@@ -10,33 +10,35 @@ import { get } from 'scriptjs';
 import Webcam from 'webcam-easy';
 import { Volunteer } from '../../models/volunteer'
 import { VolunteerService } from '../../volunteer.service'
+import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
+
 @Component({
-  selector: 'app-add-volunteer',
-  templateUrl: './add-volunteer.component.html',
-  styleUrls: ['./add-volunteer.component.css']
+  selector: 'app-edit-volunteer',
+  templateUrl: './edit-volunteer.component.html',
+  styleUrls: ['./edit-volunteer.component.css']
 })
-export class AddVolunteerComponent implements OnInit {
+export class EditVolunteerComponent implements OnInit {
 
   constructor(
     private renderer: Renderer2,
-    private dialogRef: MatDialogRef<AddVolunteerComponent>,
+    private dialogRef: MatDialogRef<EditVolunteerComponent>,
     private formBuilder: FormBuilder,
     private fingerPrintService: FingerprintService,
     private _ngZone: NgZone,
-    
+    private toastr: ToastrService,
     private toastrService: ToastrService,
     private volunteerService: VolunteerService,
     @Inject(MAT_DIALOG_DATA) data) {
-
+    this.data = data;
   }
-  volunteerAdd : Volunteer;
+  volunteerAdd: Volunteer;
   Volunteer;
   checked = false;
   addVolunteerForm: FormGroup;
-  primaryDiv = true;
-  secondaryDiv = false;
+  primaryDiv = false;
+  secondaryDiv = true;
   submitted = true;
-  data: ShareData;
+
   fingerDataImage;
   pictureClicked = false;
   liveVideo = true;
@@ -45,7 +47,8 @@ export class AddVolunteerComponent implements OnInit {
   manufacturer: string;
   model: string;
   serialNumber: string;
-
+  volunteer;
+  data: ShareDataVolunteer;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
   triggerResize() {
@@ -57,8 +60,6 @@ export class AddVolunteerComponent implements OnInit {
     this.fingerPrintService.getFingerPrint().subscribe(
       result => {
         const map = new Map(Object.entries(result));
-        
-        if(map.get("volunteerInfo").volunteerId == null) {
         this.fingerDataImage = map.get("fingerPrintInfo").BMPBase64;
         this.fingerPrintData = map.get("fingerPrintInfo").TemplateBase64;
         this.model = map.get("fingerPrintInfo").Model;
@@ -66,9 +67,6 @@ export class AddVolunteerComponent implements OnInit {
         this.manufacturer = map.get("fingerPrintInfo").Manufacturer;
         this.primaryDiv = false;
         this.secondaryDiv = true;
-        }else {
-          this.dialogRef.close(map.get("volunteerInfo").volunteerId);
-        }
 
       },
       error => {
@@ -78,14 +76,39 @@ export class AddVolunteerComponent implements OnInit {
     );
   }
   ngOnInit() {
+
     this.addVolunteerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      mobileNumber: [''],
-      address: [''],
+      lastName: ['this.volunteer.lastName', Validators.required],
+      mobileNumber: ['this.volunteer.mobileNumber'],
+      address: ['this.volunteer.address'],
     });
+    this.volunteerService.getVolunteer(this.data.volunteerId)
+      .subscribe(result => {
+        this.volunteer = result;
+        var element = <HTMLInputElement>document.getElementById("modelFirstName");
+        element.value = this.volunteer.volunteerInfo.firstName;
+        var element = <HTMLInputElement>document.getElementById("modelLastName");
+        element.value = this.volunteer.volunteerInfo.lastName;
+        var element = <HTMLInputElement>document.getElementById("modelMobileNumber");
+        element.value = this.volunteer.volunteerInfo.mobileNumber;
+        var element = <HTMLInputElement>document.getElementById("modelAddress");
+        element.value = this.volunteer.volunteerInfo.address;
+        var element = <HTMLInputElement>document.getElementById("modelId");
+        element.disabled = false;
+        this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
+        this.imageData = this.volunteer.volunteerInfo.volunteerImage;
+        this.liveVideo = true;
+        this.pictureClicked = false;
+        console.log("Volunteer View Completed !");
+      },
+        error => {
+          this.toastr.error("Error while view volunteer. Please refresh page.")
+          console.log("Error while viewing volunteer !");
+        });
 
   }
+
 
 
   public hasError = (controlName: string, errorName: string) => {
@@ -117,7 +140,7 @@ export class AddVolunteerComponent implements OnInit {
         console.log("Volunteer Successfully Added !");
         this.toastrService.success("Voluntter added successfully !")
 
-        this.dialogRef.close(null);
+        this.dialogRef.close(this.volunteerAdd);
 
       },
         error => {
@@ -152,8 +175,8 @@ export class AddVolunteerComponent implements OnInit {
     this.imageData = clickPicture;
     this.liveVideo = false;
     this.pictureClicked = true;
-   
-    
+
+
 
   }
   close() {

@@ -6,6 +6,7 @@ import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 import { Volunteers } from '../../models/volunteers'
 import { VolunteerService } from '../../volunteer.service'
 import { AddVolunteerComponent } from '../add-volunteer/add-volunteer.component';
+import { EditVolunteerComponent } from '../edit-volunteer/edit-volunteer.component';
 import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.component';
 
 
@@ -43,9 +44,10 @@ export class VolunterComponent implements OnInit {
     dialogConfig.width = "60%"
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
-    dialogConfig.autoFocus = true;
     this.dialog.open(AddVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result != null) {
+        this.openEditModal(result);
+      }else {
         this.volunteers = [];
         this.volunteerService.getVolunteers()
         .subscribe(result => {
@@ -58,30 +60,35 @@ export class VolunterComponent implements OnInit {
           });
       }
     });
+    
   }
 
-  /*  openEditModal(surveyId) {
-     var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-     element.disabled = true;
-     const dialogConfig = new MatDialogConfig();
-     const shareData: ShareData = new ShareData();
-     shareData.surveys = this.surveys;
-     shareData.surveyid = surveyId;
-     dialogConfig.disableClose = true;
-     dialogConfig.autoFocus = true;
+  openEditModal(volunteerId) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "60%"
+    const shareData: ShareDataVolunteer = new ShareDataVolunteer();
+     shareData.volunteers = this.volunteers;
+     shareData.volunteerId = volunteerId;
+     dialogConfig.autoFocus = false;
      dialogConfig.data = shareData;
-     this.dialog.open(EditSurveyComponent, dialogConfig).afterClosed().subscribe(result => {
-       if (result != null) {
-         for (var survey of this.surveys) {
-           if (survey.surveyid == result.surveyid) {
-             this.surveys.splice(this.surveys.indexOf(survey), 1);
-           }
-         }
-         this.surveys.push(result);
-       }
-     });;
-   }
- 
+    this.dialog.open(EditVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
+     if (result != null) {
+       this.volunteers = [];
+       this.volunteerService.getVolunteers()
+       .subscribe(result => {
+         console.log(result)
+         this.volunteers = result as Volunteers;
+       },
+         error => {
+           console.log("Error While Fetching Survey, Please refresh page.")
+           this.toastr.error("Error while fetching volunteer. Please refresh page.")
+         });
+     }
+   });
+ }
+
+   /* 
  
    openDeleteModal(surveyId) {
      var element = <HTMLInputElement>document.getElementById("toggleNavigationId");

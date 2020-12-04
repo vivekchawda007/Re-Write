@@ -28,7 +28,7 @@ export class AddUserComponent implements OnInit {
   }
   Volunteer;
   checked = false;
-  addVolunteerForm: FormGroup;
+  addUserForm: FormGroup;
 
   secondaryDiv = true;
   submitted = true;
@@ -47,21 +47,21 @@ export class AddUserComponent implements OnInit {
   }
  
   ngOnInit() {
-    this.addVolunteerForm = this.formBuilder.group({
+    this.addUserForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      mobileNumber: [''],
-      address: [''],
+      userName: ['', Validators.required],
+      role: ['', Validators.required]
     });
 
   }
 
 
   public hasError = (controlName: string, errorName: string) => {
-    return this.addVolunteerForm.controls[controlName].hasError(errorName);
+    return this.addUserForm.controls[controlName].hasError(errorName);
   }
   get f() {
-    return this.addVolunteerForm.controls;
+    return this.addUserForm.controls;
   }
   /*  save() {
      this.submitted= false;

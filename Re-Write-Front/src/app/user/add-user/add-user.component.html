@@ -1,12 +1,12 @@
 <div class="card" id="secondaryForm" tabindex="-1" *ngIf="secondaryDiv">
 
     <div class="card-header card-header-danger">
-        <h4 class="card-title ">Add Volunteer</h4>
-        <p class="card-category">Fill Volunteer Information and click Block</p>
+        <h4 class="card-title ">Add New User</h4>
+        <p class="card-category">Fill User Information</p>
     </div>
-    <div class="card-body" style="margin-left: 22%;">
+    <div class="card-body">
         <div class="row">
-            <form [formGroup]="addVolunteerForm">
+            <form [formGroup]="addUserForm">
                 <mat-dialog-content>
                     <mat-form-field>
                         <input matInput placeholder="First Name" formControlName="firstName">
@@ -19,19 +19,24 @@
                     </mat-form-field>
                     <br />
                     <mat-form-field>
-                        <input matInput placeholder="Mobile Number" formControlName="mobileNumber">
+                        <input matInput placeholder="User Name" formControlName="userName">
+                        <mat-error *ngIf="hasError('userName', 'required')">User Name is required</mat-error>
                     </mat-form-field>
                     <br />
                     <mat-form-field>
-                        <mat-label>Address</mat-label>
-                        <textarea matInput formControlName="address" cdkAutosizeMinRows="2"
-                            cdkAutosizeMaxRows="5"></textarea>
+                        <mat-label>Role</mat-label>
+                        <mat-select formControlName="role">
+                            <mat-option value="admin">Admin</mat-option>
+                            <mat-option value="registrar">Registrar</mat-option>
+                            <mat-option value="reviewer">Reviewer</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="hasError('role', 'required')">Role is mandatory information</mat-error>
                     </mat-form-field>
                     <br />
                 </mat-dialog-content>
                 <mat-dialog-actions>
-                    <button mat-raised-button color="primary" [disabled]="!addVolunteerForm.valid && submitted"
-                        (click)="save()">Block</button>
+                    <button mat-raised-button color="primary" [disabled]="!addUserForm.valid && submitted"
+                        (click)="save()">Save</button>
                     <button mat-raised-button color="warn" (click)="close()">Close</button>
                 </mat-dialog-actions>
             </form>
