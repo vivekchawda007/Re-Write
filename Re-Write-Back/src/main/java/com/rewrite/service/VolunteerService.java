@@ -71,6 +71,7 @@ public class VolunteerService {
 		volunteerInfo.setModel(volunteer.getModel());
 		volunteerInfo.setSerialNumber(volunteer.getSerialNumber());
 		volunteerInfo.setIsNew(Boolean.FALSE);
+		volunteerInfo.setVolunteerId(volunteer.getId());
 		VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(volunteer.getId());
 		volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
 		volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ?  new String(volunteerDetail.getVolunteerImage()) :null);
@@ -176,6 +177,7 @@ public class VolunteerService {
 			volunteerInfo.setLastName(vol.getLastName());
 			volunteerInfo.setAddress(vol.getAddress());
 			volunteerInfo.setMobileNumber(vol.getMobileNumber());
+			volunteerInfo.setVolunteerId(vol.getId());
 			volunteerInfo.setFingerPrintImage(volunteerDetail.getVolunteerImage() != null ?  new String(volunteerDetail.getVolunteerImage()) :null);
 			volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage()) :null);
 			response.setVolunteerInfo(volunteerInfo);

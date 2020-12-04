@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 		"model", "createdBy", "endDate", "fingerPrintImage", "volunteerImage" })
 public class VolunteerInfo {
 
+	private String volunteerId;
 	@JsonProperty("firstName")
 	private String firstName;
 	@JsonProperty("lastName")
@@ -46,6 +47,14 @@ public class VolunteerInfo {
 
 	public void setIsNew(Boolean isNew) {
 		this.isNew = isNew;
+	}
+
+	public String getVolunteerId() {
+		return volunteerId;
+	}
+
+	public void setVolunteerId(String volunteerId) {
+		this.volunteerId = volunteerId;
 	}
 
 	@JsonIgnore
