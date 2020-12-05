@@ -12,4 +12,5 @@ export class Volunteer {
     manufacturer : string;
     model : string;
     serialNumber : string;
+    id:string;
 }

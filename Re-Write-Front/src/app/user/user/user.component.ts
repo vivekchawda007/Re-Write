@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../../services/user.service';
 import { AddUserComponent } from '../add-user/add-user.component';
+import {ShareDataUser} from '../../models/shareDataUser';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
   selector: 'app-user',
@@ -10,14 +13,22 @@ import { AddUserComponent } from '../add-user/add-user.component';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  users;
 
-
-  constructor(private router: Router,private dialog: MatDialog,private toastr: ToastrService
+  constructor(private userService : UserService,private router: Router,private dialog: MatDialog,private toastr: ToastrService
 
     ) { }
   
     ngOnInit() {
-      
+      this.userService.getAllUser()
+      .subscribe(result => {
+        console.log(result)
+        this.users = result;
+      },
+        error => {
+          console.log("Error While Fetching Users, Please refresh page.")
+          this.toastr.error("Error while fetching Users. Please refresh page.")
+        });
     }
   
     openAddModal(volunteerId) {
@@ -30,11 +41,44 @@ export class UserComponent implements OnInit {
       dialogConfig.autoFocus = true;
       this.dialog.open(AddUserComponent, dialogConfig).afterClosed().subscribe(result => {
         if (result != null) {
-         // this.volunteers.push(result);
+          this.users = [];
+          this.userService.getAllUser()
+       .subscribe(result => {
+         console.log(result)
+         this.users = result;
+       },
+         error => {
+           console.log("Error While Fetching Users, Please refresh page.")
+           this.toastr.error("Error while fetching Users. Please refresh page.")
+         });
         }
       });
     }
   
+    openEditModal(userId) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.width = "20%"
+      const shareData: ShareDataUser = new ShareDataUser();
+       shareData.id =userId;
+       shareData.user = this.users;
+       dialogConfig.autoFocus = false;
+       dialogConfig.data = shareData;
+      this.dialog.open(EditUserComponent, dialogConfig).afterClosed().subscribe(result => {
+       if (result != null) {
+         this.users = [];
+         this.userService.getAllUser()
+      .subscribe(result => {
+        console.log(result)
+        this.users = result;
+      },
+        error => {
+          console.log("Error While Fetching Users, Please refresh page.")
+          this.toastr.error("Error while fetching Users. Please refresh page.")
+        });
+       }
+     });
+   }
    /*  openEditModal(surveyId) {
       var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
       element.disabled = true;

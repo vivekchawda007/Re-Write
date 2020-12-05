@@ -34,7 +34,7 @@ export class EditVolunteerComponent implements OnInit {
   volunteerAdd: Volunteer;
   Volunteer;
   checked = false;
-  addVolunteerForm: FormGroup;
+  editVolunteerForm: FormGroup;
   primaryDiv = false;
   secondaryDiv = true;
   submitted = true;
@@ -51,11 +51,7 @@ export class EditVolunteerComponent implements OnInit {
   data: ShareDataVolunteer;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
 
-  triggerResize() {
-    // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(take(1))
-      .subscribe(() => this.autosize.resizeToFitContent(true));
-  }
+
   getFingerPrint() {
     this.fingerPrintService.getFingerPrint().subscribe(
       result => {
@@ -77,25 +73,22 @@ export class EditVolunteerComponent implements OnInit {
   }
   ngOnInit() {
 
-    this.addVolunteerForm = this.formBuilder.group({
+    this.editVolunteerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
-      lastName: ['this.volunteer.lastName', Validators.required],
-      mobileNumber: ['this.volunteer.mobileNumber'],
-      address: ['this.volunteer.address'],
+      lastName: ['', Validators.required],
+      mobileNumber: [''],
+      address: [''],
     });
     this.volunteerService.getVolunteer(this.data.volunteerId)
       .subscribe(result => {
         this.volunteer = result;
-        var element = <HTMLInputElement>document.getElementById("modelFirstName");
-        element.value = this.volunteer.volunteerInfo.firstName;
-        var element = <HTMLInputElement>document.getElementById("modelLastName");
-        element.value = this.volunteer.volunteerInfo.lastName;
-        var element = <HTMLInputElement>document.getElementById("modelMobileNumber");
-        element.value = this.volunteer.volunteerInfo.mobileNumber;
-        var element = <HTMLInputElement>document.getElementById("modelAddress");
-        element.value = this.volunteer.volunteerInfo.address;
-        var element = <HTMLInputElement>document.getElementById("modelId");
-        element.disabled = false;
+        /*  var element = <HTMLInputElement>document.getElementById("modelFirstName");
+        element.value = this.volunteer.volunteerInfo.firstName; 
+         */
+        this.editVolunteerForm.controls['firstName'].setValue(this.volunteer.volunteerInfo.firstName);
+        this.editVolunteerForm.controls['lastName'].setValue(this.volunteer.volunteerInfo.lastName);
+        this.editVolunteerForm.controls['mobileNumber'].setValue(this.volunteer.volunteerInfo.mobileNumber);
+        this.editVolunteerForm.controls['address'].setValue(this.volunteer.volunteerInfo.address);
         this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
         this.imageData = this.volunteer.volunteerInfo.volunteerImage;
         this.liveVideo = true;
@@ -112,29 +105,23 @@ export class EditVolunteerComponent implements OnInit {
 
 
   public hasError = (controlName: string, errorName: string) => {
-    return this.addVolunteerForm.controls[controlName].hasError(errorName);
+    return this.editVolunteerForm.controls[controlName].hasError(errorName);
   }
   get f() {
-    return this.addVolunteerForm.controls;
+    return this.editVolunteerForm.controls;
   }
   save() {
     this.submitted = false;
 
     const volunteer: Volunteer = new Volunteer();
     volunteer.firstName = this.f.firstName.value;
+    volunteer.id = this.volunteer.volunteerInfo.volunteerId;
     volunteer.lastName = this.f.lastName.value;
     volunteer.createdBy = "b9805a32-6410-42a2-8b2b-3be94a753722";
     volunteer.mobileNumber = this.f.mobileNumber.value;
-    volunteer.fingerPrint = this.fingerPrintData
     volunteer.endDate = new Date();
-    volunteer.fingerPrintImage = this.fingerDataImage;
-    volunteer.volunteerImage = this.imageData;
     volunteer.address = this.f.address.value;
-    volunteer.model = this.model;
-    volunteer.manufacturer = this.manufacturer;
-    volunteer.serialNumber = this.serialNumber;
-
-    this.volunteerService.addVolunteer(volunteer)
+    this.volunteerService.updateVolunteer(volunteer)
       .subscribe(result => {
         this.volunteerAdd = result as Volunteer;
         console.log("Volunteer Successfully Added !");

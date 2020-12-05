@@ -68,7 +68,14 @@ export class UserService {
 
   addUser(user: User) {
    
-    return this.http.get("http://localhost:8081/rewrite/api/v1/get-fingerprint");
+    return this.http.post("http://localhost:8081/rewrite/api/v1/add-user",user);
+  } 
+
+  getAllUser() {
+    return this.http.get("http://localhost:8081/rewrite/api/v1/get-all-user");
+  } 
+  getUser(userId) {
+    return this.http.get("http://localhost:8081/rewrite/api/v1/get-user/"+userId);
   } 
 
   addVolunteer(user: User) {

@@ -1,13 +1,13 @@
 <div class="card" id="secondaryForm" tabindex="-1" *ngIf="secondaryDiv">
 
     <div class="card-header card-header-danger">
-        <h4 class="card-title ">Add Volunteer</h4>
-        <p class="card-category">Fill Volunteer Information and click Block</p>
+        <h4 class="card-title ">Edit Volunteer</h4>
+        <p class="card-category">Fill Volunteer Information and click Update</p>
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-lg-6">
-                <form [formGroup]="addVolunteerForm">
+                <form [formGroup]="editVolunteerForm">
                     <mat-dialog-content>
                         <mat-form-field>
                             <input id="modelFirstName" matInput placeholder="First Name" formControlName="firstName">
@@ -29,7 +29,7 @@
                         <br/>
                     </mat-dialog-content>
                     <mat-dialog-actions>
-                        <button ID = "modelId" mat-raised-button color="primary" [disabled]="!addVolunteerForm.valid"
+                        <button ID = "modelId" mat-raised-button color="primary" [disabled]="!editVolunteerForm.valid"
                             (click)="save()">Update Volunteer</button>
                         <button mat-raised-button color="warn" (click)="close()">Close</button>
                     </mat-dialog-actions>

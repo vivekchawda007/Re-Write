@@ -11,6 +11,9 @@ export class VolunteerService {
   addVolunteer(volunteer: Volunteer) {
     return this.http.post("http://localhost:8081/rewrite/api/v1/add-volunteer", volunteer);
   }
+  updateVolunteer(volunteer: Volunteer) {
+    return this.http.put("http://localhost:8081/rewrite/api/v1/update-volunteer", volunteer);
+  }
   getVolunteers() {
     return this.http.get("http://localhost:8081/rewrite/api/v1/get-all-volunteer");
   }

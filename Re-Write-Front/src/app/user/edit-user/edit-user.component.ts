@@ -1,58 +1,53 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, ElementRef, Inject, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
-
+import { Component, Inject, NgZone, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { take } from 'rxjs/operators';
-import { FingerprintService } from '../../fingerprint.service';
-import { get } from 'scriptjs';
-import Webcam from 'webcam-easy';
-import { User } from '../../models/user'
-import { UserService } from '../../services/user.service'
+import { User } from '../../models/user';
+import { ShareDataUser } from '../../models/shareDataUser';
+import { UserService } from '../../services/user.service';
 import { RoleService } from '../../role.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.css']
 })
-export class AddUserComponent implements OnInit {
-
+export class EditUserComponent implements OnInit {
   constructor(
-    private renderer: Renderer2,
-    private dialogRef: MatDialogRef<AddUserComponent>,
-    private formBuilder: FormBuilder,
-    private userService: UserService,
-    private fingerPrintService: FingerprintService,
-    private _ngZone: NgZone,
-    private toastrService: ToastrService,
-    private roleService: RoleService,
-    @Inject(MAT_DIALOG_DATA) data) {
 
+    private dialogRef: MatDialogRef<EditUserComponent>,
+    private formBuilder: FormBuilder,
+    private _ngZone: NgZone,
+    private toastr: ToastrService,
+    private roleService: RoleService,
+    private userService: UserService,
+    @Inject(MAT_DIALOG_DATA) data) {
+    this.data = data;
   }
+
   Volunteer;
   checked = false;
-  addUserForm: FormGroup;
-
+  editUserForm: FormGroup;
+  primaryDiv = false;
   secondaryDiv = true;
   submitted = true;
-  data: ShareData;
+
   fingerDataImage;
   pictureClicked = false;
   liveVideo = true;
   imageData;
+  fingerPrintData;
+  manufacturer: string;
+  model: string;
+  serialNumber: string;
+  user;
   roles;
+  data: ShareDataUser;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
-
-  triggerResize() {
-    // Wait for changes to be applied, then trigger textarea resize.
-    this._ngZone.onStable.pipe(take(1))
-      .subscribe(() => this.autosize.resizeToFitContent(true));
-  }
- 
   ngOnInit() {
-    this.addUserForm = this.formBuilder.group({
+    
+    this.editUserForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       userName: ['', Validators.required],
@@ -63,19 +58,33 @@ export class AddUserComponent implements OnInit {
     this.roles = result; 
     },
       error => {
-        this.toastrService.error("Error while saving volunteer. Please contact admin.")
+        this.toastr.error("Error while saving volunteer. Please contact admin.")
         console.log("Error while creating survey !");
       });
-  //var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-  //element.disabled = false;
-}
-  
+    this.userService.getUser(this.data.id)
+      .subscribe(result => {
+        this.user = result;
+        /*  var element = <HTMLInputElement>document.getElementById("modelFirstName");
+        element.value = this.volunteer.volunteerInfo.firstName; 
+         */
+        this.editUserForm.controls['firstName'].setValue(this.user.firstName);
+        this.editUserForm.controls['lastName'].setValue(this.user.lastName);
+        this.editUserForm.controls['userName'].setValue(this.user.userName);
+        this.editUserForm.controls['role'].setValue(this.user.role.id);
+        console.log("Volunteer View Completed !");
+      },
+        error => {
+          this.toastr.error("Error while view volunteer. Please refresh page.")
+          console.log("Error while viewing volunteer !");
+        });
+
+  }
 
   public hasError = (controlName: string, errorName: string) => {
-    return this.addUserForm.controls[controlName].hasError(errorName);
+    return this.editUserForm.controls[controlName].hasError(errorName);
   }
   get f() {
-    return this.addUserForm.controls;
+    return this.editUserForm.controls;
   }
   save() {
     this.submitted = false;
@@ -89,12 +98,12 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(user)
       .subscribe(result => {
         console.log("User Successfully Added !");
-        this.toastrService.success("User added successfully !")
+        this.toastr.success("User added successfully !")
         this.dialogRef.close(null);
 
       },
         error => {
-          this.toastrService.error("Error while saving user. Please contact admin.")
+          this.toastr.error("Error while saving user. Please contact admin.")
           console.log("Error while creating user !");
         });
     //var element = <HTMLInputElement>document.getElementById("toggleNavigationId");

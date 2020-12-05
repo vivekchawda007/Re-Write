@@ -85,7 +85,8 @@ public class VolunteerService {
 	}
 	
 	public void updateVolunteer(VolunteerRequest volunteerReq) {
-		Volunteer volunteer = volunteerRepo.getOne(volunteerReq.getId());
+		Optional<Volunteer> volunteerOptional = volunteerRepo.findById(volunteerReq.getId());
+		Volunteer volunteer = volunteerOptional.get();
 		volunteer.setFirstName(volunteerReq.getFirstName());
 		volunteer.setLastName(volunteerReq.getLastName());
 		volunteer.setMobileNumber(volunteerReq.getMobileNumber());

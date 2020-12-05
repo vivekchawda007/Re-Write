@@ -24,9 +24,9 @@ public class UserController {
 
 	@Autowired
 	UserDetailService userService;
-
+	
 	@PostMapping(value = "/api/v1/add-user")
-	public RewriteResponse addUser(@RequestBody UserRequest user) {
+	public RewriteResponse addUser(@RequestBody UserRequest user, @RequestHeader HttpHeaders header) {
 		userService.addUser(user);
 		return new RewriteResponse("user added successfully", "200");
 	}
@@ -41,23 +41,23 @@ public class UserController {
 		userService.updateUser(user);
 		return new RewriteResponse("User updated successfully", "200");
 	}
-	
+
 	@PutMapping(value = "/api/v1/delete-user")
 	public RewriteResponse deleteUser(@RequestBody UserRequest user) {
 		userService.deleteUser(user);
 		return new RewriteResponse("User deleted successfully", "200");
 	}
-	
+
 	@GetMapping(value = "/api/v1/get-user/{id}")
 	public UserDetail getUser(@PathVariable("id") String userId) {
-		
-			return userService.getUser(userId);
+
+		return userService.getUser(userId);
 	}
 
 	@GetMapping(value = "/api/v1/get-all-user")
 	public List<UserDetail> getAllUser(@RequestHeader HttpHeaders header) {
-		
-			return userService.getAllUser();
+
+		return userService.getAllUser();
 	}
-	
+
 }
