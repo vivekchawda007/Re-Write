@@ -33,7 +33,7 @@ public class VolunteerService {
 	@Autowired
 	VolunteerDetailRepository volunteerDetailRepo;
 
-	public String addVolunteer(VolunteerRequest volunteerReq) {
+	public void addVolunteer(VolunteerRequest volunteerReq) {
 		Volunteer volunteer = new Volunteer();
 		VolunteerDetail detail = new VolunteerDetail();
 		volunteer.setId(UUID.randomUUID().toString());
@@ -80,8 +80,27 @@ public class VolunteerService {
 		Gson gsonResponse = new Gson();
 		String finalVolunteerResponse = gsonResponse.toJson(volunteerInfo);
 		
-		return finalVolunteerResponse;
+	
 		
+	}
+	
+	public void updateVolunteer(VolunteerRequest volunteerReq) {
+		Volunteer volunteer = volunteerRepo.getOne(volunteerReq.getId());
+		volunteer.setFirstName(volunteerReq.getFirstName());
+		volunteer.setLastName(volunteerReq.getLastName());
+		volunteer.setMobileNumber(volunteerReq.getMobileNumber());
+		volunteer.setAddress(volunteerReq.getAddress());
+		volunteer.setModifiedDate(new Date());
+		volunteer.setModifiedBy(volunteerReq.getModifiedBy());
+		volunteer.setEndDate(volunteerReq.getEndDate());
+		
+		volunteerRepo.save(volunteer);
+	}
+	
+	public void deleteVolunteer(VolunteerRequest volunteerReq) {
+		Volunteer volunteer = volunteerRepo.getOne(volunteerReq.getId());
+		volunteer.setDelete(Boolean.TRUE);
+		volunteerRepo.save(volunteer);
 	}
 
 	public List<Volunteer> get(String fingerPrint) {
@@ -188,7 +207,7 @@ public class VolunteerService {
 	
 	
 	public List<Volunteer> getAllVolunteer(){
-		return volunteerRepo.findAll();
+		return volunteerRepo.getAllVolunteer();
 	}
 
 }

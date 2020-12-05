@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
 @Entity
 @Table(name="USER_DETAIL", uniqueConstraints={@UniqueConstraint(columnNames={"USER_NAME"})})
 public class UserDetail {
@@ -19,6 +18,12 @@ public class UserDetail {
 	
 	@Column(name="USER_NAME")
 	private String userName;
+	
+	@Column(name="FIRST_NAME")
+	private String firstName;
+	
+	@Column(name="LAST_NAME")
+	private String lastName;
 	
 	@Column(name="PASSWORD")
 	private String password;
@@ -134,6 +139,22 @@ public class UserDetail {
 
 	public void setRoleId(String roleId) {
 		this.roleId = roleId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 

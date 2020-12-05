@@ -61,6 +61,8 @@ CREATE TABLE public.volunteer_detail (
 
 CREATE TABLE public.user_detail (
 	id varchar(40) NOT NULL DEFAULT uuid_generate_v4(),
+first_name varchar(100) NOT null,
+last_name varchar(100) not null,
 	user_name varchar(100) NOT null,
 	password varchar(100) NOT null,
 	is_new bool not null,

@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class VolunteerRequest {
 	
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String mobileNumber;
@@ -17,6 +18,14 @@ public class VolunteerRequest {
 	private Date endDate;
 	private String fingerPrintImage;
 	private String volunteerImage;
+	private String modifiedBy;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -88,6 +97,12 @@ public class VolunteerRequest {
 	}
 	public void setVolunteerImage(String volunteerImage) {
 		this.volunteerImage = volunteerImage;
+	}
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 	
 }
