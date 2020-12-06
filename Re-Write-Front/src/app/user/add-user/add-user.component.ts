@@ -90,7 +90,7 @@ export class AddUserComponent implements OnInit {
       .subscribe(result => {
         console.log("User Successfully Added !");
         this.toastrService.success("User added successfully !")
-        this.dialogRef.close(null);
+        this.dialogRef.close("USER_ADDED");
 
       },
         error => {

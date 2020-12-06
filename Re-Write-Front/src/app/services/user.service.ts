@@ -83,7 +83,7 @@ export class UserService {
   } 
 
   updateUser(user: User) {
-    return this.http.put('http://localhost:8081/vms/updateUser', user);
+    return this.http.put('http://localhost:8081/rewrite/api/v1/update-user', user);
   }
   /*
       delete(id: number) {

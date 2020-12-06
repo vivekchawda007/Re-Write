@@ -70,7 +70,7 @@ export class EditUserComponent implements OnInit {
         this.editUserForm.controls['firstName'].setValue(this.user.firstName);
         this.editUserForm.controls['lastName'].setValue(this.user.lastName);
         this.editUserForm.controls['userName'].setValue(this.user.userName);
-        this.editUserForm.controls['role'].setValue(this.user.role.id);
+        this.editUserForm.controls['role'].setValue(this.user.roleId);
         console.log("Volunteer View Completed !");
       },
         error => {
@@ -93,13 +93,14 @@ export class EditUserComponent implements OnInit {
     user.firstName = this.f.firstName.value;
     user.lastName = this.f.lastName.value;
     user.userName = this.f.userName.value;
-    user.createdBy = "82ebc384-eaa2-47a6-80f4-9dba7244c336";
+    user.updatedBy = "82ebc384-eaa2-47a6-80f4-9dba7244c336";
     user.role = this.f.role.value;
-    this.userService.addUser(user)
+    user.id = this.data.id;
+    this.userService.updateUser(user)
       .subscribe(result => {
-        console.log("User Successfully Added !");
-        this.toastr.success("User added successfully !")
-        this.dialogRef.close(null);
+        console.log("User Successfully Updated !");
+        this.toastr.success("User updated successfully !")
+        this.dialogRef.close("UPDATE_USER");
 
       },
         error => {

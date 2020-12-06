@@ -6,5 +6,7 @@ export class User {
     password: string;
     role: string;
     createdBy: string;
+    updatedBy : string;
+    id : string;
 
 }
