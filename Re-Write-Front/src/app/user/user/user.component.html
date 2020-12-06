@@ -24,6 +24,9 @@
                                     <th>
                                         User Name
                                     </th>
+                                    <th>
+                                        First and Last Name
+                                    </th>
                                     <th style="padding-left: 7%">
                                         Action
                                     </th>
@@ -37,12 +40,10 @@
                                             {{user.userName}}
                                         </td>
                                         <td>
-                                            <a (click)="openViewModal(user.id)" style="margin-left: 14%;">
-                                                <i class="material-icons" matTooltip="View Single User">
-                                                    visibility
-                                                </i>
-                                            </a>
-                                            <a (click)="openDeleteModal(user.id)" matTooltip="Delete User">
+                                            {{user.firstName +  " " + user.lastName}}
+                                        </td>
+                                        <td>
+                                            <a (click)="openDeleteModal(user.id)" style="margin-left: 12%;" matTooltip="Delete User">
                                                 <i class="material-icons">
                                                     delete
                                                 </i>
@@ -50,6 +51,11 @@
                                             <a (click)="openEditModal(user.id)" matTooltip="Edit User">
                                                 <i class="material-icons">
                                                     edit
+                                                </i>
+                                            </a>
+                                            <a (click)="passwordReset(user.id)" matTooltip="Password Reset" >
+                                                <i class="material-icons" matTooltip="View Single User">
+                                                    settings_backup_restore
                                                 </i>
                                             </a>
                                         </td>

@@ -44,6 +44,15 @@ public class UserDetailService {
 		userDetail.setRoleId(user.getRole());
 		userRepo.save(userDetail);
 	}
+	public void passwordReset(UserRequest user) {
+		boolean password = true;
+		UserDetail userDetail = userRepo.getOne(user.getId());
+		userDetail.setNew(password);
+		userDetail.setPassword("Vivek123");
+		userDetail.setModifiedBy(user.getModifiedBy());
+		userDetail.setModifiedDate(new Date());
+		userRepo.save(userDetail);
+	}
 	
 	public void deleteUser(UserRequest user) {
 		UserDetail userDetail = userRepo.getOne(user.getId());

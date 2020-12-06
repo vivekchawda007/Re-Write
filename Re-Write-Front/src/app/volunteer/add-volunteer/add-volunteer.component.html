@@ -9,26 +9,53 @@
             <div class="col-lg-6">
                 <form [formGroup]="addVolunteerForm">
                     <mat-dialog-content>
+                        <br />
+                        <mat-radio-group aria-label="Select Gender" formControlName="gender">
+                            <mat-radio-button value="1">Male</mat-radio-button>
+                            &nbsp;
+                            <mat-radio-button value="2">Female</mat-radio-button>
+                            <mat-error *ngIf="hasError('gender', 'required')">Gender is required</mat-error>
+                        </mat-radio-group>
+                        <mat-form-field>
+                            <input matInput placeholder="Study Number" formControlName="studyNumber">
+                            <mat-error *ngIf="hasError('studyNumber', 'required')">Study Number is required</mat-error>
+                        </mat-form-field>
+                        
                         <mat-form-field>
                             <input matInput placeholder="First Name" formControlName="firstName">
                             <mat-error *ngIf="hasError('firstName', 'required')">First Name is required</mat-error>
                         </mat-form-field>
-                        <br/>
                         <mat-form-field>
                             <input matInput placeholder="Last Name" formControlName="lastName">
                             <mat-error *ngIf="hasError('lastName', 'required')">Last Name is required</mat-error>
                         </mat-form-field>
-                        <br/>
                         <mat-form-field>
                             <input matInput placeholder="Mobile Number" formControlName="mobileNumber">
                         </mat-form-field>
-                        <br/>
+                        <mat-form-field>
+                            <mat-label>Birth Date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName= "birthDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Document Type</mat-label>
+                            <mat-select formControlName="documentType">
+                                <mat-option *ngFor="let document of documents" [value]=document.id>
+                                    {{document.name}} </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('documentType', 'required')">Document type is mandatory
+                                information</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Document Number" formControlName="documentNumber">
+                        </mat-form-field>
+                       
                         <mat-form-field>
                             <mat-label>Address</mat-label>
                             <textarea matInput formControlName="address" cdkAutosizeMinRows="2"
                                 cdkAutosizeMaxRows="5"></textarea>
                         </mat-form-field>
-                        <br/>
                     </mat-dialog-content>
                     <mat-dialog-actions>
                         <button mat-raised-button color="primary" [disabled]="!addVolunteerForm.valid && submitted"
@@ -39,26 +66,24 @@
             </div>
             <div class="col-lg-6">
 
-                <img src="{{'data:image/jpg;base64,' + fingerDataImage}}" style="height: 150px; width: 100px ;margin-left: 125px;"
+                <img src="{{'data:image/jpg;base64,' + fingerDataImage}}"
+                    style="height: 150px; width: 100px ;margin-left: 125px;" class="img-thumbnail" alt="Cinque Terre">
+                <br />
+                <br />
+                <img *ngIf="pictureClicked" src="{{imageData}}" style="height: 175px; width: 175px ;margin-left: 90px;"
                     class="img-thumbnail" alt="Cinque Terre">
-                <br />
-                <br/>
-                <img  *ngIf="pictureClicked" src="{{imageData}}" style="height: 175px; width: 175px ;margin-left: 90px;"
-                class="img-thumbnail" alt="Cinque Terre">
                 <canvas id="canvas" class="d-none"></canvas>
-                <video *ngIf="liveVideo" id="webcam" class="img-thumbnail" autoplay playsinline width="175px" height="175px" style="margin-left: 90px;"></video>
-                <br/>
+                <video *ngIf="liveVideo" id="webcam" class="img-thumbnail" autoplay playsinline width="175px"
+                    height="175px" style="margin-left: 90px;"></video>
                 <br />
-                <button mat-raised-button color="primary" id = "openCameraId"
-                (click)="startCamera()" style="margin-left: 30px;" >Start Camera 
-                <i
-                class="material-icons" (click)="startCamera()">camera</i></button>
+                <br />
+                <button mat-raised-button color="primary" id="openCameraId" (click)="startCamera()"
+                    style="margin-left: 30px;">Start Camera
+                    <i class="material-icons" (click)="startCamera()">camera</i></button>
                 &nbsp;
-                <button mat-raised-button color="warn"
-                (click)="clickPicture()" >Click Picture
-                <i
-                class="material-icons" (click)="clickPicture()">camera_enhance</i></button>
-                
+                <button mat-raised-button color="warn" (click)="clickPicture()">Click Picture
+                    <i class="material-icons" (click)="clickPicture()">camera_enhance</i></button>
+
             </div>
         </div>
     </div>
@@ -85,3 +110,8 @@
         </mat-dialog-actions>
     </div>
 </div>
+<mat-progress-bar *ngIf='spinner' mode='indeterminate'></mat-progress-bar>
+
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

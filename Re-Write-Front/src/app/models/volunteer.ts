@@ -13,4 +13,9 @@ export class Volunteer {
     model : string;
     serialNumber : string;
     id:string;
+    birthDate : Date;
+    gender : string;
+    documentType : string;
+    documentNumber : string;
+    studyNumber : string;
 }

@@ -51,6 +51,11 @@ public class VolunteerService {
 		volunteer.setModifiedDate(new Date());
 		volunteer.setActive(Boolean.TRUE);
 		volunteer.setDelete(Boolean.FALSE);
+		volunteer.setStudyNumber(volunteerReq.getStudyNumber());
+		volunteer.setBirthDate(volunteerReq.getBirthDate());
+		volunteer.setGender(volunteerReq.getGender());
+		volunteer.setDocumentNumber(volunteerReq.getDocumentNumber());
+		volunteer.setDocumentType(volunteerReq.getDocumentType());
 		detail.setId(UUID.randomUUID().toString());
 		detail.setVolunteerId(volunteer.getId());
 		detail.setFingerPrintImage(volunteerReq.getFingerPrintImage().getBytes());
@@ -94,7 +99,11 @@ public class VolunteerService {
 		volunteer.setModifiedDate(new Date());
 		volunteer.setModifiedBy(volunteerReq.getModifiedBy());
 		volunteer.setEndDate(volunteerReq.getEndDate());
-		
+		volunteer.setBirthDate(volunteerReq.getBirthDate());
+		volunteer.setStudyNumber(volunteerReq.getStudyNumber());
+		volunteer.setDocumentNumber(volunteerReq.getDocumentNumber());
+		volunteer.setDocumentType(volunteerReq.getDocumentType());
+		volunteer.setGender(volunteerReq.getGender());
 		volunteerRepo.save(volunteer);
 	}
 	
@@ -143,6 +152,11 @@ public class VolunteerService {
 				volunteerInfo.setSerialNumber(volunteer.getSerialNumber());
 				volunteerInfo.setIsNew(Boolean.FALSE);
 				volunteerInfo.setVolunteerId(volunteer.getId());
+				volunteerInfo.setGender(volunteer.getGender());
+				volunteerInfo.setDocumentNumber(volunteer.getDocumentNumber());
+				volunteerInfo.setDocumentType(volunteer.getDocumentType());
+				volunteerInfo.setStudyNumber(volunteer.getStudyNumber());
+				volunteerInfo.setBirthDate(volunteer.getBirthDate());
 				volunteerResponse.setVolunteerInfo(volunteerInfo);
 				VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(volunteer.getId());
 				volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
@@ -199,6 +213,11 @@ public class VolunteerService {
 			volunteerInfo.setAddress(vol.getAddress());
 			volunteerInfo.setMobileNumber(vol.getMobileNumber());
 			volunteerInfo.setVolunteerId(vol.getId());
+			volunteerInfo.setDocumentNumber(vol.getDocumentNumber());
+			volunteerInfo.setDocumentType(vol.getDocumentType());
+			volunteerInfo.setBirthDate(vol.getBirthDate());
+			volunteerInfo.setStudyNumber(vol.getStudyNumber());
+			volunteerInfo.setGender(vol.getGender());
 			volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
 			volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage()) :null);
 			response.setVolunteerInfo(volunteerInfo);

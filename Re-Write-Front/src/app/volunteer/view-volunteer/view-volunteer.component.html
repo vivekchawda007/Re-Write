@@ -12,6 +12,14 @@
                         <form>
                             <mat-dialog-content>
                                 <mat-form-field danger>
+                                    <input matInput placeholder="Gender"
+                                        value={{this.volunteer.volunteerInfo.gender}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Study Number"
+                                        value={{this.volunteer.volunteerInfo.studyNumber}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
                                     <input matInput placeholder="Volunteer First Name"
                                         value={{this.volunteer.volunteerInfo.firstName}} disabled>
                                 </mat-form-field>
@@ -23,6 +31,20 @@
                                     <input matInput placeholder="Volunteer Mobile Number"
                                         value={{this.volunteer.volunteerInfo.mobileNumber}} disabled>
                                 </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Birth Date"
+                                        value={{this.volunteer.volunteerInfo.birthDate}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Document Type"
+                                        value={{this.volunteer.volunteerInfo.documentType}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Document Number"
+                                        value={{this.volunteer.volunteerInfo.documentNumber}} disabled>
+                                </mat-form-field>
+                               
+                                
                                 <mat-form-field danger>
                                     <input matInput placeholder="Volunteer Address" value={{this.volunteer.volunteerInfo.address}}
                                         disabled>

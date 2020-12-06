@@ -4,5 +4,5 @@ import { Volunteer } from './volunteer';
 
 export class ShareDataUser {
     id : string;
-    user : User[]
+    user : User
 }

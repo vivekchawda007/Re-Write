@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Table(name="VOLUNTEER")
 public class Volunteer {
 	
+	
 	@Id
 	@Column(name="id")
 	private String id;
@@ -39,6 +40,21 @@ public class Volunteer {
 	
 	@Column(name="SERIAL_NUMBER")
 	private String serialNumber;
+	
+	@Column(name="STUDY_NUMBER")
+	private String studyNumber;
+	
+	@Column(name = "BIRTH_DATE")
+	private Date birthDate;
+	
+	@Column(name = "GENDER")
+	private Integer gender;
+	
+	@Column(name = "DOCUMENT_NUMBER")
+	private String documentNumber;
+	
+	@Column(name = "DOCUMENT_TYPE")
+	private Integer documentType;
 	
 	@Column(name="MODEL")
 	private String	 model ;
@@ -67,6 +83,47 @@ public class Volunteer {
 	@Column(name="MODIFIED_DATE")
 	private Date modifiedDate;
 	
+	
+	public String getStudyNumber() {
+		return studyNumber;
+	}
+
+	public void setStudyNumber(String studyNumber) {
+		this.studyNumber = studyNumber;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
+	}
+
+	public Integer getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(Integer documentType) {
+		this.documentType = documentType;
+	}
+
 	public String getId() {
 		return id;
 	}

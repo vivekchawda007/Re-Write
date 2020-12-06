@@ -41,8 +41,58 @@ public class VolunteerInfo {
 	@JsonProperty("volunteerImage")
 	private String volunteerImage;
 	private Boolean isNew;
+	private String documentNumber;
+	private Integer documentType;
+	private Date birthDate;
+	private Integer gender;
+	private String studyNumber;
+	
 	public Boolean getIsNew() {
 		return isNew;
+	}
+
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
+	}
+
+	public Integer getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(Integer documentType) {
+		this.documentType = documentType;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+
+	public String getStudyNumber() {
+		return studyNumber;
+	}
+
+	public void setStudyNumber(String studyNumber) {
+		this.studyNumber = studyNumber;
+	}
+
+	public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+		this.additionalProperties = additionalProperties;
 	}
 
 	public void setIsNew(Boolean isNew) {

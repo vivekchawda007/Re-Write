@@ -6,6 +6,7 @@ import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 import { Volunteers } from '../../models/volunteers'
 import { VolunteerService } from '../../volunteer.service'
 import { AddVolunteerComponent } from '../add-volunteer/add-volunteer.component';
+import { DeleteVolunteerComponent } from '../delete-volunteer/delete-volunteer.component';
 import { EditVolunteerComponent } from '../edit-volunteer/edit-volunteer.component';
 import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.component';
 
@@ -42,6 +43,7 @@ export class VolunterComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
+    dialogConfig.height = "100%";
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
     this.dialog.open(AddVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
@@ -61,6 +63,32 @@ export class VolunterComponent implements OnInit {
       }
     });
     
+  }
+
+  openDeleteModal(volunteerId) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "20%"
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.autoFocus = true;
+    const shareData: ShareDataVolunteer = new ShareDataVolunteer();
+    shareData.volunteerId = volunteerId;
+    dialogConfig.data = shareData;
+    this.dialog.open(DeleteVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
+      if (result != null) {
+        this.volunteers = [];
+        this.volunteerService.getVolunteers()
+          .subscribe(result => {
+            console.log(result)
+            this.volunteers = result;
+          },
+            error => {
+              console.log("Error While Fetching Volunteers, Please refresh page.")
+              this.toastr.error("Error while fetching Volunteers. Please refresh page.")
+            });
+      }
+    });
   }
 
   openEditModal(volunteerId) {

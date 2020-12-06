@@ -50,7 +50,24 @@ export class EditVolunteerComponent implements OnInit {
   volunteer;
   data: ShareDataVolunteer;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
-
+  documents = [
+    {
+      id : 1,
+      name : 'PAN Card'
+    },
+    {
+      id : 2,
+      name : 'Adhar Card'
+    },
+    {
+      id : 3,
+      name : 'Voter Card'
+    },
+    {
+      id : 4,
+      name : 'License'
+    }
+    ]
 
   getFingerPrint() {
     this.fingerPrintService.getFingerPrint().subscribe(
@@ -74,6 +91,11 @@ export class EditVolunteerComponent implements OnInit {
   ngOnInit() {
 
     this.editVolunteerForm = this.formBuilder.group({
+      studyNumber : ['',Validators.required],
+      gender : ['1',Validators.required],
+      documentType : ['',Validators.required],
+      documentNumber : ['',Validators.required],
+      birthDate : ['',Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       mobileNumber: [''],
@@ -89,6 +111,11 @@ export class EditVolunteerComponent implements OnInit {
         this.editVolunteerForm.controls['lastName'].setValue(this.volunteer.volunteerInfo.lastName);
         this.editVolunteerForm.controls['mobileNumber'].setValue(this.volunteer.volunteerInfo.mobileNumber);
         this.editVolunteerForm.controls['address'].setValue(this.volunteer.volunteerInfo.address);
+        this.editVolunteerForm.controls['gender'].setValue(this.volunteer.volunteerInfo.gender);
+        this.editVolunteerForm.controls['documentType'].setValue(this.volunteer.volunteerInfo.documentType);
+        this.editVolunteerForm.controls['documentNumber'].setValue(this.volunteer.volunteerInfo.documentNumber);
+        this.editVolunteerForm.controls['studyNumber'].setValue(this.volunteer.volunteerInfo.studyNumber);
+        this.editVolunteerForm.controls['birthDate'].setValue(this.volunteer.volunteerInfo.birthDate);
         this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
         this.imageData = this.volunteer.volunteerInfo.volunteerImage;
         this.liveVideo = true;
@@ -114,13 +141,25 @@ export class EditVolunteerComponent implements OnInit {
     this.submitted = false;
 
     const volunteer: Volunteer = new Volunteer();
-    volunteer.firstName = this.f.firstName.value;
     volunteer.id = this.volunteer.volunteerInfo.volunteerId;
+    volunteer.firstName = this.f.firstName.value;
     volunteer.lastName = this.f.lastName.value;
     volunteer.createdBy = "b9805a32-6410-42a2-8b2b-3be94a753722";
     volunteer.mobileNumber = this.f.mobileNumber.value;
+    volunteer.fingerPrint = this.fingerPrintData
     volunteer.endDate = new Date();
+    volunteer.fingerPrintImage = this.fingerDataImage;
+    volunteer.volunteerImage = this.imageData;
     volunteer.address = this.f.address.value;
+    volunteer.model = this.model;
+    volunteer.manufacturer = this.manufacturer;
+    volunteer.serialNumber = this.serialNumber;
+    volunteer.studyNumber = this.f.studyNumber.value;
+    volunteer.birthDate = this.f.birthDate.value;
+    volunteer.documentNumber = this.f.documentNumber.value;
+    volunteer.documentType = this.f.documentType.value;
+    volunteer.gender = this.f.gender.value;
+    
     this.volunteerService.updateVolunteer(volunteer)
       .subscribe(result => {
         this.volunteerAdd = result as Volunteer;

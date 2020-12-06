@@ -69,6 +69,8 @@ public class UserDetail {
 		this.modifiedBy = modifiedBy;
 	}
 
+	
+
 	public boolean isNew() {
 		return isNew;
 	}

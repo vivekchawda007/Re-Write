@@ -9,24 +9,53 @@
             <div class="col-lg-6">
                 <form [formGroup]="editVolunteerForm">
                     <mat-dialog-content>
+                        <br />
+                        <mat-radio-group aria-label="Select Gender" formControlName="gender">
+                            <mat-radio-button value="1">Male</mat-radio-button>
+                            &nbsp;
+                            <mat-radio-button value="2">Female</mat-radio-button>
+                            <mat-error *ngIf="hasError('gender', 'required')">Gender is required</mat-error>
+                        </mat-radio-group>
                         <mat-form-field>
-                            <input id="modelFirstName" matInput placeholder="First Name" formControlName="firstName">
+                            <input matInput placeholder="Study Number" formControlName="studyNumber">
+                            <mat-error *ngIf="hasError('studyNumber', 'required')">Study Number is required</mat-error>
                         </mat-form-field>
-                        <br/>
+                        
                         <mat-form-field>
-                            <input id="modelLastName"  matInput placeholder="Last Name" formControlName="lastName">
+                            <input matInput placeholder="First Name" formControlName="firstName">
+                            <mat-error *ngIf="hasError('firstName', 'required')">First Name is required</mat-error>
                         </mat-form-field>
-                        <br/>
                         <mat-form-field>
-                            <input id="modelMobileNumber"  matInput placeholder="Mobile Number" formControlName="mobileNumber">
+                            <input matInput placeholder="Last Name" formControlName="lastName">
+                            <mat-error *ngIf="hasError('lastName', 'required')">Last Name is required</mat-error>
                         </mat-form-field>
-                        <br/>
+                        <mat-form-field>
+                            <input matInput placeholder="Mobile Number" formControlName="mobileNumber">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Birth Date</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName= "birthDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Document Type</mat-label>
+                            <mat-select formControlName="documentType">
+                                <mat-option *ngFor="let document of documents" [value]=document.id>
+                                    {{document.name}} </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="hasError('documentType', 'required')">Document type is mandatory
+                                information</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Document Number" formControlName="documentNumber">
+                        </mat-form-field>
+                       
                         <mat-form-field>
                             <mat-label>Address</mat-label>
-                            <textarea id="modelAddress"  matInput formControlName="address" cdkAutosizeMinRows="2"
+                            <textarea matInput formControlName="address" cdkAutosizeMinRows="2"
                                 cdkAutosizeMaxRows="5"></textarea>
                         </mat-form-field>
-                        <br/>
                     </mat-dialog-content>
                     <mat-dialog-actions>
                         <button ID = "modelId" mat-raised-button color="primary" [disabled]="!editVolunteerForm.valid"

@@ -1,6 +1,5 @@
 package com.rewrite.request;
 
-import java.sql.Blob;
 import java.util.Date;
 
 public class VolunteerRequest {
@@ -19,7 +18,42 @@ public class VolunteerRequest {
 	private String fingerPrintImage;
 	private String volunteerImage;
 	private String modifiedBy;
+	private String documentNumber;
+	private Integer documentType;
+	private Date birthDate;
+	private Integer gender;
+	private String studyNumber;
 	
+	public String getDocumentNumber() {
+		return documentNumber;
+	}
+	public void setDocumentNumber(String documentNumber) {
+		this.documentNumber = documentNumber;
+	}
+	public Integer getDocumentType() {
+		return documentType;
+	}
+	public void setDocumentType(Integer documentType) {
+		this.documentType = documentType;
+	}
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+	public Integer getGender() {
+		return gender;
+	}
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+	public String getStudyNumber() {
+		return studyNumber;
+	}
+	public void setStudyNumber(String studyNumber) {
+		this.studyNumber = studyNumber;
+	}
 	public String getId() {
 		return id;
 	}

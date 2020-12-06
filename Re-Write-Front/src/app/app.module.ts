@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertService } from './services/alert.service';
 import { AuthenticationService} from './services/authentication.service';
 import { UserService } from './services/user.service';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UnitComponent } from './unit/unit.component';
@@ -20,6 +20,7 @@ import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button'
@@ -33,8 +34,13 @@ import { AddUserComponent } from './user/add-user/add-user.component';
 import { ViewVolunteerComponent } from './volunteer/view-volunteer/view-volunteer.component';
 import { EditVolunteerComponent } from './volunteer/edit-volunteer/edit-volunteer.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
-
-
+import { ViewUserComponent } from './user/view-user/view-user.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { UserResetPasswordComponent } from './user/user-reset-password/user-reset-password.component';
+import { DeleteVolunteerComponent } from './volunteer/delete-volunteer/delete-volunteer.component';
 
 @NgModule({
   declarations: [
@@ -53,10 +59,15 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
     ViewVolunteerComponent,
     EditVolunteerComponent,
     EditUserComponent,
+    ViewUserComponent,
+    UserResetPasswordComponent,
+    DeleteVolunteerComponent,
   
   ],
   imports: [
     BrowserModule,
+    NgxSpinnerModule,
+    MatRadioModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -64,9 +75,13 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatProgressBarModule,
     MatInputModule,
     MatSelectModule,
     BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatProgressSpinnerModule,
+    MatNativeDateModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',
@@ -78,6 +93,7 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
         AlertService,
         AuthService,
         AuthenticationService,
+        MatDatepickerModule,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
         UserService],

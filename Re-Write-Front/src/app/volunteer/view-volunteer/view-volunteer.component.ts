@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ViewVolunteerComponent implements OnInit {
   volunteerView: Volunteer;
-  volunteer: Volunteer;
+  volunteer;
   isChecked = false;
   data: ShareDataVolunteer;
   constructor(
@@ -27,7 +27,13 @@ export class ViewVolunteerComponent implements OnInit {
 
     this.volunteerService.getVolunteer(this.data.volunteerId)
       .subscribe(result => {
-        this.volunteer = result as Volunteer;
+        this.volunteer = result;
+        if (this.volunteer.volunteerInfo.gender == '1') {
+          this.volunteer.volunteerInfo.gender = "Male";
+        } else {
+          this.volunteer.volunteerInfo.gender = "Female";
+        }
+        this.volunteer.volunteerInfo.birthDate = this.renderDateAndTime(this.volunteer.volunteerInfo.birthDate);
         console.log("Volunteer View Completed !");
       },
         error => {
@@ -35,6 +41,18 @@ export class ViewVolunteerComponent implements OnInit {
           console.log("Error while viewing volunteer !");
         });
 
+  }
+
+  renderDateAndTime(data) {
+    if (!data) {
+      return "";
+    }
+    var date = new Date(data);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    return (date.getMonth() + 1) + "/" + date.getDate() + "/"
+      + date.getFullYear();
   }
   close() {
     this.dialogRef.close();

@@ -10,6 +10,8 @@ import { get } from 'scriptjs';
 import Webcam from 'webcam-easy';
 import { Volunteer } from '../../models/volunteer'
 import { VolunteerService } from '../../volunteer.service'
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-add-volunteer',
   templateUrl: './add-volunteer.component.html',
@@ -29,6 +31,26 @@ export class AddVolunteerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data) {
 
   }
+  documents = [
+    {
+      id : 1,
+      name : 'PAN Card'
+    },
+    {
+      id : 2,
+      name : 'Adhar Card'
+    },
+    {
+      id : 3,
+      name : 'Voter Card'
+    },
+    {
+      id : 4,
+      name : 'License'
+    }
+    ]
+  spinner;
+  spinnerImage;
   volunteerAdd : Volunteer;
   Volunteer;
   checked = false;
@@ -54,6 +76,7 @@ export class AddVolunteerComponent implements OnInit {
       .subscribe(() => this.autosize.resizeToFitContent(true));
   }
   getFingerPrint() {
+    this.spinner = true;
     this.fingerPrintService.getFingerPrint().subscribe(
       result => {
         const map = new Map(Object.entries(result));
@@ -69,16 +92,22 @@ export class AddVolunteerComponent implements OnInit {
         }else {
           this.dialogRef.close(map.get("volunteerInfo").volunteerId);
         }
-
+        this.spinner = false;
       },
       error => {
+        this.spinner = false;
         console.log(error);
-        alert("Error in fetching fingerprint");
+        this.toastrService.error("Error while fetching fingerprint. Please contact admin.")
       }
     );
   }
   ngOnInit() {
     this.addVolunteerForm = this.formBuilder.group({
+      studyNumber : ['',Validators.required],
+      gender : ['1',Validators.required],
+      documentType : ['',Validators.required],
+      documentNumber : ['',Validators.required],
+      birthDate : ['',Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       mobileNumber: [''],
@@ -110,7 +139,12 @@ export class AddVolunteerComponent implements OnInit {
     volunteer.model = this.model;
     volunteer.manufacturer = this.manufacturer;
     volunteer.serialNumber = this.serialNumber;
-
+    volunteer.studyNumber = this.f.studyNumber.value;
+    volunteer.birthDate = this.f.birthDate.value;
+    volunteer.documentNumber = this.f.documentNumber.value;
+    volunteer.documentType = this.f.documentType.value;
+    volunteer.gender = this.f.gender.value;
+    
     this.volunteerService.addVolunteer(volunteer)
       .subscribe(result => {
         this.volunteerAdd = result as Volunteer;
@@ -129,7 +163,7 @@ export class AddVolunteerComponent implements OnInit {
   }
 
   startCamera() {
-
+    this.spinner = true;
     this.liveVideo = true;
     this.pictureClicked = false;
     const webcamElement = document.getElementById('webcam');
@@ -138,6 +172,7 @@ export class AddVolunteerComponent implements OnInit {
     const webcam = new Webcam(webcamElement, 'environment', canvasElement, snapSoundElement);
 
     webcam.start();
+    this.spinner = false;
 
   }
 
