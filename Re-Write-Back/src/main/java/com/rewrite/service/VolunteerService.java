@@ -15,6 +15,7 @@ import com.rewrite.entity.Volunteer;
 import com.rewrite.entity.VolunteerDetail;
 import com.rewrite.repository.VolunteerDetailRepository;
 import com.rewrite.repository.VolunteerRepository;
+import com.rewrite.request.FingerPrintRequest;
 import com.rewrite.request.VolunteerRequest;
 import com.rewrite.response.FingerPrintResponse;
 import com.rewrite.response.MatchFingerPrintResponse;
@@ -118,26 +119,31 @@ public class VolunteerService {
 		return vollst;
 	}
 
-	public String getFingerPrint(HttpHeaders header) {
+	public String getFingerPrint(HttpHeaders header, FingerPrintRequest body) {
 		VolunteerInfo volunteerInfo = new VolunteerInfo();
 		VolunteerResponse volunteerResponse = new VolunteerResponse();
-		FingerPrintResponse fingerPrintResponse = null;
-		String body = "{\r\n    \"Timeout\":10000,\r\n    \"Quality\":1,\r\n    \"licstr\": \"\",\r\n    \"templateFormat\":\"ISO\"\r\n}";
-
-		HttpResponse<String> response = Unirest.post("https://localhost:8443/SGIFPCapture")
-				.header("Host", " localhost:8443").header("Origin", "http://localhost:8080").body(body).asString();
-
-		System.out.println(response.getBody());
-
-		Gson gson = new GsonBuilder().create();
-		fingerPrintResponse = gson.fromJson(response.getBody(), FingerPrintResponse.class);
-
-		volunteerResponse.setFingerPrintInfo(fingerPrintResponse);
+		FingerPrintRequest fingerPrintRequest = null;
+		/*
+		 * String body =
+		 * "{\r\n    \"Timeout\":10000,\r\n    \"Quality\":1,\r\n    \"licstr\": \"\",\r\n    \"templateFormat\":\"ISO\"\r\n}"
+		 * ;
+		 * 
+		 * HttpResponse<String> response =
+		 * Unirest.post("https://localhost:8443/SGIFPCapture") .header("Host",
+		 * " localhost:8443").header("Origin",
+		 * "http://localhost:8080").body(body).asString();
+		 * 
+		 * System.out.println(response.getBody());
+		 * 
+		 *
+		 */
+		
+		volunteerResponse.setFingerPrintInfo(body);
 		List<Volunteer> volunteers = volunteerRepo.findAll();
 		boolean isMatch = false;
 
 		for (Volunteer volunteer : volunteers) {
-			isMatch = matchFingerPrint( fingerPrintResponse.getTemplateBase64(),volunteer.getFingerPrint());
+			isMatch = matchFingerPrint( body.getTemplateBase64(),volunteer.getFingerPrint());
 			if (isMatch) {
 				
 				volunteerInfo.setAddress(volunteer.getAddress());

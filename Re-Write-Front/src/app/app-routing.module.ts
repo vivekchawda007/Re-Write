@@ -16,13 +16,13 @@ import { UserComponent } from './user/user/user.component';
 const routes: Routes = [
   { path: "", component: DashboardComponent, canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent, canActivate: [AuthGuard] },
-  { path: "dashboard", component: DashboardComponent },
-  { path: "unit", component: UnitComponent },
-  { path: "sidebar", component: SidebarComponent },
-  { path: "profile", component: ProfileComponent },
-  { path: "volunteer", component: VolunterComponent },
-  { path: "user", component: UserComponent },
+  { path: "register", component: RegisterComponent,  canActivate: [AuthGuard]},
+  { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: "unit", component: UnitComponent, canActivate: [AuthGuard] },
+  { path: "sidebar", component: SidebarComponent, canActivate: [AuthGuard] },
+  { path: "profile", component: ProfileComponent , canActivate: [AuthGuard]},
+  { path: "volunteer", component: VolunterComponent , canActivate: [AuthGuard]},
+  { path: "user", component: UserComponent , canActivate: [AuthGuard]},
 
   // otherwise redirect to home
   { path: "**", redirectTo: "" }

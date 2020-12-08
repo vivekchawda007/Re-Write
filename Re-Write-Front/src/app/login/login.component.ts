@@ -68,13 +68,8 @@ export class LoginComponent implements OnInit {
     this.userService.loginUser(user).subscribe(
       result => {
         const map = new Map(Object.entries(result));
-       
-       /*  if (this.passwordChanged != "1") {
-          $("#myModal").modal("show");
-        }  */ {
           localStorage.setItem("currentUser", JSON.stringify(result));
           this.authService.login();
-        }
       },
       error => {
         console.log(error);

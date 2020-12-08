@@ -69,25 +69,7 @@ export class EditVolunteerComponent implements OnInit {
     }
     ]
 
-  getFingerPrint() {
-    this.fingerPrintService.getFingerPrint().subscribe(
-      result => {
-        const map = new Map(Object.entries(result));
-        this.fingerDataImage = map.get("fingerPrintInfo").BMPBase64;
-        this.fingerPrintData = map.get("fingerPrintInfo").TemplateBase64;
-        this.model = map.get("fingerPrintInfo").Model;
-        this.serialNumber = map.get("fingerPrintInfo").SerialNumber;
-        this.manufacturer = map.get("fingerPrintInfo").Manufacturer;
-        this.primaryDiv = false;
-        this.secondaryDiv = true;
-
-      },
-      error => {
-        console.log(error);
-        alert("Error in fetching fingerprint");
-      }
-    );
-  }
+ 
   ngOnInit() {
 
     this.editVolunteerForm = this.formBuilder.group({

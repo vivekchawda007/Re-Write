@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../models/user'
 import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 import { Volunteers } from '../../models/volunteers'
 import { VolunteerService } from '../../volunteer.service'
@@ -17,11 +18,31 @@ import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.compone
   styleUrls: ['./volunter.component.css']
 })
 export class VolunterComponent implements OnInit {
-
+  currentUser : User;
   volunteers;
+  isViewPermission;
+  isEditPermission;
+  isDeletePermission;
   constructor(private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
 
-  ) { }
+  ) { 
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(this.currentUser.roleId == '1') {
+      this.isDeletePermission = true;
+      this.isEditPermission = true;
+      this.isViewPermission = true;
+    }
+    if(this.currentUser.roleId == '2') {
+      this.isDeletePermission = false;
+      this.isEditPermission = true;
+      this.isViewPermission = true;
+    }
+    if(this.currentUser.roleId == '3') {
+      this.isDeletePermission = false;
+      this.isEditPermission = false;
+      this.isViewPermission = true;
+    }
+  }
 
   ngOnInit() {
     this.volunteerService.getVolunteers()

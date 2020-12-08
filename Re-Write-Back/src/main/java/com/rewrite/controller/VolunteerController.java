@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rewrite.entity.Volunteer;
+import com.rewrite.request.FingerPrintRequest;
 import com.rewrite.request.VolunteerRequest;
+import com.rewrite.response.FingerPrintResponse;
 import com.rewrite.response.RewriteResponse;
 import com.rewrite.response.VolunteerResponse;
 import com.rewrite.service.VolunteerService;
@@ -56,9 +58,9 @@ public class VolunteerController {
 			return volunteerService.getAllVolunteer();
 	}
 	
-	@GetMapping(value = "/api/v1/get-fingerprint")
-	public String addFingerPrint(@RequestHeader HttpHeaders header) {
-		String response = volunteerService.getFingerPrint(header);
+	@PostMapping(value = "/api/v1/match-fingerprint")
+	public String addFingerPrint(@RequestBody FingerPrintRequest requestBody, @RequestHeader HttpHeaders header) {		
+		String response = volunteerService.getFingerPrint(header,requestBody);
 		 return response;
 	}
 

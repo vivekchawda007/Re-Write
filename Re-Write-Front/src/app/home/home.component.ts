@@ -22,7 +22,11 @@ export class HomeComponent implements OnInit {
   }
 
   onLogout() {
+    
     this.authService.logout();
+    var element = <HTMLInputElement>document.getElementById("logoutModal");
+     element.hidden = true;
+     location.reload();
   }
 
   navigateToProfile(){

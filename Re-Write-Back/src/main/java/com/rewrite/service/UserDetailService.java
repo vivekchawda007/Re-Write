@@ -63,6 +63,7 @@ public class UserDetailService {
 
 	public List<UserDetail> validateUser(UserRequest user) {
 		List<UserDetail> userdet = userRepo.findByUserNameAndPassword(user.getUserName(), user.getPassword());
+		userdet.get(0).setPassword("***"); 
 		return userdet;
 	}
 	

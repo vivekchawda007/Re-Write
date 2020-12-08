@@ -43,17 +43,17 @@
                                             {{volunteer.mobileNumber}}
                                         </td>
                                         <td>
-                                            <a (click)="openViewModal(volunteer.id)" style="margin-left: 17%;">
+                                            <a *ngIf = 'isViewPermission' (click)="openViewModal(volunteer.id)" style="margin-left: 17%;">
                                                 <i class="material-icons" matTooltip="View Single Volunteer">
                                                     visibility
                                                 </i>
                                             </a>
-                                            <a (click)="openDeleteModal(volunteer.id)" matTooltip="Delete Volunteer">
+                                            <a *ngIf = 'isDeletePermission' (click)="openDeleteModal(volunteer.id)" matTooltip="Delete Volunteer">
                                                 <i class="material-icons">
                                                     delete
                                                 </i>
                                             </a>
-                                            <a (click)="openEditModal(volunteer.id)" matTooltip="Edit Volunteer">
+                                            <a *ngIf = 'isEditPermission' (click)="openEditModal(volunteer.id)" matTooltip="Edit Volunteer">
                                                 <i class="material-icons">
                                                     edit
                                                 </i>

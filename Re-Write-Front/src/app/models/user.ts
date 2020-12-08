@@ -4,9 +4,11 @@ export class User {
     lastName: string;
     userName: string;
     password: string;
+    roleId: string;
     role: string;
     createdBy: string;
     updatedBy : string;
     id : string;
+
 
 }

@@ -12,13 +12,14 @@ import { Volunteer } from '../../models/volunteer'
 import { VolunteerService } from '../../volunteer.service'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { User } from '../../models/user'
 @Component({
   selector: 'app-add-volunteer',
   templateUrl: './add-volunteer.component.html',
   styleUrls: ['./add-volunteer.component.css']
 })
 export class AddVolunteerComponent implements OnInit {
-
+  currentUser: User;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<AddVolunteerComponent>,
@@ -29,7 +30,10 @@ export class AddVolunteerComponent implements OnInit {
     private toastrService: ToastrService,
     private volunteerService: VolunteerService,
     @Inject(MAT_DIALOG_DATA) data) {
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if(this.currentUser.roleId == "1") {
 
+      } 
   }
   documents = [
     {
@@ -77,7 +81,26 @@ export class AddVolunteerComponent implements OnInit {
   }
   getFingerPrint() {
     this.spinner = true;
-    this.fingerPrintService.getFingerPrint().subscribe(
+    var body : {
+      "Timeout" : 10000,
+      "Quality":1,
+      "licstr": "", 
+      "templateFormat":"ISO"
+    }
+    this.fingerPrintService.getFingerPrint(body).subscribe(
+      result => {
+        this.matchFingerPrint(result)
+      },
+      error => {
+        this.spinner = false;
+        console.log(error);
+        this.toastrService.error("Error while fetching fingerprint. Please contact admin.")
+      }
+    );
+  }
+
+  matchFingerPrint(result) {
+    this.fingerPrintService.matchFingerPrint(result).subscribe(
       result => {
         const map = new Map(Object.entries(result));
         
@@ -101,6 +124,9 @@ export class AddVolunteerComponent implements OnInit {
       }
     );
   }
+
+  
+  
   ngOnInit() {
     this.addVolunteerForm = this.formBuilder.group({
       studyNumber : ['',Validators.required],

@@ -11,16 +11,24 @@
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>rewrite</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<name>rewrite</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Re-Write app</description>
 
 	<properties>
+		<app.deploy.projectId>re-write-297910</app.deploy.projectId>
+		<app.deploy.version>primary</app.deploy.version>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-gcp-starter</artifactId>
+			<version>1.0.0.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -87,6 +95,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

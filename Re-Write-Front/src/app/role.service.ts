@@ -9,6 +9,6 @@ export class RoleService {
   constructor(private http : HttpClient) { }
 
   getAllRoles() {
-    return this.http.get('http://localhost:8081/rewrite/api/v1/roles')
+    return this.http.get('http://192.168.43.63:8081/rewrite/api/v1/roles')
   }
 }

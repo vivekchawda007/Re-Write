@@ -19,30 +19,30 @@ export class UserService {
   @Output() resp: EventEmitter<any> = new EventEmitter<any>();
 
   loginUser(user: User) {
-    return this.http.post("http://localhost:8081/rewrite/api/v1/validate-user", user);
+    return this.http.post("http://192.168.43.63:8081/rewrite/api/v1/validate-user", user);
   } 
   resetPassword(user : User) {
-    return this.http.put("http://localhost:8081/rewrite/api/v1/password-reset",user);
+    return this.http.put("http://192.168.43.63:8081/rewrite/api/v1/password-reset",user);
   } 
 
   addUser(user: User) {
    
-    return this.http.post("http://localhost:8081/rewrite/api/v1/add-user",user);
+    return this.http.post("http://192.168.43.63:8081/rewrite/api/v1/add-user",user);
   } 
 
   getAllUser() {
-    return this.http.get("http://localhost:8081/rewrite/api/v1/get-all-user");
+    return this.http.get("http://192.168.43.63:8081/rewrite/api/v1/get-all-user");
   } 
   getUser(userId) {
-    return this.http.get("http://localhost:8081/rewrite/api/v1/get-user/"+userId);
+    return this.http.get("http://192.168.43.63:8081/rewrite/api/v1/get-user/"+userId);
   } 
 
   addVolunteer(user: User) {
-    return this.http.post("http://localhost:8081/rewrite/api/v1/add-volunteer", user);
+    return this.http.post("http://192.168.43.63:8081/rewrite/api/v1/add-volunteer", user);
   } 
 
   updateUser(user: User) {
-    return this.http.put('http://localhost:8081/rewrite/api/v1/update-user', user);
+    return this.http.put('http://192.168.43.63:8081/rewrite/api/v1/update-user', user);
   }
   /*
       delete(id: number) {

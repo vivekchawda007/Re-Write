@@ -1,30 +1,26 @@
 package com.rewrite.response;
 
-import java.util.HashMap;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.rewrite.request.FingerPrintRequest;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "fingerPrintInfo", "volunteerInfo" })
 public class VolunteerResponse {
 
 	@JsonProperty("fingerPrintInfo")
-	private FingerPrintResponse fingerPrintInfo;
+	private FingerPrintRequest fingerPrintInfo;
 	@JsonProperty("volunteerInfo")
 	private VolunteerInfo volunteerInfo;
 	
 	@JsonProperty("fingerPrintInfo")
-	public FingerPrintResponse getFingerPrintInfo() {
+	public FingerPrintRequest getFingerPrintInfo() {
 		return fingerPrintInfo;
 	}
 
 	@JsonProperty("fingerPrintInfo")
-	public void setFingerPrintInfo(FingerPrintResponse fingerPrintInfo) {
+	public void setFingerPrintInfo(FingerPrintRequest fingerPrintInfo) {
 		this.fingerPrintInfo = fingerPrintInfo;
 	}
 
