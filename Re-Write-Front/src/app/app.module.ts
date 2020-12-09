@@ -41,7 +41,12 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { UserResetPasswordComponent } from './user/user-reset-password/user-reset-password.component';
 import { DeleteVolunteerComponent } from './volunteer/delete-volunteer/delete-volunteer.component';
+import { AuditComponent } from './audit/audit/audit.component';
+import { DateFilterComponent } from './audit/filters/date-filter/date-filter.component';
+import { TextFilterComponent } from './audit/filters/text-filter/text-filter.component';
 
+import { CellService, ColumnFilterService, DynamicTableModule } from 'material-dynamic-table';
+import { OptionsCellComponent } from './audit/cells/options-cell/options-cell.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,10 +63,14 @@ import { DeleteVolunteerComponent } from './volunteer/delete-volunteer/delete-vo
     AddUserComponent,
     ViewVolunteerComponent,
     EditVolunteerComponent,
+    OptionsCellComponent,
     EditUserComponent,
     ViewUserComponent,
     UserResetPasswordComponent,
     DeleteVolunteerComponent,
+    AuditComponent,
+    DateFilterComponent,
+    TextFilterComponent,
   
   ],
   imports: [
@@ -70,6 +79,7 @@ import { DeleteVolunteerComponent } from './volunteer/delete-volunteer/delete-vo
     MatRadioModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    DynamicTableModule,
     HttpClientModule,
     FormsModule,
     MatDialogModule,
@@ -87,7 +97,11 @@ import { DeleteVolunteerComponent } from './volunteer/delete-volunteer/delete-vo
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })],
-
+    entryComponents: [
+      OptionsCellComponent,  
+      TextFilterComponent,
+      DateFilterComponent
+    ],
   providers: [
     AuthGuard,
         AlertService,
@@ -99,4 +113,12 @@ import { DeleteVolunteerComponent } from './volunteer/delete-volunteer/delete-vo
         UserService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private readonly cellService: CellService, private readonly columnFilterService: ColumnFilterService) {
+    cellService.registerCell('options', OptionsCellComponent);
+
+    columnFilterService.registerFilter('string', TextFilterComponent);
+    columnFilterService.registerFilter('date', DateFilterComponent);
+  }
+
+}

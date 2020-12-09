@@ -35,4 +35,7 @@ export class SidebarComponent implements OnInit {
   navigateToDashboard() {
     this.router.navigateByUrl("dashboard");
   }
+  navigateToAudit() {
+    this.router.navigateByUrl("audit")
+  }
 }

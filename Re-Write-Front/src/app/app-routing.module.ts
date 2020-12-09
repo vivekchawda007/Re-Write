@@ -11,6 +11,7 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { VolunterComponent } from './volunteer/volunter/volunter.component';
 import { UserComponent } from './user/user/user.component';
+import { AuditComponent } from './audit/audit/audit.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent , canActivate: [AuthGuard]},
   { path: "volunteer", component: VolunterComponent , canActivate: [AuthGuard]},
   { path: "user", component: UserComponent , canActivate: [AuthGuard]},
-
+  { path: "audit", component: AuditComponent , canActivate: [AuthGuard]},
   // otherwise redirect to home
   { path: "**", redirectTo: "" }
 ];

@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+  </div>
+  
+  <div class="mat-elevation-z2">
+    <mdt-dynamic-table [columns]="columns" [dataSource]="dataSource" [pageSize]="5"></mdt-dynamic-table>
+  </div>
+  
+  <div class="buttons">
+    <button mat-button (click)="clearFilters()">Clear filters</button>
+    <button mat-button (click)="setFilter()">Set filter</button>
+  </div>
