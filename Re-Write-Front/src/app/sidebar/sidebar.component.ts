@@ -36,6 +36,7 @@ export class SidebarComponent implements OnInit {
     this.router.navigateByUrl("dashboard");
   }
   navigateToAudit() {
+    document.getElementById("accorId3").click();
     this.router.navigateByUrl("audit")
   }
 }

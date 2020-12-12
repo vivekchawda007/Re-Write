@@ -15,7 +15,7 @@ import { AuditComponent } from './audit/audit/audit.component';
 
 
 const routes: Routes = [
-  { path: "", component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: "", component: DashboardComponent},
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent,  canActivate: [AuthGuard]},
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard] },
@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent , canActivate: [AuthGuard]},
   { path: "volunteer", component: VolunterComponent , canActivate: [AuthGuard]},
   { path: "user", component: UserComponent , canActivate: [AuthGuard]},
-  { path: "audit", component: AuditComponent},
+  { path: "audit", component: AuditComponent,canActivate: [AuthGuard]},
   // otherwise redirect to home
   { path: "**", redirectTo: "" }
 ];

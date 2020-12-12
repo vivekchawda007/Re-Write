@@ -5,7 +5,6 @@ import { environment } from '../../environments/environment'
 import { User } from "../models/user";
 import { AuthService } from "../services/auth.service";
 import { UserService } from "../services/user.service";
-const expiryTime = `${environment.expireTime}`;
 declare var jquery: any;
 declare var $: any;
 @Component({
@@ -80,7 +79,7 @@ export class LoginComponent implements OnInit {
           const now = new Date()
           const item = {  
             'currentUser': result,
-            expiry: now.getTime() + expiryTime,
+            expiry: now.getTime() + 60000,
           }
           localStorage.setItem("currentUser",  JSON.stringify(item));
           this.authService.login();

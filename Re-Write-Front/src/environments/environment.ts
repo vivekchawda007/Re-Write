@@ -7,5 +7,5 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:8081',
   secugenUrl : "https://localhost:8443/SGIFPCapture",
-  expireTime: 60000
+  expireTime: 6
 };
