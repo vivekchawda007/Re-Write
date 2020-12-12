@@ -19,7 +19,7 @@ import { User } from '../../models/user'
   styleUrls: ['./add-volunteer.component.css']
 })
 export class AddVolunteerComponent implements OnInit {
-  currentUser: User;
+  currentUser;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<AddVolunteerComponent>,
@@ -31,7 +31,7 @@ export class AddVolunteerComponent implements OnInit {
     private volunteerService: VolunteerService,
     @Inject(MAT_DIALOG_DATA) data) {
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      if(this.currentUser.roleId == "1") {
+      if(this.currentUser.currentUser.roleId == "1") {
 
       } 
   }

@@ -7,6 +7,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 import { ShareDataUser } from '../../models/shareDataUser';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { UserResetPasswordComponent } from '../user-reset-password/user-reset-password.component';
+import { AuthenticationService } from '../../services/authentication.service'
 
 @Component({
   selector: 'app-user',
@@ -15,15 +16,26 @@ import { UserResetPasswordComponent } from '../user-reset-password/user-reset-pa
 })
 export class UserComponent implements OnInit {
   users;
+  currentUser;
+  constructor(private authService : AuthenticationService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
 
-  constructor(private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
-
-  ) { }
+  ) { 
+    const itemStr = localStorage.getItem("currentUser")
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const item = JSON.parse(itemStr)
+    const now = new Date();
+    if (now.getTime() > item.expiry) {
+      // If the item is expired, delete the item from storage
+      // and return null
+      localStorage.removeItem("currentUser");
+      this.authService.logout();
+      location.reload();
+    }
+  }
 
   ngOnInit() {
     this.userService.getAllUser()
       .subscribe(result => {
-        console.log(result)
         this.users = result;
       },
         error => {

@@ -12,11 +12,11 @@ export class SidebarComponent implements OnInit {
   constructor(private router: Router,private authService : AuthService) {
     
   }
-  currentUser: User;
+  currentUser;
   isUserPermission;
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if(this.currentUser.roleId == "1") {
+    if(this.currentUser.currentUser.roleId == "1") {
       this.isUserPermission = true
     }else {
       this.isUserPermission = false;

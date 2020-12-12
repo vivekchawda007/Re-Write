@@ -94,7 +94,7 @@ export class EditUserComponent implements OnInit {
     user.lastName = this.f.lastName.value;
     user.userName = this.f.userName.value;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    user.updatedBy = this.currentUser.id;
+    user.updatedBy = this.currentUser.currentUser.id;
     user.role = this.f.role.value;
     user.id = this.data.id;
     this.userService.updateUser(user)

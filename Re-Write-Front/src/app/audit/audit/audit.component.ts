@@ -7,6 +7,7 @@ import { FilteredDataSource } from '../data-source/filtered-data-source';
 import * as XLSX from "xlsx";
 import { TableUtil } from '../../utils/table-util'
 import { MatSort } from '@angular/material/sort';
+import { AuthenticationService } from '../../services/authentication.service'
 @Component({
   selector: 'app-audit',
   templateUrl: './audit.component.html',
@@ -15,6 +16,7 @@ import { MatSort } from '@angular/material/sort';
 export class AuditComponent implements OnInit {
   @ViewChild(DynamicTableComponent) dynamicTable: DynamicTableComponent;
   @ViewChild(MatSort) sort: MatSort;
+  currentUser;
   columns: ColumnConfig[] = [
     {
       name: 'activity',
@@ -68,7 +70,18 @@ export class AuditComponent implements OnInit {
 }
 ] */
 //dataSource = new FilteredDataSource<Product>(this.data);
-  constructor(private auditService: AuditService) { 
+  constructor(private authService : AuthenticationService ,private auditService: AuditService) {
+    const itemStr = localStorage.getItem("currentUser")
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const item = JSON.parse(itemStr)
+    const now = new Date();
+    if (now.getTime() > item.expiry) {
+      // If the item is expired, delete the item from storage
+      // and return null
+      localStorage.removeItem("currentUser");
+      this.authService.logout();
+      location.reload();
+    } 
     this.auditService.getAudits()
     .subscribe(result => {
       //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);

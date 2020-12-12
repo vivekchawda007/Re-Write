@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment'
 import { User } from "../models/user";
 import { AuthService } from "../services/auth.service";
 import { UserService } from "../services/user.service";
-
+const expiryTime = `${environment.expireTime}`;
 declare var jquery: any;
 declare var $: any;
 @Component({
@@ -76,7 +77,12 @@ export class LoginComponent implements OnInit {
         if (map.get("userName") == "NO_USER_FOUND") {
           this.toastrService.error("User name and/or password is wrong.")
         } else {
-          localStorage.setItem("currentUser", JSON.stringify(result));
+          const now = new Date()
+          const item = {  
+            'currentUser': result,
+            expiry: now.getTime() + expiryTime,
+          }
+          localStorage.setItem("currentUser",  JSON.stringify(item));
           this.authService.login();
         }
       },

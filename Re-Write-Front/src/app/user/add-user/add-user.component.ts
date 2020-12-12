@@ -85,7 +85,7 @@ currentUser;
     user.lastName = this.f.lastName.value;
     user.userName = this.f.userName.value;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    user.createdBy = this.currentUser.id;
+    user.createdBy = this.currentUser.currentUser.id;
     
     user.role = this.f.role.value;
     this.userService.addUser(user)
