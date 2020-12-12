@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../../models/user'
 import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 import { Volunteers } from '../../models/volunteers'
-import { VolunteerService } from '../../volunteer.service'
+import { VolunteerService } from '../../services/volunteer.service'
 import { AddVolunteerComponent } from '../add-volunteer/add-volunteer.component';
 import { DeleteVolunteerComponent } from '../delete-volunteer/delete-volunteer.component';
 import { EditVolunteerComponent } from '../edit-volunteer/edit-volunteer.component';

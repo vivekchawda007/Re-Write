@@ -5,12 +5,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
-import { FingerprintService } from '../../fingerprint.service';
+import { FingerprintService } from '../../services/fingerprint.service';
 import { get } from 'scriptjs';
 import Webcam from 'webcam-easy';
 import { User } from '../../models/user'
 import { UserService } from '../../services/user.service'
-import { RoleService } from '../../role.service';
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-add-user',
@@ -18,7 +18,7 @@ import { RoleService } from '../../role.service';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-
+currentUser;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<AddUserComponent>,
@@ -84,7 +84,9 @@ export class AddUserComponent implements OnInit {
     user.firstName = this.f.firstName.value;
     user.lastName = this.f.lastName.value;
     user.userName = this.f.userName.value;
-    user.createdBy = "82ebc384-eaa2-47a6-80f4-9dba7244c336";
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    user.createdBy = this.currentUser.id;
+    
     user.role = this.f.role.value;
     this.userService.addUser(user)
       .subscribe(result => {

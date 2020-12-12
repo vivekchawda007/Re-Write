@@ -1,15 +1,29 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-    <h1>
-      Welcome to {{ title }}!
-    </h1>
+
+
+
+
+<div class="card" id="secondaryForm" tabindex="-1">
+
+  <div class="card-header card-header-danger">
+    <div style="float: right;">
+      <a (click)="exportTable()">
+        <i class="material-icons" style="font-size: 40px" matTooltip="Add Volunteer">
+          download
+        </i>
+      </a>
+    </div>
+    <h4 class="card-title ">Audit</h4>
+    <p class="card-category">Search for Audit records and click on Download button to download</p>
   </div>
-  
-  <div class="mat-elevation-z2">
-    <mdt-dynamic-table [columns]="columns" [dataSource]="dataSource" [pageSize]="5"></mdt-dynamic-table>
+  <div class="card-body">
+    <div class="mat-elevation-z2">
+      <mdt-dynamic-table id="auditTable" [columns]="columns" [dataSource]="dataSource" [pageSize]="5">
+      </mdt-dynamic-table>
+    </div>
+    <br />
+    <div>
+      <button mat-button (click)="clearFilters()">Clear filters</button>
+    </div>
   </div>
-  
-  <div class="buttons">
-    <button mat-button (click)="clearFilters()">Clear filters</button>
-    <button mat-button (click)="setFilter()">Set filter</button>
-  </div>
+</div>

@@ -27,6 +27,7 @@ import {MatButtonModule} from '@angular/material/button'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 import { VolunterComponent } from './volunteer/volunter/volunter.component';
 import { AddVolunteerComponent } from './volunteer/add-volunteer/add-volunteer.component';
 import { UserComponent } from './user/user/user.component';
@@ -78,6 +79,7 @@ import { OptionsCellComponent } from './audit/cells/options-cell/options-cell.co
     NgxSpinnerModule,
     MatRadioModule,
     AppRoutingModule,
+    MatIconModule,
     ReactiveFormsModule,
     DynamicTableModule,
     HttpClientModule,

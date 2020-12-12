@@ -6,4 +6,5 @@
         activity:string
         auditTime: Date
         role: string
+        metadata:string
     }

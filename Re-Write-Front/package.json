@@ -39,6 +39,7 @@
     "tslib": "^1.9.0",
     "twitter-bootstrap-wizard": "^1.2.0",
     "webcam-easy": "^1.0.5",
+    "xlsx": "^0.16.9",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {

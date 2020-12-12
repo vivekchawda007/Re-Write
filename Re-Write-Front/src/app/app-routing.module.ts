@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent , canActivate: [AuthGuard]},
   { path: "volunteer", component: VolunterComponent , canActivate: [AuthGuard]},
   { path: "user", component: UserComponent , canActivate: [AuthGuard]},
-  { path: "audit", component: AuditComponent , canActivate: [AuthGuard]},
+  { path: "audit", component: AuditComponent},
   // otherwise redirect to home
   { path: "**", redirectTo: "" }
 ];

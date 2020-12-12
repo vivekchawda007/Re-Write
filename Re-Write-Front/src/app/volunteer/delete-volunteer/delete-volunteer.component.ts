@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { Volunteer } from '../../models/volunteer'
 import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
-import { VolunteerService } from '../../volunteer.service';
+import { VolunteerService } from '../../services/volunteer.service';
 
 @Component({
   selector: 'app-delete-volunteer',

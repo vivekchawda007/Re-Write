@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnConfig, DynamicTableComponent } from 'material-dynamic-table';
+import { AuditService } from '../../services/audit.service'
+import { Audit } from '../../models/audit'
 import { Product } from '../../models/product'
 import { FilteredDataSource } from '../data-source/filtered-data-source';
-
+import * as XLSX from "xlsx";
+import { TableUtil } from '../../utils/table-util'
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-audit',
   templateUrl: './audit.component.html',
@@ -10,76 +14,82 @@ import { FilteredDataSource } from '../data-source/filtered-data-source';
 })
 export class AuditComponent implements OnInit {
   @ViewChild(DynamicTableComponent) dynamicTable: DynamicTableComponent;
-  title = 'material-dynamic-table-demo';
+  @ViewChild(MatSort) sort: MatSort;
   columns: ColumnConfig[] = [
     {
-      name: 'product',
-      displayName: 'Product',
+      name: 'activity',
+      displayName: 'Activity',
       type: 'string'
     },
     {
-      name: 'description',
-      displayName: 'Description',
+      name: 'userName',
+      displayName: 'User',
       type: 'string'
     },
     {
-      name: 'recievedOn',
-      displayName: 'Recieved On',
-      type: 'date'
+      name: 'role',
+      displayName: 'Role',
+      type: 'string'
     },
     {
-      name: 'created',
-      displayName: 'Created Date',
+      name: 'auditTime',
+      displayName: 'Audit Date/Time',
       type: 'date',
       options: {
         dateFormat: 'shortDate'
       }
-    }
+    },
+    {
+      name: 'metadata',
+      displayName: 'Metadata',
+      type: 'string'
+    },
   ];
-  data: Product[] = [
-    {
-      product: 'Mouse',
-      description: 'Fast and wireless',
-      recievedOn: new Date('2018-01-02T11:05:53.212Z'),
-      created: new Date('2015-04-22T18:12:21.111Z')
+  dataSource = new FilteredDataSource<Audit>();
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
+/*  data : Audit[] = [
+  {
+      "id": "1",
+      "userId": "4c1e15c4-e35a-4989-acdc-b4c16701597f",
+      "userName": "Jahnavi.Thacker",
+      "activity": "SEARCH_EVENT",
+      "auditTime": new Date(),
+      "role": "Registrar"
+  },
+  {
+    "id": "1",
+    "userId": "4c1e15c4-e35a-4989-acdc-b4c16701597f",
+    "userName": "Vivek.Thacker",
+    "activity": "MyEvent",
+    "auditTime": new Date(),
+    "role": "Registrar"
+}
+] */
+//dataSource = new FilteredDataSource<Product>(this.data);
+  constructor(private auditService: AuditService) { 
+    this.auditService.getAudits()
+    .subscribe(result => {
+      //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
+      this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
     },
-    {
-      product: 'Keyboard',
-      description: 'Loud and Mechanical',
-      recievedOn: new Date('2018-06-09T12:08:23.511Z'),
-      created: new Date('2015-03-11T11:44:11.431Z')
-    },
-    {
-      product: 'Laser',
-      description: 'It\'s bright',
-      recievedOn: new Date('2017-05-22T18:25:43.511Z'),
-      created: new Date('2015-04-21T17:15:23.111Z')
-    },
-    {
-      product: 'Baby food',
-      description: 'It\'s good for you',
-      recievedOn: new Date('2017-08-26T18:25:43.511Z'),
-      created: new Date('2016-01-01T01:25:13.055Z')
-    },
-    {
-      product: 'Coffee',
-      description: 'Prepared from roasted coffee beans',
-      recievedOn: new Date('2015-04-16T23:52:23.565Z'),
-      created: new Date('2016-12-21T21:05:03.253Z')
-    },
-    {
-      product: 'Cheese',
-      description: 'A dairy product',
-      recievedOn: new Date('2017-11-06T21:22:53.542Z'),
-      created: new Date('2014-02-11T11:34:12.442Z')
-    }
-  ];
+      error => {
 
-  dataSource = new FilteredDataSource<Product>(this.data)
+      });
 
-  constructor() { }
-
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {
+   
+  }
+  clearFilters() {    
+    this.dynamicTable.clearFilters();
+  }
+  exportTable() {
+    TableUtil.exportTableToExcel("auditTable");
+  }
 }
+
+
+

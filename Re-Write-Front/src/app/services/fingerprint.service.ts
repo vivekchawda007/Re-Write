@@ -13,7 +13,7 @@ export class FingerprintService {
   } 
 
   matchFingerPrint(body) {
-    return this.http.post("http://192.168.43.63:8081/rewrite/api/v1/match-fingerprint",body);
+    return this.http.post("http://localhost:8081/rewrite/api/v1/match-fingerprint",body);
   } 
 
 }

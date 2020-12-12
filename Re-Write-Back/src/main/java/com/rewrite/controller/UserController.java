@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rewrite.entity.UserDetail;
 import com.rewrite.request.UserRequest;
 import com.rewrite.response.RewriteResponse;
+import com.rewrite.service.AuditService;
 import com.rewrite.service.UserDetailService;
 
 @RestController
@@ -25,6 +26,9 @@ public class UserController {
 	@Autowired
 	UserDetailService userService;
 	
+	@Autowired
+	AuditService auditService;
+	
 	@PostMapping(value = "/api/v1/add-user")
 	public RewriteResponse addUser(@RequestBody UserRequest user, @RequestHeader HttpHeaders header) {
 		userService.addUser(user);
@@ -33,7 +37,8 @@ public class UserController {
 
 	@PostMapping(value = "/api/v1/validate-user")
 	public UserDetail validateUser(@RequestBody UserRequest user) {
-		return userService.validateUser(user).get(0);
+		UserDetail userDetail =  userService.validateUser(user);
+		return userDetail;
 	}
 
 	@PutMapping(value = "/api/v1/update-user")

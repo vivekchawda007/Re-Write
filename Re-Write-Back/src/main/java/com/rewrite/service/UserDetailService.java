@@ -7,9 +7,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.rewrite.entity.Audit;
 import com.rewrite.entity.UserDetail;
+import com.rewrite.repository.ActivityRepository;
+import com.rewrite.repository.AuditRepository;
 import com.rewrite.repository.UserDetailRepository;
 import com.rewrite.request.UserRequest;
+
+import util.AuditUtil;
 
 @Service
 public class UserDetailService {
@@ -17,7 +22,15 @@ public class UserDetailService {
 	@Autowired
 	UserDetailRepository userRepo;
 
+	@Autowired
+	ActivityRepository activityRepository;
+	
+	@Autowired
+	AuditService auditUtil;
+	@Autowired
+	AuditRepository auditRepository;
 	public void addUser(UserRequest user) {
+		
 		UserDetail userDetail = new UserDetail();
 		userDetail.setId(UUID.randomUUID().toString());
 		userDetail.setUserName(user.getUserName());
@@ -30,10 +43,12 @@ public class UserDetailService {
 		userDetail.setActive(Boolean.TRUE);
 		userDetail.setDelete(Boolean.FALSE);
 		userDetail.setRoleId(user.getRole());
-		userRepo.save(userDetail);
+		UserDetail savedUser = userRepo.save(userDetail);
+		auditUtil.saveAudit("4", savedUser.getUserName(), savedUser.getCreatedBy());
 	}
 	
 	public void updateUser(UserRequest user) {
+		
 		UserDetail userDetail = userRepo.getOne(user.getId());
 		userDetail.setFirstName(user.getFirstName());
 		userDetail.setLastName(user.getLastName());
@@ -42,32 +57,51 @@ public class UserDetailService {
 		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
 		userDetail.setRoleId(user.getRole());
-		userRepo.save(userDetail);
+		UserDetail savedUser = userRepo.save(userDetail);
+		auditUtil.saveAudit("5", savedUser.getId(), savedUser.getCreatedBy());
 	}
 	public void passwordReset(UserRequest user) {
+		
 		boolean password = true;
 		UserDetail userDetail = userRepo.getOne(user.getId());
 		userDetail.setNew(password);
 		userDetail.setPassword("Vivek123");
 		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
-		userRepo.save(userDetail);
+		UserDetail savedUser = userRepo.save(userDetail);
+		auditUtil.saveAudit("5", savedUser.getId(), savedUser.getModifiedBy());
 	}
 	
 	public void deleteUser(UserRequest user) {
+		
 		UserDetail userDetail = userRepo.getOne(user.getId());
 		userDetail.setDelete(Boolean.TRUE);
-		userRepo.save(userDetail);
+		UserDetail savedUser = userRepo.save(userDetail);
+		auditUtil.saveAudit("6", savedUser.getId(), savedUser.getModifiedBy());
 	}
 
 
-	public List<UserDetail> validateUser(UserRequest user) {
+	public UserDetail validateUser(UserRequest user) {
+		
 		List<UserDetail> userdet = userRepo.findByUserNameAndPassword(user.getUserName(), user.getPassword());
-		userdet.get(0).setPassword("***"); 
-		return userdet;
+		
+		if(!userdet.isEmpty()) {
+			
+			auditUtil.saveAudit("2","", userdet.get(0).getId());
+			userdet.get(0).setPassword("***");
+			return userdet.get(0);
+		}else {
+			UserDetail fakeUserDetail = new UserDetail();
+			fakeUserDetail.setUserName("NO_USER_FOUND");
+			//auditUtil.saveAudit("2","", user.getUserName());
+			return fakeUserDetail;
+		}
+		
+		
 	}
 	
 	public UserDetail getUser(String id) {
+		/* auditUtil.saveAudit("2","",id)); */
 		return userRepo.findById(id).get();
 		 
 	}

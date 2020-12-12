@@ -1,0 +1,7 @@
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+:host ::ng-deep .mat-sort-header-button
+{
+  display: contents !important;
+}
+

@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../../models/user';
 import { ShareDataUser } from '../../models/shareDataUser';
 import { UserService } from '../../services/user.service';
-import { RoleService } from '../../role.service';
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -32,7 +32,7 @@ export class EditUserComponent implements OnInit {
   primaryDiv = false;
   secondaryDiv = true;
   submitted = true;
-
+  currentUser;
   fingerDataImage;
   pictureClicked = false;
   liveVideo = true;
@@ -46,7 +46,7 @@ export class EditUserComponent implements OnInit {
   data: ShareDataUser;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
   ngOnInit() {
-    
+
     this.editUserForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -54,13 +54,13 @@ export class EditUserComponent implements OnInit {
       role: ['', Validators.required]
     });
     this.roleService.getAllRoles()
-    .subscribe(result => {
-    this.roles = result; 
-    },
-      error => {
-        this.toastr.error("Error while saving volunteer. Please contact admin.")
-        console.log("Error while creating survey !");
-      });
+      .subscribe(result => {
+        this.roles = result;
+      },
+        error => {
+          this.toastr.error("Error while saving volunteer. Please contact admin.")
+          console.log("Error while creating survey !");
+        });
     this.userService.getUser(this.data.id)
       .subscribe(result => {
         this.user = result;
@@ -93,7 +93,8 @@ export class EditUserComponent implements OnInit {
     user.firstName = this.f.firstName.value;
     user.lastName = this.f.lastName.value;
     user.userName = this.f.userName.value;
-    user.updatedBy = "82ebc384-eaa2-47a6-80f4-9dba7244c336";
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    user.updatedBy = this.currentUser.id;
     user.role = this.f.role.value;
     user.id = this.data.id;
     this.userService.updateUser(user)

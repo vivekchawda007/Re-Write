@@ -1,8 +1,10 @@
 package com.rewrite.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import com.rewrite.repository.AuditRepository;
 import com.rewrite.repository.RoleRepository;
 import com.rewrite.repository.UserDetailRepository;
 import com.rewrite.response.AuditResponse;
+
+import antlr.StringUtils;
 
 @Service
 public class AuditService {
@@ -40,7 +44,7 @@ public class AuditService {
 			ud = userDetailRepository.findById(a.getUserId());
 			AuditResponse auditsResponse = new AuditResponse();
 			auditsResponse.setId(a.getId());
-			auditsResponse.setActivity(activityRepository.findById(a.getId()).get().getName());
+			auditsResponse.setActivity(activityRepository.findById(a.getActivityId()).get().getName());
 			auditsResponse.setMetadata(a.getMetadata());
 			auditsResponse.setUserId(a.getUserId());
 			auditsResponse.setUserName(ud.get().getUserName());
@@ -50,5 +54,16 @@ public class AuditService {
 		}
 		return lst;
 	}
-
+	
+	
+	public Audit saveAudit(String activityId, String metadata,String userId) {
+		Audit audit = new Audit();
+		audit.setId(UUID.randomUUID().toString().replace("-", ""));
+		audit.setActivityId(activityId);
+		audit.setAuditTime(new Date());
+		audit.setMetadata(metadata);
+		audit.setUserId(userId);
+		auditRepository.save(audit);
+		return audit;
+	}
 }

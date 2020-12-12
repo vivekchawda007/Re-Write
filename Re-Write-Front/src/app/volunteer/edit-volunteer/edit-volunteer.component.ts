@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
-import { FingerprintService } from '../../fingerprint.service';
+import { FingerprintService } from '../../services/fingerprint.service';
 import { get } from 'scriptjs';
 import Webcam from 'webcam-easy';
 import { Volunteer } from '../../models/volunteer'
-import { VolunteerService } from '../../volunteer.service'
+import { VolunteerService } from '../../services/volunteer.service'
 import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 
 @Component({

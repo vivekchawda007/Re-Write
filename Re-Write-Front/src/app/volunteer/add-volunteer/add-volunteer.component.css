@@ -58,3 +58,7 @@ ngx-growl {
     font-family: Arial;
     text-align: center;
 }
+
+#blueId {
+    background-color: #4e73df !important;
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ToastrService } from 'ngx-toastr';
 import { User } from "../models/user";
 import { AuthService } from "../services/auth.service";
 import { UserService } from "../services/user.service";
@@ -13,6 +14,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
   firstName: string;
+  currentUser;
   jol: Boolean = false;
   loginForm: FormGroup;
   resetPasswordForm: FormGroup;
@@ -22,8 +24,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -47,10 +50,10 @@ export class LoginComponent implements OnInit {
 
   resetPassword() {
     const user: User = new User();
-   /*  user.emailId = this.f.userName.value;
-    user.password = this.g.secondPassword.value;
-    user.userId = this.savedUserId;
-    user.passwordChanged = 1; */
+    /*  user.emailId = this.f.userName.value;
+     user.password = this.g.secondPassword.value;
+     user.userId = this.savedUserId;
+     user.passwordChanged = 1; */
     this.userService.updateUser(user).subscribe(
       result => {
         this.authService.login();
@@ -64,16 +67,22 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     const user: User = new User();
     user.userName = this.f.userName.value;
-     user.password = this.f.password.value;
+    user.password = this.f.password.value;
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userService.loginUser(user).subscribe(
       result => {
+
         const map = new Map(Object.entries(result));
+        if (map.get("userName") == "NO_USER_FOUND") {
+          this.toastrService.error("User name and/or password is wrong.")
+        } else {
           localStorage.setItem("currentUser", JSON.stringify(result));
           this.authService.login();
+        }
       },
       error => {
         console.log(error);
-        alert("Wrong Username And/Or Password. Please Try Again !");
+        this.toastrService.error("Looks like internal server error at backend or backend is down.")
       }
     );
   }

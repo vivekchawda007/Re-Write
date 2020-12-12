@@ -20,7 +20,7 @@
                             <input matInput placeholder="Study Number" formControlName="studyNumber">
                             <mat-error *ngIf="hasError('studyNumber', 'required')">Study Number is required</mat-error>
                         </mat-form-field>
-                        
+
                         <mat-form-field>
                             <input matInput placeholder="First Name" formControlName="firstName">
                             <mat-error *ngIf="hasError('firstName', 'required')">First Name is required</mat-error>
@@ -34,7 +34,7 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Birth Date</mat-label>
-                            <input matInput [matDatepicker]="picker" formControlName= "birthDate">
+                            <input matInput [matDatepicker]="picker" formControlName="birthDate">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -50,7 +50,7 @@
                         <mat-form-field>
                             <input matInput placeholder="Document Number" formControlName="documentNumber">
                         </mat-form-field>
-                       
+
                         <mat-form-field>
                             <mat-label>Address</mat-label>
                             <textarea matInput formControlName="address" cdkAutosizeMinRows="2"
@@ -77,11 +77,11 @@
                     height="175px" style="margin-left: 90px;"></video>
                 <br />
                 <br />
-                <button mat-raised-button color="primary" id="openCameraId" (click)="startCamera()"
+                <button  mat-raised-button color="primary" id="openCameraId" (click)="startCamera()"
                     style="margin-left: 30px;">Start Camera
                     <i class="material-icons" (click)="startCamera()">camera</i></button>
                 &nbsp;
-                <button mat-raised-button color="warn" (click)="clickPicture()">Click Picture
+                <button id ="blueId" mat-raised-button color="warn" (click)="clickPicture()">Click Picture
                     <i class="material-icons" (click)="clickPicture()">camera_enhance</i></button>
 
             </div>
@@ -96,17 +96,16 @@
         <p class="card-category">Submit your fingerprint on the device after click on "Fingerprint" button </p>
     </div>
     <div class="card-body" style="margin-left: 32%;">
-
-
-
+        <br />
+        <br />
         <img src="../../../assets/img/fingerprint.png" height="250px" width="250px" class="img-rounded"
             alt="Cinque Terre">
         <br />
         <br />
         <mat-dialog-actions>
-            <button mat-raised-button color="warn" (click)="getFingerPrint()">Validate Fingerprint <i
+            <button id ="blueId" mat-raised-button color="warn" (click)="getFingerPrint()">Validate Fingerprint <i
                     class="material-icons" (click)="getFingerPrint()">fingerprint</i></button>
-            <button mat-raised-button color="warn" (click)="close()">Close</button>
+            <button id ="blueId" mat-raised-button color="warn" (click)="close()">Close</button>
         </mat-dialog-actions>
     </div>
 </div>
