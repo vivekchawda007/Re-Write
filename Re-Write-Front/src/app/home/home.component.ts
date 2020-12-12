@@ -23,10 +23,9 @@ export class HomeComponent implements OnInit {
 
   onLogout() {
     
+    document.getElementById("myForceCancel").click();
     this.authService.logout();
-    var element = <HTMLInputElement>document.getElementById("logoutModal");
-     element.hidden = true;
-     location.reload();
+  
   }
 
   navigateToProfile(){

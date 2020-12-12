@@ -4,101 +4,28 @@
       <!-- Tabs Titles -->
 
       <!-- Icon -->
-      <a
-        class="sidebar-brand d-flex align-items-center justify-content-center" style="margin-top: 5%;margin-bottom: 5%;"
-        href="index.html"
-      >
+      <a class="sidebar-brand d-flex align-items-center justify-content-center"
+        style="margin-top: 5%;margin-bottom: 5%;" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15" style="font-size: 200%">
           <span class="material-icons">
             loupe
-            </span>
+          </span>
         </div>
         <div class="sidebar-brand-text mx-3" style="font-size: 200%">Re-Write</div>
       </a>
 
       <!-- Login Form -->
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <input
-          type="text"
-          id="userName"
-          formControlName="userName"
-          class="fadeIn second"
-          name="login"
-          placeholder="User Name"
-        />
-        <input
-          type="password"
-          id="password"
-          autocomplete="on"
-          formControlName="password"
-          class="fadeIn third"
-          name="login"
-          placeholder="Password"
-        />
-        <input
-          id="loginSubmit1"
-          type="submit"
-          class="fadeIn fourth"
-          value="Log In"
-        />
+        <input type="text" id="userName" formControlName="userName" class="fadeIn second" name="login"
+          placeholder="User Name" />
+        <input type="password" id="password" autocomplete="on" formControlName="password" class="fadeIn third"
+          name="login" placeholder="Password" />
+        <input id="loginSubmit1" type="submit" class="fadeIn fourth" value="Log In" />
       </form>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="#">Forgot Password ?</a>
-      </div>
-    </div>
-  </div>
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Change Password</h4>
-          <button
-            type="button"
-            class="close"
-            data-toggle="openModal()"
-            data-dismiss="modal"
-          >
-            &times;
-          </button>
-        </div>
-
-        <!-- Modal body -->
-        <div class="modal-body">
-          <form [formGroup]="resetPasswordForm" (ngSubmit)="resetPassword()">
-            <input
-              type="password"
-              id="firstPassword"
-              autocomplete="on"
-              formControlName="firstPassword"
-              name="firstPassword"
-              placeholder="Password"
-            />
-            <input
-              type="password"
-              id="secondPassword"
-              autocomplete="on"
-              formControlName="secondPassword"
-              name="secondPassword"
-              placeholder="Re-Enter Password"
-            />
-            <input
-              id="loginSubmit"
-              type="submit"
-              class="fadeIn fourth"
-              value="Log In"
-            />
-          </form>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">
-            Close
-          </button>
-        </div>
       </div>
     </div>
   </div>
