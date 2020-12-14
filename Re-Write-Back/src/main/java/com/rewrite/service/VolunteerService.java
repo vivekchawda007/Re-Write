@@ -34,6 +34,8 @@ public class VolunteerService {
 	@Autowired
 	VolunteerDetailRepository volunteerDetailRepo;
 
+	@Autowired
+	AuditService auditService;
 	public void addVolunteer(VolunteerRequest volunteerReq) {
 		Volunteer volunteer = new Volunteer();
 		VolunteerDetail detail = new VolunteerDetail();
@@ -81,13 +83,7 @@ public class VolunteerService {
 		VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(volunteer.getId());
 		volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
 		volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ?  new String(volunteerDetail.getVolunteerImage()) :null);
-		
-		
-		Gson gsonResponse = new Gson();
-		String finalVolunteerResponse = gsonResponse.toJson(volunteerInfo);
-		
-	
-		
+		auditService.saveAudit("8",volunteerSaved.getId(), volunteerSaved.getCreatedBy());
 	}
 	
 	public void updateVolunteer(VolunteerRequest volunteerReq) {
@@ -105,13 +101,26 @@ public class VolunteerService {
 		volunteer.setDocumentNumber(volunteerReq.getDocumentNumber());
 		volunteer.setDocumentType(volunteerReq.getDocumentType());
 		volunteer.setGender(volunteerReq.getGender());
+		Volunteer volunteerSaved = volunteerRepo.save(volunteer);
+		auditService.saveAudit("9",volunteerSaved.getId(), volunteerSaved.getCreatedBy());
+	}
+	
+	public void blockVolunteer(VolunteerRequest volunteerReq) {
+		Optional<Volunteer> volunteerOptional = volunteerRepo.findById(volunteerReq.getId());
+		Volunteer volunteer = volunteerOptional.get();
+		volunteer.setEndDate(volunteerReq.getEndDate());
+		volunteer.setBlocked(Boolean.TRUE);
+		volunteer.setModifiedBy(volunteerReq.getModifiedBy());
+		volunteer.setModifiedDate(new Date());
 		volunteerRepo.save(volunteer);
 	}
 	
-	public void deleteVolunteer(VolunteerRequest volunteerReq) {
-		Volunteer volunteer = volunteerRepo.getOne(volunteerReq.getId());
-		volunteer.setDelete(Boolean.TRUE);
-		volunteerRepo.save(volunteer);
+	public void deleteVolunteer(VolunteerRequest volunteerReq, HttpHeaders header) {
+		Optional<Volunteer> volunteer = volunteerRepo.findById(volunteerReq.getId());
+		volunteer.get().setDelete(Boolean.TRUE);
+		volunteerRepo.save(volunteer.get());
+		List<String> who = header.get("who");
+		auditService.saveAudit("12",volunteer.get().getId(), who.get(0));
 	}
 
 	public List<Volunteer> get(String fingerPrint) {
@@ -122,21 +131,6 @@ public class VolunteerService {
 	public String getFingerPrint(HttpHeaders header, FingerPrintRequest body) {
 		VolunteerInfo volunteerInfo = new VolunteerInfo();
 		VolunteerResponse volunteerResponse = new VolunteerResponse();
-		FingerPrintRequest fingerPrintRequest = null;
-		/*
-		 * String body =
-		 * "{\r\n    \"Timeout\":10000,\r\n    \"Quality\":1,\r\n    \"licstr\": \"\",\r\n    \"templateFormat\":\"ISO\"\r\n}"
-		 * ;
-		 * 
-		 * HttpResponse<String> response =
-		 * Unirest.post("https://localhost:8443/SGIFPCapture") .header("Host",
-		 * " localhost:8443").header("Origin",
-		 * "http://localhost:8080").body(body).asString();
-		 * 
-		 * System.out.println(response.getBody());
-		 * 
-		 *
-		 */
 		
 		volunteerResponse.setFingerPrintInfo(body);
 		List<Volunteer> volunteers = volunteerRepo.findAll();
@@ -207,7 +201,9 @@ public class VolunteerService {
 	}
 	
 	
-	public VolunteerResponse getVolunteer(String id) {
+	public VolunteerResponse getVolunteer(String id,HttpHeaders header) {
+		List<String> who = header.get("who");
+		
 		VolunteerResponse response = new VolunteerResponse();
 		VolunteerInfo volunteerInfo = new VolunteerInfo();
 		Optional<Volunteer> optional =  volunteerRepo.findById(id);
@@ -227,12 +223,16 @@ public class VolunteerService {
 			volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
 			volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage()) :null);
 			response.setVolunteerInfo(volunteerInfo);
+			auditService.saveAudit("10",vol.getId(), who.get(0));
 		}
+		
 		return response;
 	}
 	
 	
-	public List<Volunteer> getAllVolunteer(){
+	public List<Volunteer> getAllVolunteer(HttpHeaders header){
+		List<String> who = header.get("who");
+		auditService.saveAudit("11","ALL_VOLUNTEERS", who.get(0));
 		return volunteerRepo.getAllVolunteer();
 	}
 

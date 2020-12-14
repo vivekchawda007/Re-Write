@@ -22,12 +22,15 @@ import { FinalBlockVolunteerComponent } from '../final-block-volunteer/final-blo
 export class VolunterComponent implements OnInit {
   currentUser;
   volunteers;
+  volunteersBackup;
   isViewPermission;
   isEditPermission;
   isDeletePermission;
+  filterQuery;
   constructor(private authService: AuthenticationService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
 
   ) {
+
     const itemStr = localStorage.getItem("currentUser")
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const item = JSON.parse(itemStr)
@@ -56,11 +59,21 @@ export class VolunterComponent implements OnInit {
     }
   }
 
+  filterData(data) {
+
+
+    this.volunteers = this.volunteersBackup.filter(function (tag) {
+      data.target.value = data.target.value.toUpperCase();
+      return (tag.firstName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.lastName.toUpperCase().indexOf(data.target.value) >= 0);
+    });
+    
+  }
   ngOnInit() {
     this.volunteerService.getVolunteers()
       .subscribe(result => {
         console.log(result)
         this.volunteers = result as Volunteers;
+        this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
       },
         error => {
           console.log("Error While Fetching Survey, Please refresh page.")

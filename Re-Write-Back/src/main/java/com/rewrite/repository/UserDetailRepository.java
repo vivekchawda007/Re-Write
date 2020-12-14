@@ -17,4 +17,7 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, String> 
 	@Query(value="select * from User_detail where is_deleted = false", nativeQuery = true)
 	List<UserDetail> getAllUser(); 
 	
+	@Query(value="select count(*) from user_detail where  is_deleted = false", nativeQuery = true)
+	Integer getTotalUserCount();
+	
 }

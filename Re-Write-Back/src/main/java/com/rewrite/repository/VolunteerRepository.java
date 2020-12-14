@@ -14,5 +14,12 @@ public interface VolunteerRepository extends JpaRepository<Volunteer, String> {
 	@Query(value="select * from Volunteer where is_deleted = false", nativeQuery = true)
 	List<Volunteer> getAllVolunteer(); 
 	
+	@Query(value="select count(*) from volunteer v where is_blocked = true and  is_deleted = false", nativeQuery = true)
+	Integer getBlockedVolunteerCount();
+	
+	@Query(value="select count(*) from volunteer where  is_deleted = false", nativeQuery = true)
+	Integer getTotalVolunteerCount();
+	
+	
 
 }

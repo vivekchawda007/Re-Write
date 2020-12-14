@@ -40,22 +40,29 @@ public class VolunteerController {
 		return new RewriteResponse("Volunteer updated successfully", "200");
 	}
 	
+	@PutMapping(value = "/api/v1/block-volunteer")
+	public RewriteResponse blockVolunteer(@RequestBody VolunteerRequest volunteer, @RequestHeader HttpHeaders header) {
+		volunteerService.blockVolunteer(volunteer);
+		return new RewriteResponse("Volunteer updated successfully", "200");
+	}
+	
 	@PutMapping(value = "/api/v1/delete-volunteer")
 	public RewriteResponse deleteVolunteer(@RequestBody VolunteerRequest volunteer, @RequestHeader HttpHeaders header) {
-		volunteerService.deleteVolunteer(volunteer);
+		volunteerService.deleteVolunteer(volunteer,header);
+		
 		return new RewriteResponse("Volunteer deleted successfully", "200");
 	}
 	
 	@GetMapping(value = "/api/v1/get-volunteer/{id}")
-	public VolunteerResponse getVolunteer(@PathVariable("id") String volId) {
+	public VolunteerResponse getVolunteer(@PathVariable("id") String volId,@RequestHeader HttpHeaders header) {
 		
-			return volunteerService.getVolunteer(volId);
+			return volunteerService.getVolunteer(volId,header);
 	}
 
 	@GetMapping(value = "/api/v1/get-all-volunteer")
 	public List<Volunteer> getAllVolunteer(@RequestHeader HttpHeaders header) {
 		
-			return volunteerService.getAllVolunteer();
+			return volunteerService.getAllVolunteer(header);
 	}
 	
 	@PostMapping(value = "/api/v1/match-fingerprint")

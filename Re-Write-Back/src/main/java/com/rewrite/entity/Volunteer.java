@@ -83,7 +83,18 @@ public class Volunteer {
 	@Column(name="MODIFIED_DATE")
 	private Date modifiedDate;
 	
+	@Column(name = "IS_BLOCKED")
+	private Boolean isBlocked;
 	
+	
+	public Boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void setBlocked(Boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+
 	public String getStudyNumber() {
 		return studyNumber;
 	}

@@ -1,79 +1,92 @@
 <div class="main-content" id="someId" aria-label="someId" tabindex="-1">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <div style="float: right;">
-                            <div class="row">
-                            <a (click)="openBlockModel()">
-                                <i class="material-icons" style="font-size: 40px;width: 50px;padding-top: 1px;" matTooltip="Add Volunteer">
-                                    block_box
-                                </i>
-                            </a>
-                            <a (click)="openAddModal()">
-                                <i class="material-icons" style="font-size: 40px;margin-right: 50px;" matTooltip="Add Volunteer">
-                                    add_box
-                                </i>
-                            </a>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+
+                    <div class="row">
+                        <div class="col-md-2 mt-1">
+                            <div>
+                                <h4 class="card-title m-2">Volunteers</h4>
+                                <p class="card-category m-2">List of Volunteers</p>
+                            </div>
                         </div>
+                        <div class="col-md-8 text-center mt-3">
+                                <form class="navbar-search">
+                                    <div class="input-group text-center">
+                                        <input (keyup)="filterData($event)" type="text" class="form-control text-center bg-light border-1 small"
+                                            placeholder="Search Volunteer" aria-label="Search">
+                                    </div>
+                                </form>
                         </div>
-                        <h4 class="card-title ">Volunteers</h4>
-                        <p class="card-category">List of Volunteers</p>
+                        <div class="col-md-2 text-right mt-3" >
+
+                            <a (click)="openBlockModel()" class="mr-4">
+                                <i class="fa fa-lock fa-4x" aria-hidden="true"></i>
+                            </a>
+
+                            <a (click)="openAddModal()" >
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                             </a> 
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-container">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>
-                                        No.
-                                    </th>
-                                    <th>
-                                        Volunteer Name
-                                    </th>
-                                    <th>
-                                        Mobile Number
-                                    </th>
-                                    <th style="padding-left: 7%">
-                                        Action
-                                    </th>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let volunteer of volunteers; let i = index" [attr.data-index]="i">
-                                        <td>
-                                            {{i+1}}
-                                        </td>
-                                        <td>
-                                            {{volunteer.firstName +" "+volunteer.lastName}}
-                                        </td>
-                                        <td>
-                                            {{volunteer.mobileNumber}}
-                                        </td>
-                                        <td>
-                                            <a *ngIf = 'isViewPermission' (click)="openViewModal(volunteer.id)" style="margin-left: 17%;">
-                                                <i class="material-icons" matTooltip="View Single Volunteer">
-                                                    visibility
-                                                </i>
-                                            </a>
-                                            <a *ngIf = 'isDeletePermission' (click)="openDeleteModal(volunteer.id)" matTooltip="Delete Volunteer">
-                                                <i class="material-icons">
-                                                    delete
-                                                </i>
-                                            </a>
-                                            <a *ngIf = 'isEditPermission' (click)="openEditModal(volunteer.id)" matTooltip="Edit Volunteer">
-                                                <i class="material-icons">
-                                                    edit
-                                                </i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead class=" text-primary">
+                                <th>
+                                    No.
+                                </th>
+                                <th>
+                                    Volunteer Name
+                                </th>
+                                <th>
+                                    Mobile Number
+                                </th>
+                                <th style="padding-left: 7%">
+                                    Action
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let volunteer of volunteers; let i = index" [attr.data-index]="i">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        {{volunteer.firstName +" "+volunteer.lastName}}
+                                    </td>
+                                    <td>
+                                        {{volunteer.mobileNumber}}
+                                    </td>
+                                    <td>
+                                        <a *ngIf='isViewPermission' (click)="openViewModal(volunteer.id)"
+                                            style="margin-left: 17%;">
+                                            <i class="material-icons" matTooltip="View Single Volunteer">
+                                                visibility
+                                            </i>
+                                        </a>
+                                        <a *ngIf='isDeletePermission' (click)="openDeleteModal(volunteer.id)"
+                                            matTooltip="Delete Volunteer">
+                                            <i class="material-icons">
+                                                delete
+                                            </i>
+                                        </a>
+                                        <a *ngIf='isEditPermission' (click)="openEditModal(volunteer.id)"
+                                            matTooltip="Edit Volunteer">
+                                            <i class="material-icons">
+                                                edit
+                                            </i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

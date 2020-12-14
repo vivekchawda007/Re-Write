@@ -14,8 +14,6 @@ import com.rewrite.repository.AuditRepository;
 import com.rewrite.repository.UserDetailRepository;
 import com.rewrite.request.UserRequest;
 
-import util.AuditUtil;
-
 @Service
 public class UserDetailService {
 
@@ -26,7 +24,7 @@ public class UserDetailService {
 	ActivityRepository activityRepository;
 	
 	@Autowired
-	AuditService auditUtil;
+	AuditService auditService;
 	@Autowired
 	AuditRepository auditRepository;
 	public void addUser(UserRequest user) {
@@ -43,8 +41,9 @@ public class UserDetailService {
 		userDetail.setActive(Boolean.TRUE);
 		userDetail.setDelete(Boolean.FALSE);
 		userDetail.setRoleId(user.getRole());
+		userDetail.setNew(Boolean.TRUE);
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditUtil.saveAudit("4", savedUser.getUserName(), savedUser.getCreatedBy());
+		auditService.saveAudit("4", savedUser.getUserName(), savedUser.getCreatedBy());
 	}
 	
 	public void updateUser(UserRequest user) {
@@ -58,7 +57,17 @@ public class UserDetailService {
 		userDetail.setModifiedDate(new Date());
 		userDetail.setRoleId(user.getRole());
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditUtil.saveAudit("5", savedUser.getId(), savedUser.getCreatedBy());
+		auditService.saveAudit("5", savedUser.getId(), savedUser.getCreatedBy());
+	}
+	
+
+	public void updatePassword(UserRequest user) {
+		boolean isNewMatch = false;
+		UserDetail userDetail = userRepo.getOne(user.getId());
+		userDetail.setPassword(user.getPassword());
+		userDetail.setNew(isNewMatch);
+		UserDetail savedUser = userRepo.save(userDetail);
+		auditService.saveAudit("5", savedUser.getId(), savedUser.getCreatedBy());
 	}
 	public void passwordReset(UserRequest user) {
 		
@@ -69,7 +78,7 @@ public class UserDetailService {
 		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditUtil.saveAudit("5", savedUser.getId(), savedUser.getModifiedBy());
+		auditService.saveAudit("5", savedUser.getId(), savedUser.getModifiedBy());
 	}
 	
 	public void deleteUser(UserRequest user) {
@@ -77,7 +86,7 @@ public class UserDetailService {
 		UserDetail userDetail = userRepo.getOne(user.getId());
 		userDetail.setDelete(Boolean.TRUE);
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditUtil.saveAudit("6", savedUser.getId(), savedUser.getModifiedBy());
+		auditService.saveAudit("6", savedUser.getId(), savedUser.getModifiedBy());
 	}
 
 
@@ -87,7 +96,7 @@ public class UserDetailService {
 		
 		if(!userdet.isEmpty()) {
 			
-			auditUtil.saveAudit("2","", userdet.get(0).getId());
+			auditService.saveAudit("2","", userdet.get(0).getId());
 			userdet.get(0).setPassword("***");
 			return userdet.get(0);
 		}else {
