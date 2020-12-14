@@ -1,10 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment'
+import { ShareDataUser } from "../models/shareDataUser";
 import { User } from "../models/user";
 import { AuthService } from "../services/auth.service";
 import { UserService } from "../services/user.service";
+import { AddUserComponent } from "../user/add-user/add-user.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 declare var jquery: any;
 declare var $: any;
 @Component({
@@ -17,6 +21,7 @@ export class LoginComponent implements OnInit {
   currentUser;
   jol: Boolean = false;
   loginForm: FormGroup;
+  users;
   resetPasswordForm: FormGroup;
   resetPasswordModal: Boolean;
   passwordChanged: String;
@@ -25,7 +30,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -77,12 +83,31 @@ export class LoginComponent implements OnInit {
           this.toastrService.error("User name and/or password is wrong.")
         } else {
           const now = new Date()
-          const item = {  
+          const item = {
             'currentUser': result,
-            expiry: now.getTime() + 60000,
+            expiry: now.getTime() + 600000,
           }
-          localStorage.setItem("currentUser",  JSON.stringify(item));
-          this.authService.login();
+          localStorage.setItem("currentUser", JSON.stringify(item));
+          if (map.get("new") == true) {
+            const dialogConfig = new MatDialogConfig();
+            dialogConfig.disableClose = true;
+            dialogConfig.width = "20%"
+            dialogConfig.hasBackdrop = true;
+            dialogConfig.closeOnNavigation = true;
+            dialogConfig.autoFocus = true;
+            const shareData: ShareDataUser = new ShareDataUser();
+            shareData.id = map.get("id");
+            shareData.password =  this.f.password.value;
+            dialogConfig.data = shareData;
+            this.dialog.open(ForgotPasswordComponent, dialogConfig).afterClosed().subscribe(result => {
+              if (result != null) {
+                localStorage.removeItem("currentUser");
+                this.authService.logout();
+              }
+            });
+          } else {
+            this.authService.login();
+          }
         }
       },
       error => {
@@ -90,5 +115,18 @@ export class LoginComponent implements OnInit {
         this.toastrService.error("Looks like internal server error at backend or backend is down.")
       }
     );
+  }
+  openForgotPasswordModel() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "20%"
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.closeOnNavigation = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(ForgotPasswordComponent, dialogConfig).afterClosed().subscribe(result => {
+      if (result != null) {
+
+      }
+    });
   }
 }

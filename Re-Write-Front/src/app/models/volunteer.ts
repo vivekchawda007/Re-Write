@@ -3,6 +3,7 @@ export class Volunteer {
     firstName: string;
     lastName : string;
     createdBy : string;
+    modifiedBy : string;
     mobileNumber : string;
     fingerPrint : string;
     endDate : Date;

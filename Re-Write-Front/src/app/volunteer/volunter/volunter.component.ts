@@ -10,7 +10,9 @@ import { AddVolunteerComponent } from '../add-volunteer/add-volunteer.component'
 import { DeleteVolunteerComponent } from '../delete-volunteer/delete-volunteer.component';
 import { EditVolunteerComponent } from '../edit-volunteer/edit-volunteer.component';
 import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.component';
-import {AuthenticationService} from '../../services/authentication.service'
+import { AuthenticationService } from '../../services/authentication.service'
+import { BlockVolunteerComponent } from '../block-volunteer/block-volunteer.component';
+import { FinalBlockVolunteerComponent } from '../final-block-volunteer/final-block-volunteer.component';
 
 @Component({
   selector: 'app-volunter',
@@ -23,7 +25,7 @@ export class VolunterComponent implements OnInit {
   isViewPermission;
   isEditPermission;
   isDeletePermission;
-  constructor(private authService : AuthenticationService,private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
+  constructor(private authService: AuthenticationService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
 
   ) {
     const itemStr = localStorage.getItem("currentUser")
@@ -80,6 +82,57 @@ export class VolunterComponent implements OnInit {
     this.dialog.open(AddVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result != null) {
         this.openEditModal(result);
+      } else {
+        this.volunteers = [];
+        this.volunteerService.getVolunteers()
+          .subscribe(result => {
+            console.log(result)
+            this.volunteers = result as Volunteers;
+          },
+            error => {
+              console.log("Error While Fetching Survey, Please refresh page.")
+              this.toastr.error("Error while fetching volunteer. Please refresh page.")
+            });
+      }
+    });
+
+  }
+  openFinalBlockModel(volunteerId) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "60%"
+    const shareData: ShareDataVolunteer = new ShareDataVolunteer();
+    shareData.volunteers = this.volunteers;
+    shareData.volunteerId = volunteerId;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = shareData;
+    this.dialog.open(FinalBlockVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
+      if (result != null) {
+        this.volunteers = [];
+        this.volunteerService.getVolunteers()
+          .subscribe(result => {
+            console.log(result)
+            this.volunteers = result as Volunteers;
+          },
+            error => {
+              console.log("Error While Fetching Survey, Please refresh page.")
+              this.toastr.error("Error while fetching volunteer. Please refresh page.")
+            });
+      }
+    });
+  }
+
+  openBlockModel(volunteerId) {
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "60%"
+    dialogConfig.height = "100%";
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.closeOnNavigation = true;
+    this.dialog.open(BlockVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
+      if (result != null) {
+        this.openFinalBlockModel(result);
       } else {
         this.volunteers = [];
         this.volunteerService.getVolunteers()

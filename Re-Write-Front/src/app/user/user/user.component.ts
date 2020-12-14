@@ -17,7 +17,7 @@ import { AuthenticationService } from '../../services/authentication.service'
 export class UserComponent implements OnInit {
   users;
   currentUser;
-  constructor(private authService : AuthenticationService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
+  constructor( private authService : AuthenticationService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
 
   ) { 
     const itemStr = localStorage.getItem("currentUser")

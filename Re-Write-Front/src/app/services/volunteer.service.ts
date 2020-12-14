@@ -16,6 +16,10 @@ export class VolunteerService {
     return this.http.put(baseUrl+"/update-volunteer", volunteer);
   }
 
+  blockVolunteer(volunteer: Volunteer) {
+    return this.http.put(baseUrl+"/block-volunteer", volunteer);
+  }
+
   deleteVolunteer(volunteer: Volunteer) {
     return this.http.put(baseUrl+"/delete-volunteer", volunteer);
   }

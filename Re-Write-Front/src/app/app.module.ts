@@ -48,6 +48,9 @@ import { TextFilterComponent } from './audit/filters/text-filter/text-filter.com
 
 import { CellService, ColumnFilterService, DynamicTableModule } from 'material-dynamic-table';
 import { OptionsCellComponent } from './audit/cells/options-cell/options-cell.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { BlockVolunteerComponent } from './volunteer/block-volunteer/block-volunteer.component';
+import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/final-block-volunteer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +75,9 @@ import { OptionsCellComponent } from './audit/cells/options-cell/options-cell.co
     AuditComponent,
     DateFilterComponent,
     TextFilterComponent,
+    ForgotPasswordComponent,
+    BlockVolunteerComponent,
+    FinalBlockVolunteerComponent,
   
   ],
   imports: [

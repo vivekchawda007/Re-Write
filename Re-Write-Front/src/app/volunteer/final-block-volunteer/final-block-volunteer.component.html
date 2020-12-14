@@ -1,0 +1,82 @@
+<div class="card" id="secondaryForm" tabindex="-1" *ngIf="secondaryDiv">
+
+    <div class="card-header card-header-danger">
+        <h4 class="card-title ">MyGood Volunteer</h4>
+        <p class="card-category">Fill Volunteer Information and click Update</p>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-6">
+                <form [formGroup]="editVolunteerForm">
+                    <mat-dialog-content>
+                        <br />
+                        <mat-form-field>
+                            <input matInput placeholder="Block Days" formControlName="block">
+                            <mat-error *ngIf="hasError('block', 'required')">Block Days Number is required</mat-error>
+                        </mat-form-field>
+
+                        <hr>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Gender" value={{this.volunteer.volunteerInfo.gender}} disabled>
+                        </mat-form-field>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Study Number"
+                                value={{this.volunteer.volunteerInfo.studyNumber}} disabled>
+                        </mat-form-field>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Volunteer First Name"
+                                value={{this.volunteer.volunteerInfo.firstName}} disabled>
+                        </mat-form-field>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Volunteer Last Name"
+                                value={{this.volunteer.volunteerInfo.lastName}} disabled>
+                        </mat-form-field>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Volunteer Mobile Number"
+                                value={{this.volunteer.volunteerInfo.mobileNumber}} disabled>
+                        </mat-form-field>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Birth Date" value={{this.volunteer.volunteerInfo.birthDate}}
+                                disabled>
+                        </mat-form-field>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Document Type"
+                                value={{this.volunteer.volunteerInfo.documentType}} disabled>
+                        </mat-form-field>
+                        <mat-form-field danger>
+                            <input matInput placeholder="Document Number"
+                                value={{this.volunteer.volunteerInfo.documentNumber}} disabled>
+                        </mat-form-field>
+
+
+                        <mat-form-field danger>
+                            <input matInput placeholder="Volunteer Address"
+                                value={{this.volunteer.volunteerInfo.address}} disabled>
+                        </mat-form-field>
+
+
+
+
+                    </mat-dialog-content>
+                    <mat-dialog-actions>
+                        <button ID="modelId" mat-raised-button color="primary" [disabled]="!editVolunteerForm.valid"
+                            (click)="save()">Update Volunteer</button>
+                        <button mat-raised-button color="warn" (click)="close()">Close</button>
+                    </mat-dialog-actions>
+                </form>
+            </div>
+            <div class="col-lg-6">
+
+                <img src="{{'data:image/jpg;base64,' + fingerDataImage}}"
+                    style="height: 150px; width: 100px ;margin-left: 125px;" class="img-thumbnail" alt="Cinque Terre">
+                <br />
+                <br />
+                <img src="{{imageData}}" style="height: 175px; width: 175px ;margin-left: 90px;" class="img-thumbnail"
+                    alt="Cinque Terre">
+                <br />
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>

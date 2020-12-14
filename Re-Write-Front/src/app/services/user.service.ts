@@ -32,4 +32,8 @@ export class UserService {
   updateUser(user: User) {
     return this.http.put(baseUrl+"/update-user", user);
   }
+
+  updatePassword(user: User) {
+    return this.http.put(baseUrl+"/update-password", user);
+  }
 }

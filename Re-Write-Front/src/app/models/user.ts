@@ -7,8 +7,9 @@ export class User {
     roleId: string;
     role: string;
     createdBy: string;
-    updatedBy : string;
+    modifiedBy : string;
     id : string;
+    new: boolean
 
 
 }

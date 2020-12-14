@@ -15,7 +15,7 @@ export class FingerprintService {
   } 
 
   matchFingerPrint(body) {
-    return this.http.post(baseUrl+"match-fingerprint",body);
+    return this.http.post(baseUrl+"/match-fingerprint",body);
   } 
 
 }

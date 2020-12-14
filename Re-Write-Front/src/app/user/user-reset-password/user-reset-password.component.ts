@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../../models/user'
 import { ShareDataUser } from '../../models/shareDataUser';
 import { UserService } from '../../services/user.service';
 
@@ -10,8 +11,8 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./user-reset-password.component.css']
 })
 export class UserResetPasswordComponent implements OnInit {
-
-  user;
+  currentUser;
+  user : User;
   data: ShareDataUser;
   constructor(
     private dialogRef: MatDialogRef<UserResetPasswordComponent>,
@@ -25,7 +26,7 @@ export class UserResetPasswordComponent implements OnInit {
   ngOnInit() {
     this.userService.getUser(this.data.id)
     .subscribe(result => {
-      this.user = result;
+      this.user = result as User;
       /*  var element = <HTMLInputElement>document.getElementById("modelFirstName");
       element.value = this.volunteer.volunteerInfo.firstName; 
        */
@@ -38,6 +39,8 @@ export class UserResetPasswordComponent implements OnInit {
   }
 
   passwordReset() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.user.modifiedBy = this.currentUser.currentUser.id;
     this.userService.resetPassword(this.user)
       .subscribe(result => {
         this.toastrService.success("Password Reset Successfull")

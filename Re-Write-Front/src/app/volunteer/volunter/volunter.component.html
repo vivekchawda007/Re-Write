@@ -5,11 +5,18 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <div style="float: right;">
+                            <div class="row">
+                            <a (click)="openBlockModel()">
+                                <i class="material-icons" style="font-size: 40px;width: 50px;padding-top: 1px;" matTooltip="Add Volunteer">
+                                    block_box
+                                </i>
+                            </a>
                             <a (click)="openAddModal()">
-                                <i class="material-icons" style="font-size: 40px" matTooltip="Add Volunteer">
+                                <i class="material-icons" style="font-size: 40px;margin-right: 50px;" matTooltip="Add Volunteer">
                                     add_box
                                 </i>
                             </a>
+                        </div>
                         </div>
                         <h4 class="card-title ">Volunteers</h4>
                         <p class="card-category">List of Volunteers</p>
