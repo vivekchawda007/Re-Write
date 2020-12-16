@@ -8,6 +8,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
+		
 	</parent>
 	<groupId>com</groupId>
 	<artifactId>rewrite</artifactId>
@@ -15,20 +16,17 @@
 	<packaging>war</packaging>
 	<name>rewrite</name>
 	<description>Re-Write app</description>
+	
 
 	<properties>
 		<app.deploy.projectId>re-write-297910</app.deploy.projectId>
 		<app.deploy.version>primary</app.deploy.version>
 		<java.version>1.8</java.version>
+		<start-class>com.rewrite</start-class>
 	</properties>
 
 	<dependencies>
 
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-gcp-starter</artifactId>
-			<version>1.0.0.RELEASE</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -44,7 +42,6 @@
 			<groupId>com.konghq</groupId>
 			<artifactId>unirest-java</artifactId>
 			<version>2.3.14</version>
-			<scope>provided</scope>
 		</dependency>
 
 
@@ -91,15 +88,13 @@
 	</dependencies>
 
 	<build>
+	<finalName>rewrite</finalName>  
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>appengine-maven-plugin</artifactId>
-			</plugin>
+			
 		</plugins>
 	</build>
 

@@ -47,30 +47,29 @@ export class AuditComponent implements OnInit {
       type: 'string'
     },
   ];
-  dataSource = new FilteredDataSource<Audit>();
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-/*  data : Audit[] = [
-  {
+
+  data: Audit[] = [
+    {
       "id": "1",
       "userId": "4c1e15c4-e35a-4989-acdc-b4c16701597f",
       "userName": "Jahnavi.Thacker",
       "activity": "SEARCH_EVENT",
       "auditTime": new Date(),
-      "role": "Registrar"
-  },
-  {
-    "id": "1",
-    "userId": "4c1e15c4-e35a-4989-acdc-b4c16701597f",
-    "userName": "Vivek.Thacker",
-    "activity": "MyEvent",
-    "auditTime": new Date(),
-    "role": "Registrar"
-}
-] */
-//dataSource = new FilteredDataSource<Product>(this.data);
-  constructor(private authService : AuthenticationService ,private auditService: AuditService) {
+      "role": "Registrar",
+      "metadata": "Hi"
+    },
+    {
+      "id": "1",
+      "userId": "4c1e15c4-e35a-4989-acdc-b4c16701597f",
+      "userName": "Vivek.Thacker",
+      "activity": "MyEvent",
+      "auditTime": new Date(),
+      "role": "Registrar",
+      "metadata": "hi"
+    }
+  ];
+  dataSource = new FilteredDataSource<Audit>(this.data);
+  constructor(private authService: AuthenticationService, private auditService: AuditService) {
     const itemStr = localStorage.getItem("currentUser")
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const item = JSON.parse(itemStr)
@@ -81,22 +80,22 @@ export class AuditComponent implements OnInit {
       localStorage.removeItem("currentUser");
       this.authService.logout();
       location.reload();
-    } 
+    }
     this.auditService.getAudits()
-    .subscribe(result => {
-      //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
-      this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
-    },
-      error => {
+      .subscribe(result => {
+        //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
+        this.dataSource.data = result as Audit[];
+      },
+        error => {
 
-      });
+        });
 
   }
 
   ngOnInit(): void {
-   
+
   }
-  clearFilters() {    
+  clearFilters() {
     this.dynamicTable.clearFilters();
   }
   exportTable() {

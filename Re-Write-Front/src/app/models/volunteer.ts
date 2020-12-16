@@ -7,6 +7,7 @@ export class Volunteer {
     mobileNumber : string;
     fingerPrint : string;
     endDate : Date;
+    isBlocked : boolean;
     fingerPrintImage : string;
     volunteerImage : string; 
     address : string;  

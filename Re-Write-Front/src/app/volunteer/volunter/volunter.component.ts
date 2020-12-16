@@ -13,6 +13,7 @@ import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.compone
 import { AuthenticationService } from '../../services/authentication.service'
 import { BlockVolunteerComponent } from '../block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from '../final-block-volunteer/final-block-volunteer.component';
+import { Block } from '../../models/block'
 
 @Component({
   selector: 'app-volunter',
@@ -73,6 +74,13 @@ export class VolunterComponent implements OnInit {
       .subscribe(result => {
         console.log(result)
         this.volunteers = result as Volunteers;
+        for(var i = 0 ; i<= this.volunteers.length ; i++) {
+          if(this.volunteers[i].blocked == true) {
+            this.volunteers[i].blocked = "Yes";
+          } else {
+            this.volunteers[i].blocked = "No";
+          }
+        }
         this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
       },
         error => {
@@ -101,6 +109,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -126,6 +143,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -135,14 +161,20 @@ export class VolunterComponent implements OnInit {
     });
   }
 
-  openBlockModel(volunteerId) {
-
+  openBlockModel(volunteerId,event) {
+    const shareData: Block = new Block();
+      shareData.event =event;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
     dialogConfig.height = "100%";
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
+   
+  
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = shareData;
+
     this.dialog.open(BlockVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result != null) {
         this.openFinalBlockModel(result);
@@ -152,6 +184,16 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -179,6 +221,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result;
+            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Volunteers, Please refresh page.")
@@ -204,6 +255,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -250,6 +310,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")

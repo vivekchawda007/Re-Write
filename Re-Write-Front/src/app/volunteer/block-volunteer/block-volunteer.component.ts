@@ -13,6 +13,7 @@ import { VolunteerService } from '../../services/volunteer.service'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from '../../models/user'
+import { Block } from '../../models/block'
 @Component({
   selector: 'app-block-volunteer',
   templateUrl: './block-volunteer.component.html',
@@ -20,6 +21,7 @@ import { User } from '../../models/user'
 })
 export class BlockVolunteerComponent implements OnInit {
   currentUser;
+  data : Block;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<BlockVolunteerComponent>,
@@ -30,10 +32,8 @@ export class BlockVolunteerComponent implements OnInit {
     private toastrService: ToastrService,
     private volunteerService: VolunteerService,
     @Inject(MAT_DIALOG_DATA) data) {
+      this.data = data;
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      if(this.currentUser.currentUser.roleId == "1") {
-
-      } 
   }
   documents = [
     {
@@ -62,7 +62,7 @@ export class BlockVolunteerComponent implements OnInit {
   primaryDiv = true;
   secondaryDiv = false;
   submitted = true;
-  data: ShareData;
+
   fingerDataImage;
   pictureClicked = false;
   liveVideo = true;
