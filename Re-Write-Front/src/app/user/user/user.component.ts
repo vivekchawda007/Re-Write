@@ -17,6 +17,7 @@ import { AuthService } from '../../services/auth.service'
 export class UserComponent implements OnInit {
   users;
   currentUser;
+  usersBackup;
   constructor( private authService : AuthService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
 
   ) { 
@@ -37,6 +38,8 @@ export class UserComponent implements OnInit {
     this.userService.getAllUser()
       .subscribe(result => {
         this.users = result;
+        this.usersBackup = [];
+        this.usersBackup = this.users.map(x => Object.assign({}, x))
       },
         error => {
           console.log("Error While Fetching Users, Please refresh page.")
@@ -44,6 +47,14 @@ export class UserComponent implements OnInit {
         });
   }
 
+  filterData(data) {
+
+
+    this.users = this.usersBackup.filter(function (tag) {
+      data.target.value = data.target.value.toUpperCase();
+      return (tag.firstName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.lastName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.userName.toUpperCase().indexOf(data.target.value) >= 0);
+    });
+  }
   passwordReset(userId) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -61,6 +72,8 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            this.usersBackup = [];
+            this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Users, Please refresh page.")
@@ -69,7 +82,7 @@ export class UserComponent implements OnInit {
       }
     });
   }
-  openAddModal(volunteerId) {
+  openAddModal() {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -84,6 +97,8 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            this.usersBackup = [];
+            this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Users, Please refresh page.")
@@ -109,6 +124,8 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            this.usersBackup = [];
+            this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Users, Please refresh page.")

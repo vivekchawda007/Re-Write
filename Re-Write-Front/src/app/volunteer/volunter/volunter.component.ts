@@ -92,7 +92,7 @@ export class VolunterComponent implements OnInit {
   //Get all surveys
 
 
-  openAddModal(volunteerId) {
+  openAddModal() {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -161,7 +161,7 @@ export class VolunterComponent implements OnInit {
     });
   }
 
-  openBlockModel(volunteerId,event) {
+  openBlockModel() {
     const shareData: Block = new Block();
    
     const dialogConfig = new MatDialogConfig();
@@ -272,30 +272,6 @@ export class VolunterComponent implements OnInit {
       }
     });
   }
-
-  /* 
- 
-  openDeleteModal(surveyId) {
-    var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-    element.disabled = true;
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const shareData: ShareData = new ShareData();
-    shareData.surveys = this.surveys;
-    shareData.surveyid = surveyId;
-    dialogConfig.data = shareData;
-    this.dialog.open(DeleteSurveyComponent, dialogConfig).afterClosed().subscribe(result => {
-      if (result != null) {
-        for (var survey of this.surveys) {
-          if (survey.surveyid == result) {
-            this.surveys.splice(this.surveys.indexOf(survey), 1);
-          }
-        }
-      }
-    });
-  }
-*/
   openViewModal(volunteerId) {
     const shareData: ShareDataVolunteer = new ShareDataVolunteer();
     shareData.volunteers = this.volunteers;
