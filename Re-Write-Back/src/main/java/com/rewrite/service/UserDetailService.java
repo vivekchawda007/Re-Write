@@ -57,7 +57,7 @@ public class UserDetailService {
 		userDetail.setModifiedDate(new Date());
 		userDetail.setRoleId(user.getRole());
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("5", savedUser.getId(), savedUser.getCreatedBy());
+		auditService.saveAudit("5", savedUser.getId(), savedUser.getModifiedBy());
 	}
 	
 
@@ -78,7 +78,7 @@ public class UserDetailService {
 		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("5", savedUser.getId(), savedUser.getModifiedBy());
+		auditService.saveAudit("13", savedUser.getId(), savedUser.getModifiedBy());
 	}
 	
 	public void deleteUser(UserRequest user) {

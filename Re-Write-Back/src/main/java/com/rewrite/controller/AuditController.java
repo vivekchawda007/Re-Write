@@ -34,7 +34,7 @@ public class AuditController {
 	public ResponseEntity<InputStreamResource> generatePdf(@RequestBody String body) {
 		auditService.generatePdf(body);
 		
-		File file = new File("addingObjects.pdf");
+		File file = new File("tempPdf.pdf");
 
 		InputStreamResource resource = null;
 		try {

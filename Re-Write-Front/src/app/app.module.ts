@@ -49,6 +49,7 @@ import { CellService, ColumnFilterService, DynamicTableModule } from 'material-d
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { BlockVolunteerComponent } from './volunteer/block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/final-block-volunteer.component';
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,6 +95,7 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     MatInputModule,
     MatSelectModule,
     BrowserAnimationsModule,
+    MatSortModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,

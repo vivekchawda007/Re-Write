@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
     this.isLoggedIn$ = this.authService.isLoggedIn;
   }
 
+  pageTop() {
+    alert("Ho")
+  }
   onLogout() {
     
     document.getElementById("myForceCancel").click();

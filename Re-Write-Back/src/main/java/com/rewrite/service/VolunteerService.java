@@ -86,6 +86,7 @@ public class VolunteerService {
 		auditService.saveAudit("8",volunteerSaved.getId(), volunteerSaved.getCreatedBy());
 	}
 	
+	
 	public void updateVolunteer(VolunteerRequest volunteerReq) {
 		Optional<Volunteer> volunteerOptional = volunteerRepo.findById(volunteerReq.getId());
 		Volunteer volunteer = volunteerOptional.get();
@@ -124,7 +125,7 @@ public class VolunteerService {
 	}
 
 	public List<Volunteer> get(String fingerPrint) {
-		List<Volunteer> vollst = volunteerRepo.findAll();
+		List<Volunteer> vollst = volunteerRepo.getAllVolunteer();
 		return vollst;
 	}
 

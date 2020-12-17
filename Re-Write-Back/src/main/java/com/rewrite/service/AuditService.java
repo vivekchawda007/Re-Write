@@ -46,7 +46,7 @@ public class AuditService {
 	@SuppressWarnings("null")
 	public List<AuditResponse> getAllAudits() {
 		List<AuditResponse> lst = new ArrayList<>();
-		List<Audit> audits = auditRepository.findAll();
+		List<Audit> audits = auditRepository.getAllAudits();
 		for (Audit a : audits) {
 			Optional<UserDetail> ud = Optional.empty();
 			Optional<Object> act = Optional.empty();

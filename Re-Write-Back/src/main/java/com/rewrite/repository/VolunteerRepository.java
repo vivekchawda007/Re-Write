@@ -11,7 +11,7 @@ import com.rewrite.entity.Volunteer;
 @Repository
 public interface VolunteerRepository extends JpaRepository<Volunteer, String> {
 	
-	@Query(value="select * from Volunteer where is_deleted = false", nativeQuery = true)
+	@Query(value="select * from Volunteer where is_deleted = false order by modified_date desc", nativeQuery = true)
 	List<Volunteer> getAllVolunteer(); 
 	
 	@Query(value="select count(*) from volunteer v where is_blocked = true and  is_deleted = false", nativeQuery = true)
