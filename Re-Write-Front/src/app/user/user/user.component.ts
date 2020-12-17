@@ -7,7 +7,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 import { ShareDataUser } from '../../models/shareDataUser';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { UserResetPasswordComponent } from '../user-reset-password/user-reset-password.component';
-import { AuthenticationService } from '../../services/authentication.service'
+import { AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-user',
@@ -17,7 +17,7 @@ import { AuthenticationService } from '../../services/authentication.service'
 export class UserComponent implements OnInit {
   users;
   currentUser;
-  constructor( private authService : AuthenticationService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
+  constructor( private authService : AuthService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
 
   ) { 
     const itemStr = localStorage.getItem("currentUser")

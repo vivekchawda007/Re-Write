@@ -7,7 +7,8 @@ import { FilteredDataSource } from '../data-source/filtered-data-source';
 import * as XLSX from "xlsx";
 import { TableUtil } from '../../utils/table-util'
 import { MatSort } from '@angular/material/sort';
-import { AuthenticationService } from '../../services/authentication.service'
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service'
 @Component({
   selector: 'app-audit',
   templateUrl: './audit.component.html',
@@ -17,6 +18,7 @@ export class AuditComponent implements OnInit {
   @ViewChild(DynamicTableComponent) dynamicTable: DynamicTableComponent;
   @ViewChild(MatSort) sort: MatSort;
   currentUser;
+  audits : Audit[];
   columns: ColumnConfig[] = [
     {
       name: 'activity',
@@ -69,7 +71,7 @@ export class AuditComponent implements OnInit {
     }
   ];
   dataSource = new FilteredDataSource<Audit>(this.data);
-  constructor(private authService: AuthenticationService, private auditService: AuditService) {
+  constructor(private authService: AuthService, private auditService: AuditService) {
     const itemStr = localStorage.getItem("currentUser")
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const item = JSON.parse(itemStr)
@@ -92,14 +94,35 @@ export class AuditComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
   }
   clearFilters() {
     this.dynamicTable.clearFilters();
   }
   exportTable() {
-    TableUtil.exportTableToExcel("auditTable");
+    
+    this.audits =this.dataSource.filteredData ;
+    this.auditService.getPdf(this.audits)
+      .subscribe(result => {
+        //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
+       console.log(result);
+       var file = new Blob([result], { type: 'application/pdf' })
+          var fileURL = URL.createObjectURL(file);
+
+          window.open(fileURL); 
+          /* var a         = document.createElement('a');
+          a.href        = fileURL; 
+          a.target      = '_blank';
+          a.download    = 'bill.pdf';
+          document.body.appendChild(a);
+          a.click(); */
+      },
+        error => {
+
+        });
+
+    
   }
 }
 

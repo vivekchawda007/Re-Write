@@ -14,4 +14,9 @@ export class AuditService {
   getAudits() {
     return this.http.get(baseUrl+"/get-all-audit");
   }
+
+  getPdf(audits) {
+    
+    return this.http.post(baseUrl+"/generate-pdf",audits,{ responseType: 'blob'});
+  }
 }

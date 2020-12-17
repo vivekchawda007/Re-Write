@@ -10,7 +10,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule,ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertService } from './services/alert.service';
-import { AuthenticationService} from './services/authentication.service';
 import { UserService } from './services/user.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AuthGuard } from './guards/auth.guard';
@@ -114,7 +113,6 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     AuthGuard,
         AlertService,
         AuthService,
-        AuthenticationService,
         MatDatepickerModule,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },

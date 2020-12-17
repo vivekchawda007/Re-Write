@@ -10,10 +10,10 @@ import { AddVolunteerComponent } from '../add-volunteer/add-volunteer.component'
 import { DeleteVolunteerComponent } from '../delete-volunteer/delete-volunteer.component';
 import { EditVolunteerComponent } from '../edit-volunteer/edit-volunteer.component';
 import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.component';
-import { AuthenticationService } from '../../services/authentication.service'
 import { BlockVolunteerComponent } from '../block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from '../final-block-volunteer/final-block-volunteer.component';
 import { Block } from '../../models/block'
+import { AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-volunter',
@@ -28,7 +28,7 @@ export class VolunterComponent implements OnInit {
   isEditPermission;
   isDeletePermission;
   filterQuery;
-  constructor(private authService: AuthenticationService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
 
   ) {
 
@@ -74,7 +74,7 @@ export class VolunterComponent implements OnInit {
       .subscribe(result => {
         console.log(result)
         this.volunteers = result as Volunteers;
-        for(var i = 0 ; i<= this.volunteers.length ; i++) {
+        for(var i = 0 ; i< this.volunteers.length ; i++) {
           if(this.volunteers[i].blocked == true) {
             this.volunteers[i].blocked = "Yes";
           } else {
@@ -109,7 +109,7 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
-            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
               if(this.volunteers[i].blocked == true) {
                 this.volunteers[i].blocked = "Yes";
               } else {
@@ -143,7 +143,7 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
-            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
               if(this.volunteers[i].blocked == true) {
                 this.volunteers[i].blocked = "Yes";
               } else {
@@ -163,7 +163,7 @@ export class VolunterComponent implements OnInit {
 
   openBlockModel(volunteerId,event) {
     const shareData: Block = new Block();
-      shareData.event =event;
+   
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
@@ -184,7 +184,7 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
-            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
               if(this.volunteers[i].blocked == true) {
                 this.volunteers[i].blocked = "Yes";
               } else {
@@ -221,7 +221,7 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result;
-            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
               if(this.volunteers[i].blocked == true) {
                 this.volunteers[i].blocked = "Yes";
               } else {
@@ -255,7 +255,7 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
-            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
               if(this.volunteers[i].blocked == true) {
                 this.volunteers[i].blocked = "Yes";
               } else {
@@ -310,7 +310,7 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
-            for(var i = 0 ; i<= this.volunteers.length ; i++) {
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
               if(this.volunteers[i].blocked == true) {
                 this.volunteers[i].blocked = "Yes";
               } else {
