@@ -46,7 +46,6 @@ import { DateFilterComponent } from './audit/filters/date-filter/date-filter.com
 import { TextFilterComponent } from './audit/filters/text-filter/text-filter.component';
 
 import { CellService, ColumnFilterService, DynamicTableModule } from 'material-dynamic-table';
-import { OptionsCellComponent } from './audit/cells/options-cell/options-cell.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { BlockVolunteerComponent } from './volunteer/block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/final-block-volunteer.component';
@@ -66,7 +65,6 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     AddUserComponent,
     ViewVolunteerComponent,
     EditVolunteerComponent,
-    OptionsCellComponent,
     EditUserComponent,
     ViewUserComponent,
     UserResetPasswordComponent,
@@ -105,7 +103,6 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
       preventDuplicates: true,
     })],
     entryComponents: [
-      OptionsCellComponent,  
       TextFilterComponent,
       DateFilterComponent
     ],
@@ -120,8 +117,7 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(private readonly cellService: CellService, private readonly columnFilterService: ColumnFilterService) {
-    cellService.registerCell('options', OptionsCellComponent);
+  constructor(private readonly columnFilterService: ColumnFilterService) {
 
     columnFilterService.registerFilter('string', TextFilterComponent);
     columnFilterService.registerFilter('date', DateFilterComponent);
