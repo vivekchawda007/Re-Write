@@ -55,6 +55,7 @@ export class AddVolunteerComponent implements OnInit {
     ]
   spinner;
   spinnerImage;
+  
   volunteerAdd : Volunteer;
   Volunteer;
   checked = false;

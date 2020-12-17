@@ -100,7 +100,7 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     MatProgressSpinnerModule,
     MatNativeDateModule,
     ToastrModule.forRoot({
-      timeOut: 2000,
+      timeOut: 4000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })],
