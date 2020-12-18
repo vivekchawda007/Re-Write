@@ -4,15 +4,21 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="USER_DETAIL", uniqueConstraints={@UniqueConstraint(columnNames={"USER_NAME"})})
 public class UserDetail {
 	
 	@Id
+	@GenericGenerator(name = "seq_usr_id", strategy = "com.rewrite.entity.primary.UserIdGenerate")
+	@GeneratedValue(generator = "seq_usr_id")  
 	@Column(name="id")
 	private String id;
 	
@@ -53,6 +59,7 @@ public class UserDetail {
 	private String modifiedBy;
 
 	
+
 	public String getCreatedBy() {
 		return createdBy;
 	}
@@ -69,8 +76,6 @@ public class UserDetail {
 		this.modifiedBy = modifiedBy;
 	}
 
-	
-
 	public boolean isNew() {
 		return isNew;
 	}
@@ -79,6 +84,7 @@ public class UserDetail {
 		this.isNew = isNew;
 	}
 
+	
 	public String getId() {
 		return id;
 	}

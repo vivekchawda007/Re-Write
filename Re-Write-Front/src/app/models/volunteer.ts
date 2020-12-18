@@ -14,7 +14,7 @@ export class Volunteer {
     manufacturer : string;
     model : string;
     serialNumber : string;
-    id:string;
+    id:number;
     birthDate : Date;
     gender : string;
     documentType : string;

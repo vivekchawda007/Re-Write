@@ -39,7 +39,7 @@ public class VolunteerService {
 	public void addVolunteer(VolunteerRequest volunteerReq) {
 		Volunteer volunteer = new Volunteer();
 		VolunteerDetail detail = new VolunteerDetail();
-		volunteer.setId(UUID.randomUUID().toString());
+		/* volunteer.setId(UUID.randomUUID().toString()); */
 		volunteer.setFirstName(volunteerReq.getFirstName());
 		volunteer.setLastName(volunteerReq.getLastName());
 		volunteer.setMobileNumber(volunteerReq.getMobileNumber());
@@ -59,12 +59,13 @@ public class VolunteerService {
 		volunteer.setGender(volunteerReq.getGender());
 		volunteer.setDocumentNumber(volunteerReq.getDocumentNumber());
 		volunteer.setDocumentType(volunteerReq.getDocumentType());
-		detail.setId(UUID.randomUUID().toString());
-		detail.setVolunteerId(volunteer.getId());
+		//detail.setId(UUID.randomUUID().toString());
+		Volunteer volunteerSaved =volunteerRepo.save(volunteer);
+		detail.setVolunteerId(volunteerSaved.getId());
 		detail.setFingerPrintImage(volunteerReq.getFingerPrintImage().getBytes());
 		detail.setVolunteerImage(volunteerReq.getVolunteerImage().getBytes());
 		
-		Volunteer volunteerSaved =volunteerRepo.save(volunteer);
+		
 		VolunteerDetail volunteerDetailSaved = volunteerDetailRepo.save(detail);
 		
 		VolunteerInfo volunteerInfo = new VolunteerInfo();
@@ -103,7 +104,7 @@ public class VolunteerService {
 		volunteer.setDocumentType(volunteerReq.getDocumentType());
 		volunteer.setGender(volunteerReq.getGender());
 		Volunteer volunteerSaved = volunteerRepo.save(volunteer);
-		auditService.saveAudit("9",volunteerSaved.getId(), volunteerSaved.getCreatedBy());
+		auditService.saveAudit("9",volunteerSaved.getId().toString(), volunteerSaved.getCreatedBy());
 	}
 	
 	public void blockVolunteer(VolunteerRequest volunteerReq) {
@@ -224,7 +225,7 @@ public class VolunteerService {
 			volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
 			volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage()) :null);
 			response.setVolunteerInfo(volunteerInfo);
-			auditService.saveAudit("10",vol.getId(), who.get(0));
+			auditService.saveAudit("10",vol.getId(),who.get(0));
 		}
 		
 		return response;

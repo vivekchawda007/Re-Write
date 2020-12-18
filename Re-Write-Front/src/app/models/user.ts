@@ -8,7 +8,7 @@ export class User {
     role: string;
     createdBy: string;
     modifiedBy : string;
-    id : string;
+    id : number;
     new: boolean
 
 

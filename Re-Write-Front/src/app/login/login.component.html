@@ -11,7 +11,7 @@
             loupe
           </span>
         </div>
-        <div class="sidebar-brand-text mx-3" style="font-size: 200%">Re-Write</div>
+        <div class="sidebar-brand-text mx-3" style="font-size: 200%">vAuth</div>
       </a>
 
       <!-- Login Form -->
@@ -20,13 +20,15 @@
           placeholder="User Name" />
         <input type="password" id="password" autocomplete="on" formControlName="password" class="fadeIn third"
           name="login" placeholder="Password" />
+          <br/>
         <input id="loginSubmit1" type="submit" class="fadeIn fourth" value="Log In" />
+        <mat-progress-bar *ngIf='spinner' mode='indeterminate'></mat-progress-bar>
       </form>
 
       <!-- Remind Passowrd -->
-      <div id="formFooter">
+     <!--  <div id="formFooter">
         <a class="underlineHover" (click) = "openForgotPasswordModel()" >Forgot Password ?</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

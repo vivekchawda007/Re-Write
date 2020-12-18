@@ -2,8 +2,12 @@ package com.rewrite.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
@@ -11,9 +15,10 @@ import javax.persistence.Table;
 public class VolunteerDetail {
 	
 	@Id
+	@GenericGenerator(name = "seq_vol_det_id", strategy = "com.rewrite.entity.primary.VolunteerDetailIdGenerate")
+	@GeneratedValue(generator = "seq_vol_det_id")  
 	@Column(name="id")
 	private String id;
-	
 	@Column(name="VOLUNTEER_ID")
 	private String volunteerId;
 
@@ -24,6 +29,7 @@ public class VolunteerDetail {
 	@Column(name="VOLUNTEER_IMAGE")
 	private byte[] volunteerImage;
 
+
 	public String getId() {
 		return id;
 	}
@@ -32,7 +38,6 @@ public class VolunteerDetail {
 		this.id = id;
 	}
 
-	
 	public String getVolunteerId() {
 		return volunteerId;
 	}
@@ -40,7 +45,7 @@ public class VolunteerDetail {
 	public void setVolunteerId(String volunteerId) {
 		this.volunteerId = volunteerId;
 	}
-	
+
 	public byte[] getFingerPrintImage() {
 		return fingerPrintImage;
 	}

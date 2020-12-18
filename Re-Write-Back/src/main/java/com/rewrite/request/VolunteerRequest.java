@@ -54,12 +54,7 @@ public class VolunteerRequest {
 	public void setStudyNumber(String studyNumber) {
 		this.studyNumber = studyNumber;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -108,12 +103,8 @@ public class VolunteerRequest {
 	public void setModel(String model) {
 		this.model = model;
 	}
-	public String getCreatedBy() {
-		return createdBy;
-	}
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
+
+	
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -132,11 +123,24 @@ public class VolunteerRequest {
 	public void setVolunteerImage(String volunteerImage) {
 		this.volunteerImage = volunteerImage;
 	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
+	
 	
 }

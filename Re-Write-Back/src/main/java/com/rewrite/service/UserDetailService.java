@@ -30,7 +30,7 @@ public class UserDetailService {
 	public void addUser(UserRequest user) {
 		
 		UserDetail userDetail = new UserDetail();
-		userDetail.setId(UUID.randomUUID().toString());
+		//userDetail.setId(UUID.randomUUID().toString());
 		userDetail.setUserName(user.getUserName());
 		userDetail.setFirstName(user.getFirstName());
 		userDetail.setLastName(user.getLastName());
@@ -57,7 +57,7 @@ public class UserDetailService {
 		userDetail.setModifiedDate(new Date());
 		userDetail.setRoleId(user.getRole());
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("5", savedUser.getId(), savedUser.getModifiedBy());
+		auditService.saveAudit("5", savedUser.getId().toString(), savedUser.getModifiedBy());
 	}
 	
 
@@ -67,7 +67,7 @@ public class UserDetailService {
 		userDetail.setPassword(user.getPassword());
 		userDetail.setNew(isNewMatch);
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("5", savedUser.getId(), savedUser.getCreatedBy());
+		auditService.saveAudit("5", savedUser.getId().toString(), savedUser.getCreatedBy());
 	}
 	public void passwordReset(UserRequest user) {
 		
@@ -78,7 +78,7 @@ public class UserDetailService {
 		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("13", savedUser.getId(), savedUser.getModifiedBy());
+		auditService.saveAudit("13", savedUser.getId().toString(), savedUser.getModifiedBy());
 	}
 	
 	public void deleteUser(UserRequest user) {
@@ -86,7 +86,7 @@ public class UserDetailService {
 		UserDetail userDetail = userRepo.getOne(user.getId());
 		userDetail.setDelete(Boolean.TRUE);
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("6", savedUser.getId(), savedUser.getModifiedBy());
+		auditService.saveAudit("6", savedUser.getId().toString(), savedUser.getModifiedBy());
 	}
 
 

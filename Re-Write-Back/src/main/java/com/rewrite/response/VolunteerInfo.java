@@ -51,6 +51,14 @@ public class VolunteerInfo {
 		return isNew;
 	}
 
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	public String getDocumentNumber() {
 		return documentNumber;
 	}
@@ -190,16 +198,7 @@ public class VolunteerInfo {
 		this.model = model;
 	}
 
-	@JsonProperty("createdBy")
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	@JsonProperty("createdBy")
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
+	
 	@JsonProperty("endDate")
 	public Date getEndDate() {
 		return endDate;

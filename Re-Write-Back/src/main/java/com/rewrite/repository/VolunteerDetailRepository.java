@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.rewrite.entity.VolunteerDetail;
 
 @Repository
-public interface VolunteerDetailRepository extends JpaRepository<VolunteerDetail, String> {
+public interface VolunteerDetailRepository extends JpaRepository<VolunteerDetail, Long> {
 	
 	public VolunteerDetail findByVolunteerId(@Param("volunteerId") String volunteerId);
 	

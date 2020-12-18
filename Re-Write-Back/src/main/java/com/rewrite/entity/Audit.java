@@ -47,6 +47,7 @@ public class Audit {
 	public void setActivityId(String activityId) {
 		this.activityId = activityId;
 	}
+	
 	public String getUserId() {
 		return userId;
 	}

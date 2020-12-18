@@ -97,7 +97,7 @@ export class VolunterComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
-    dialogConfig.height = "100%";
+    dialogConfig.height = "95%";
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
     this.dialog.open(AddVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
@@ -131,6 +131,7 @@ export class VolunterComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
+    dialogConfig.height = "95%";
     const shareData: ShareDataVolunteer = new ShareDataVolunteer();
     shareData.volunteers = this.volunteers;
     shareData.volunteerId = volunteerId;
@@ -167,7 +168,7 @@ export class VolunterComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
-    dialogConfig.height = "100%";
+    dialogConfig.height = "95%";
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
    
@@ -243,6 +244,7 @@ export class VolunterComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
+    dialogConfig.height = "95%";
     const shareData: ShareDataVolunteer = new ShareDataVolunteer();
     shareData.volunteers = this.volunteers;
     shareData.volunteerId = volunteerId;
@@ -277,6 +279,8 @@ export class VolunterComponent implements OnInit {
     shareData.volunteers = this.volunteers;
     shareData.volunteerId = volunteerId;
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "30%"
+    dialogConfig.height = "95%";
     dialogConfig.autoFocus = false;
     dialogConfig.data = shareData;
     this.dialog.open(ViewVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
