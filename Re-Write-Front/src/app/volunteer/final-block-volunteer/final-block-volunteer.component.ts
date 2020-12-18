@@ -19,6 +19,7 @@ import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 })
 export class FinalBlockVolunteerComponent implements OnInit {
   isDisabled: boolean = false;
+  blockedTill ;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<FinalBlockVolunteerComponent>,
@@ -90,6 +91,7 @@ export class FinalBlockVolunteerComponent implements OnInit {
         /*  var element = <HTMLInputElement>document.getElementById("modelFirstName");
         element.value = this.volunteer.volunteerInfo.firstName; 
          */
+        this.blockedTill = this.renderDateAndTime(this.volunteer.volunteerInfo.endDate);
         this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
         this.imageData = this.volunteer.volunteerInfo.volunteerImage;
         this.liveVideo = true;
@@ -132,7 +134,8 @@ export class FinalBlockVolunteerComponent implements OnInit {
     var finalDate = new Date();
     var todaysDate = new Date();
     var numberOfDaysToAdd = this.f.block.value;
-    finalDate.setDate(finalDate.getDate() + numberOfDaysToAdd);
+    
+    finalDate.setDate(finalDate.getDate() +  parseInt(numberOfDaysToAdd));
     const volunteer: Volunteer = new Volunteer();
     volunteer.endDate = finalDate;
     volunteer.id = this.volunteer.volunteerInfo.volunteerId;

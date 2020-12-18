@@ -279,7 +279,7 @@ export class VolunterComponent implements OnInit {
     shareData.volunteers = this.volunteers;
     shareData.volunteerId = volunteerId;
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = "30%"
+    dialogConfig.width = "60%"
     dialogConfig.height = "95%";
     dialogConfig.autoFocus = false;
     dialogConfig.data = shareData;

@@ -20,6 +20,7 @@ import { User } from '../../models/user'
 })
 export class AddVolunteerComponent implements OnInit {
   currentUser;
+  cameraManager;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<AddVolunteerComponent>,
@@ -152,7 +153,10 @@ export class AddVolunteerComponent implements OnInit {
   }
   save() {
     this.submitted = false;
-
+    if(this.imageData == 'undefined' || this.imageData == null) {
+      this.toastrService.error("Please capture volunteer image. and try again.")
+      return;
+    }
     const volunteer: Volunteer = new Volunteer();
     volunteer.firstName = this.f.firstName.value;
     volunteer.lastName = this.f.lastName.value;
@@ -191,6 +195,7 @@ export class AddVolunteerComponent implements OnInit {
   }
 
   startCamera() {
+    this.cameraManager = false;
     this.spinner = true;
     this.liveVideo = true;
     this.pictureClicked = false;

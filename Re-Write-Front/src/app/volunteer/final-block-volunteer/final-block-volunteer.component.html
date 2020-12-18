@@ -14,6 +14,9 @@
                             <input matInput placeholder="Block Days" formControlName="block">
                             <mat-error *ngIf="hasError('block', 'required')">Block Days Number is required</mat-error>
                         </mat-form-field>
+                        <div>
+                        Volunteer is blocked till : {{blockedTill}}
+                        </div>
 
                         <hr>
                         <mat-form-field danger>

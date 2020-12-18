@@ -49,7 +49,7 @@ public class VolunteerService {
 		volunteer.setSerialNumber(volunteerReq.getSerialNumber());
 		volunteer.setFingerPrint(volunteerReq.getFingerPrint());
 		volunteer.setCreatedBy(volunteerReq.getCreatedBy());
-		volunteer.setEndDate(volunteerReq.getEndDate());
+		
 		volunteer.setCreatedDate(new Date());
 		volunteer.setModifiedDate(new Date());
 		volunteer.setActive(Boolean.TRUE);
@@ -71,7 +71,7 @@ public class VolunteerService {
 		VolunteerInfo volunteerInfo = new VolunteerInfo();
 		volunteerInfo.setAddress(volunteer.getAddress());
 		volunteerInfo.setCreatedBy(volunteer.getCreatedBy());
-		volunteerInfo.setEndDate(volunteer.getEndDate());
+		
 		volunteerInfo.setFingerPrint(volunteer.getFingerPrint());
 		volunteerInfo.setFirstName(volunteer.getFirstName());
 		volunteerInfo.setLastName(volunteer.getLastName());
@@ -97,14 +97,14 @@ public class VolunteerService {
 		volunteer.setAddress(volunteerReq.getAddress());
 		volunteer.setModifiedDate(new Date());
 		volunteer.setModifiedBy(volunteerReq.getModifiedBy());
-		volunteer.setEndDate(volunteerReq.getEndDate());
+		
 		volunteer.setBirthDate(volunteerReq.getBirthDate());
 		volunteer.setStudyNumber(volunteerReq.getStudyNumber());
 		volunteer.setDocumentNumber(volunteerReq.getDocumentNumber());
 		volunteer.setDocumentType(volunteerReq.getDocumentType());
 		volunteer.setGender(volunteerReq.getGender());
 		Volunteer volunteerSaved = volunteerRepo.save(volunteer);
-		auditService.saveAudit("9",volunteerSaved.getId().toString(), volunteerSaved.getCreatedBy());
+		auditService.saveAudit("9",volunteerSaved.getId().toString(), volunteerSaved.getModifiedBy());
 	}
 	
 	public void blockVolunteer(VolunteerRequest volunteerReq) {
@@ -114,7 +114,8 @@ public class VolunteerService {
 		volunteer.setBlocked(Boolean.TRUE);
 		volunteer.setModifiedBy(volunteerReq.getModifiedBy());
 		volunteer.setModifiedDate(new Date());
-		volunteerRepo.save(volunteer);
+		Volunteer volunteerSaved = volunteerRepo.save(volunteer);
+		auditService.saveAudit("14",volunteerSaved.getId(), volunteerSaved.getModifiedBy());
 	}
 	
 	public void deleteVolunteer(VolunteerRequest volunteerReq, HttpHeaders header) {
@@ -144,7 +145,7 @@ public class VolunteerService {
 				
 				volunteerInfo.setAddress(volunteer.getAddress());
 				volunteerInfo.setCreatedBy(volunteer.getCreatedBy());
-				volunteerInfo.setEndDate(volunteer.getEndDate());
+				
 				volunteerInfo.setFingerPrint(volunteer.getFingerPrint());
 				volunteerInfo.setFirstName(volunteer.getFirstName());
 				volunteerInfo.setLastName(volunteer.getLastName());
@@ -224,6 +225,7 @@ public class VolunteerService {
 			volunteerInfo.setGender(vol.getGender());
 			volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
 			volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage()) :null);
+			volunteerInfo.setEndDate(vol.getEndDate());
 			response.setVolunteerInfo(volunteerInfo);
 			auditService.saveAudit("10",vol.getId(),who.get(0));
 		}
