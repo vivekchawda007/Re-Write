@@ -51,6 +51,7 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { BlockVolunteerComponent } from './volunteer/block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/final-block-volunteer.component';
 import { MatSortModule } from '@angular/material/sort';
+import { DeleteUserComponent } from './user/delete-user/delete-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +78,7 @@ import { MatSortModule } from '@angular/material/sort';
     ForgotPasswordComponent,
     BlockVolunteerComponent,
     FinalBlockVolunteerComponent,
+    DeleteUserComponent,
   
   ],
   imports: [

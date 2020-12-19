@@ -32,6 +32,10 @@ export class AppComponent {
   
   }
 
+  navigateToAudit() {
+    this.router.navigateByUrl("audit");
+  }
+
   navigateToProfile(){
     this.router.navigateByUrl("profile");
   }

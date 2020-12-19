@@ -20,7 +20,7 @@ export class AuditComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   currentUser;
   audits: Audit[];
-
+  spinner;
   columns: ColumnConfig[] = [
     {
       name: 'activity',
@@ -71,12 +71,14 @@ export class AuditComponent implements OnInit {
   ];
   dataSource = new FilteredDataSource<Audit>(this.data);
   constructor(private toastr: ToastrService, private authService: AuthService, private auditService: AuditService) {
+    this.spinner = true;
     this.auditService.getAudits()
       .subscribe(result => {
         this.dataSource.data = result as Audit[];
-       
+      this.spinner = false;
       },
         error => {
+          this.spinner = false;
           this.toastr.error("Error while fetching Audits. Please refresh page.")
         });
 

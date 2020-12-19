@@ -1,0 +1,17 @@
+.mat-raised-button {
+    min-width: 43%;
+    margin: 3%
+}
+
+.mat-dialog-actions{
+    margin-bottom: 0px
+}
+
+.mat-dialog-container{
+    padding: 15px 10px 0px 10px
+  }
+
+  ngx-growl {
+    position:absolute;
+    top:50px;
+  }

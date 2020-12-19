@@ -27,6 +27,9 @@ export class VolunterComponent implements OnInit {
   isViewPermission;
   isEditPermission;
   isDeletePermission;
+  isAddPermission;
+  isBlockPermission;
+  isBlockPermissionSpecial;
   filterQuery;
   constructor(private authService: AuthService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
 
@@ -44,19 +47,31 @@ export class VolunterComponent implements OnInit {
       location.reload();
     }
     if (this.currentUser.currentUser.roleId == '1') {
+      //Admin
       this.isDeletePermission = true;
       this.isEditPermission = true;
       this.isViewPermission = true;
+      this.isBlockPermission = true;
+      this.isAddPermission = true;
+      this.isBlockPermissionSpecial = true;
     }
     if (this.currentUser.currentUser.roleId == '2') {
+      //Registrar
       this.isDeletePermission = false;
       this.isEditPermission = true;
       this.isViewPermission = true;
+      this.isBlockPermission = true;
+      this.isAddPermission = true;
+      this.isBlockPermissionSpecial = false;
     }
     if (this.currentUser.currentUser.roleId == '3') {
+      //Reveiver
       this.isDeletePermission = false;
       this.isEditPermission = false;
       this.isViewPermission = true;
+      this.isBlockPermission = false;
+      this.isAddPermission = false;
+      this.isBlockPermissionSpecial = false;
     }
   }
 

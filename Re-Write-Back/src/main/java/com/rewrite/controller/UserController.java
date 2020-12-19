@@ -46,6 +46,7 @@ public class UserController {
 		userService.updateUser(user);
 		return new RewriteResponse("User updated successfully", "200");
 	}
+
 	
 	@PutMapping(value = "/api/v1/update-password")
 	public RewriteResponse updatePassword(@RequestBody UserRequest user) {

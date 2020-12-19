@@ -12,7 +12,8 @@ import com.rewrite.entity.UserDetail;
 @Repository
 public interface UserDetailRepository extends JpaRepository<UserDetail, String> {
 	
-	public List<UserDetail> findByUserNameAndPassword(@Param("userName") String userName, @Param("password") String password);
+	@Query(value="select * from User_detail where is_deleted = false AND user_name =:userName AND password =:password", nativeQuery = true)
+	public List<UserDetail> findByUserNameAndPassword1(@Param("userName") String userName, @Param("password") String password);
 	
 	@Query(value="select * from User_detail where is_deleted = false order by modified_date desc", nativeQuery = true)
 	List<UserDetail> getAllUser(); 

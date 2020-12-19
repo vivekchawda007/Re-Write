@@ -16,6 +16,7 @@
     <h4 class="card-title ">Audit</h4>
     <p class="card-category">Search for Audit records and click on Download button to download</p>
   </div>
+  <mat-progress-bar *ngIf='spinner' mode='indeterminate'></mat-progress-bar>
   <div class="card-body">
     <div class="mat-elevation-z2">
       <mdt-dynamic-table id="auditTable" [columns]="columns" [dataSource]="dataSource" [pageSize]="5">

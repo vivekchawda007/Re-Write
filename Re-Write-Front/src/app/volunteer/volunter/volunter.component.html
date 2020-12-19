@@ -22,11 +22,11 @@
                         </div>
                         <div class="col-md-2 text-right mt-3" >
 
-                            <a (click)="openBlockModel()" class="mr-4"   matTooltip="Blcok volunteer with fingerprint" >
+                            <a *ngIf='isBlockPermission' (click)="openBlockModel()" class="mr-4"   matTooltip="Blcok volunteer with fingerprint" >
                                 <i class="fa fa-lock fa-4x" aria-hidden="true"></i>
                             </a>
 
-                            <a (click)="openAddModal()"  matTooltip="Add volunteer with fingerprint">
+                            <a *ngIf='isAddPermission' (click)="openAddModal()"  matTooltip="Add volunteer with fingerprint">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                              </a> 
                         </div>
@@ -87,7 +87,7 @@
                                                 edit
                                             </i>
                                         </a>
-                                        <a *ngIf='isEditPermission' (click)="openFinalBlockModel(volunteer.id)"
+                                        <a *ngIf='isBlockPermissionSpecial' (click)="openFinalBlockModel(volunteer.id)"
                                             matTooltip="Block Volunteer">
                                             <i class="material-icons">
                                                 block

@@ -84,6 +84,7 @@ public class UserDetailService {
 	public void deleteUser(UserRequest user) {
 		
 		UserDetail userDetail = userRepo.getOne(user.getId());
+		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setDelete(Boolean.TRUE);
 		UserDetail savedUser = userRepo.save(userDetail);
 		auditService.saveAudit("6", savedUser.getId().toString(), savedUser.getModifiedBy());
@@ -92,7 +93,7 @@ public class UserDetailService {
 
 	public UserDetail validateUser(UserRequest user) {
 		
-		List<UserDetail> userdet = userRepo.findByUserNameAndPassword(user.getUserName(), user.getPassword());
+		List<UserDetail> userdet = userRepo.findByUserNameAndPassword1(user.getUserName(), user.getPassword());
 		
 		if(!userdet.isEmpty()) {
 			

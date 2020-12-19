@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">View Volunteer</h4>
-                        <p class="card-category">Volunteer name - {{this.volunteer.volunteerInfo.firstName +" "+ this.volunteer.volunteerInfo.lastName}}
+                        <p class="card-category">Volunteer name - {{this.volunteer?.volunteerInfo.firstName +" "+ this.volunteer?.volunteerInfo.lastName}}
                         </p>
                     </div>
                     <div class="card-body">
@@ -13,49 +13,49 @@
                             <mat-dialog-content>
                                 <mat-form-field danger>
                                     <input matInput placeholder="Gender"
-                                        value={{this.volunteer.volunteerInfo.gender}} disabled>
+                                        value={{this.volunteer?.volunteerInfo.gender}} disabled>
                                 </mat-form-field>
                                 <mat-form-field danger>
                                     <input matInput placeholder="Study Number"
-                                        value={{this.volunteer.volunteerInfo.studyNumber}} disabled>
+                                        value={{this.volunteer?.volunteerInfo.studyNumber}} disabled>
                                 </mat-form-field>
                                 <mat-form-field danger>
                                     <input matInput placeholder="Volunteer First Name"
-                                        value={{this.volunteer.volunteerInfo.firstName}} disabled>
+                                        value={{this.volunteer?.volunteerInfo.firstName}} disabled>
                                 </mat-form-field>
                                 <mat-form-field danger>
-                                    <input matInput placeholder="Volunteer Last Name" value={{this.volunteer.volunteerInfo.lastName}}
+                                    <input matInput placeholder="Volunteer Last Name" value={{this.volunteer?.volunteerInfo.lastName}}
                                         disabled>
                                 </mat-form-field>
                                 <mat-form-field danger>
                                     <input matInput placeholder="Volunteer Mobile Number"
-                                        value={{this.volunteer.volunteerInfo.mobileNumber}} disabled>
+                                        value={{this.volunteer?.volunteerInfo.mobileNumber}} disabled>
                                 </mat-form-field>
                                 <mat-form-field danger>
                                     <input matInput placeholder="Birth Date"
-                                        value={{this.volunteer.volunteerInfo.birthDate}} disabled>
+                                        value={{this.volunteer?.volunteerInfo.birthDate}} disabled>
                                 </mat-form-field>
                                 <mat-form-field danger>
                                     <input matInput placeholder="Document Type"
-                                        value={{this.volunteer.volunteerInfo.documentType}} disabled>
+                                        value={{this.volunteer?.volunteerInfo.documentType}} disabled>
                                 </mat-form-field>
                                 <mat-form-field danger>
                                     <input matInput placeholder="Document Number"
-                                        value={{this.volunteer.volunteerInfo.documentNumber}} disabled>
+                                        value={{this.volunteer?.volunteerInfo.documentNumber}} disabled>
                                 </mat-form-field>
                                
                                 
                                 <mat-form-field danger>
-                                    <input matInput placeholder="Volunteer Address" value={{this.volunteer.volunteerInfo.address}}
+                                    <input matInput placeholder="Volunteer Address" value={{this.volunteer?.volunteerInfo.address}}
                                         disabled>
                                 </mat-form-field>
 
-                                <img src="{{this.volunteer.volunteerInfo.volunteerImage}}"
+                                <img src="{{this.volunteer?.volunteerInfo.volunteerImage}}"
                                     style="height: 100px; width: 100px ;" class="img-thumbnail"
                                     alt="Volunteer Fingerprint">
 
 
-                                <img src="{{'data:image/jpg;base64,' +this.volunteer.volunteerInfo.fingerPrintImage}}"
+                                <img src="{{'data:image/jpg;base64,' +this.volunteer?.volunteerInfo.fingerPrintImage}}"
                                     style="height: 100px; width: 100px ;" class="img-thumbnail"
                                     alt="Volunteer image">
 
