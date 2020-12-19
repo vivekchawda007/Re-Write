@@ -7,12 +7,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rewrite.response.AuditResponse;
@@ -26,13 +28,13 @@ public class AuditController {
 	AuditService auditService;
 
 	@GetMapping(value = "/api/v1/get-all-audit")
-	public List<AuditResponse> getAllAuditRecord() {
-		return auditService.getAllAudits();
+	public List<AuditResponse> getAllAuditRecord(@RequestHeader HttpHeaders headers) {
+		return auditService.getAllAudits(headers);
 	}
 
 	@PostMapping(value = "/api/v1/generate-pdf")
-	public ResponseEntity<InputStreamResource> generatePdf(@RequestBody String body) {
-		auditService.generatePdf(body);
+	public ResponseEntity<InputStreamResource> generatePdf(@RequestBody String body,@RequestHeader HttpHeaders header) {
+		auditService.generatePdf(body,header);
 		
 		File file = new File("tempPdf.pdf");
 

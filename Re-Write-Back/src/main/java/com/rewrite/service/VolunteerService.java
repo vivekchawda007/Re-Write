@@ -236,7 +236,7 @@ public class VolunteerService {
 	
 	public List<Volunteer> getAllVolunteer(HttpHeaders header){
 		List<String> who = header.get("who");
-		auditService.saveAudit("11","ALL_VOLUNTEERS", who.get(0));
+		auditService.saveAudit("11","", who.get(0));
 		return volunteerRepo.getAllVolunteer();
 	}
 

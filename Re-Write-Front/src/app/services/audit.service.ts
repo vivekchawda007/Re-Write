@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment'
 
@@ -8,15 +8,36 @@ const baseUrl = `${environment.apiUrl}/rewrite/api/v1`;
   providedIn: 'root'
 })
 export class AuditService {
-
+  currentUser;
+  who;
   constructor(private http : HttpClient) { }
 
   getAudits() {
-    return this.http.get(baseUrl+"/get-all-audit");
+
+    
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.who = this.currentUser.currentUser.id;
+    const headerDict = {
+      'who':this.who
+    }
+    
+    const requestOptions = {                                                                                                                                                                                 
+      headers: new HttpHeaders(headerDict), 
+    };
+    return this.http.get(baseUrl+"/get-all-audit",requestOptions);
   }
 
   getPdf(audits) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.who = this.currentUser.currentUser.id;
+    const headerDict = {
+      'who':this.who
+    }
     
-    return this.http.post(baseUrl+"/generate-pdf",audits,{ responseType: 'blob'});
+    const requestOptions = {         
+      responseType:'blob' as 'json',                                                                                                                                                                        
+      headers: new HttpHeaders(headerDict), 
+    };
+    return this.http.post<Blob>(baseUrl+"/generate-pdf",audits,requestOptions);
   }
 }

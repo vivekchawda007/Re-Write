@@ -90,8 +90,19 @@ export class AuditComponent implements OnInit {
   clearFilters() {
     this.dynamicTable.clearFilters();
   }
+  renderDateAndTime(data) {
+    if (!data) {
+      return "";
+    }
+    var date = new Date(data);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    return (date.getMonth() + 1) + "/" + date.getDate() + "/"
+      + date.getFullYear();
+  }
   exportTable() {
-
+this.spinner = true;
     this.audits = this.dataSource.filteredData;
     this.auditService.getPdf(this.audits)
       .subscribe(result => {
@@ -99,16 +110,20 @@ export class AuditComponent implements OnInit {
         console.log(result);
         var file = new Blob([result], { type: 'application/pdf' })
         var fileURL = URL.createObjectURL(file);
+        var current = new Date();
 
         // window.open(fileURL); 
         var a = document.createElement('a');
         a.href = fileURL;
         a.target = '_blank';
-        a.download = 'bill.pdf';
+        
+        a.download = this.renderDateAndTime(new Date())+'_Report.pdf';
         document.body.appendChild(a);
         a.click();
+        this.spinner = false;
       },
         error => {
+          this.spinner = false;
           this.toastr.error("Error while downloading file. Please try again later.");
         });
 

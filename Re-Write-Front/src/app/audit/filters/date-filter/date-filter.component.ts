@@ -24,6 +24,16 @@ export class DateFilterComponent implements OnInit {
 
     apply() {
         if (this.model.fromDate || this.model.toDate) {
+         
+
+            // Set hours
+            this.model.toDate.setHours(23);
+
+            // Then set minutes
+            this.model.toDate.setMinutes(59);
+
+            // Then set seconds
+            this.model.toDate.setSeconds(59);
             this.dialogRef.close(this.model);
         } else {
             this.dialogRef.close('');
