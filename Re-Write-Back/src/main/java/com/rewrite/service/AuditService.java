@@ -3,6 +3,9 @@ package com.rewrite.service;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -11,17 +14,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.apache.http.client.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -41,7 +39,6 @@ import com.rewrite.repository.RoleRepository;
 import com.rewrite.repository.UserDetailRepository;
 import com.rewrite.request.AuditReq;
 import com.rewrite.response.AuditResponse;
-import java.nio.file.*;
 
 @Service
 public class AuditService {
@@ -145,7 +142,7 @@ public class AuditService {
 			generateCell(audits[i].getRole(), false,table);
 			Date date1 = null;
 			try {
-				date1 = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss").parse(audits[i].getAuditTime());
+				date1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(audits[i].getAuditTime());
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
