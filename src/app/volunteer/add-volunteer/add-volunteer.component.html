@@ -77,7 +77,7 @@
                     height="175px" style="margin-left: 90px;"></video>
                 <br />
                 <br />
-                <button  mat-raised-button color="primary" id="openCameraId" (click)="startCamera()"
+                <button  mat-raised-button color="primary" [disabled]="cameraManager" id="openCameraId" (click)="startCamera()"
                     style="margin-left: 30px;">Start Camera
                     <i class="material-icons" (click)="startCamera()">camera</i></button>
                 &nbsp;
@@ -109,7 +109,7 @@
         </mat-dialog-actions>
     </div>
 </div>
-<mat-progress-bar *ngIf='spinner' mode='indeterminate'></mat-progress-bar>
+
 
 <!-- Copyright 2020 Google LLC. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that

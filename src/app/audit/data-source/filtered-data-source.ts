@@ -8,7 +8,7 @@ export class FilteredDataSource<T> extends MatTableDataSource<T> {
         this._filters = filters;
         this.filter = ' '; // Workaround to trigger filtering
     }
-
+    isDate;
     /**
      * Filter predicate that will use _filters to filter.
      * This is a workaround as filterPredicate interface only allows filter to be a string.
@@ -29,15 +29,23 @@ export class FilteredDataSource<T> extends MatTableDataSource<T> {
                 if (!show) {
                     return show;
                 }
-                return this.matchesFilter(filter[columnName], data[columnName]);
+                this.isDate = true;
+                if(columnName == 'auditTime')  {
+                    this.isDate = true;
+                }else {
+                    this.isDate  =false;
+                }
+                return this.matchesFilter(filter[columnName], data[columnName],this.isDate);
             }, true);
         }, true);
 
         return result;
     }
 
-    private matchesFilter(filterForColumn: any, dataForColumn: any): boolean {        
-
+    private matchesFilter(filterForColumn: any, dataForColumn: any,isDate): boolean {        
+        if(this.isDate){
+        dataForColumn = new Date(dataForColumn);
+        }
         if (filterForColumn.contains && dataForColumn.indexOf(filterForColumn.contains) !== -1) {
             return true;
         }

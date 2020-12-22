@@ -18,6 +18,7 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
   firstName: string;
+  spinner;
   currentUser;
   jol: Boolean = false;
   loginForm: FormGroup;
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    localStorage.removeItem('currentUser');
     this.loginForm = this.formBuilder.group({
       userName: ["", Validators.required],
       password: ["", Validators.required]
@@ -71,15 +73,17 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner = true;
     const user: User = new User();
     user.userName = this.f.userName.value;
     user.password = this.f.password.value;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userService.loginUser(user).subscribe(
       result => {
-
+        
         const map = new Map(Object.entries(result));
         if (map.get("userName") == "NO_USER_FOUND") {
+          this.spinner = false;
           this.toastrService.error("User name and/or password is wrong.")
         } else {
           const now = new Date()
@@ -89,6 +93,7 @@ export class LoginComponent implements OnInit {
           }
           localStorage.setItem("currentUser", JSON.stringify(item));
           if (map.get("new") == true) {
+            this.spinner = false;
             const dialogConfig = new MatDialogConfig();
             dialogConfig.disableClose = true;
             dialogConfig.width = "20%"
@@ -106,11 +111,13 @@ export class LoginComponent implements OnInit {
               }
             });
           } else {
+            this.spinner = false;
             this.authService.login();
           }
         }
       },
       error => {
+        this.spinner = false;
         console.log(error);
         this.toastrService.error("Looks like internal server error at backend or backend is down.")
       }
@@ -119,7 +126,8 @@ export class LoginComponent implements OnInit {
   openForgotPasswordModel() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    dialogConfig.width = "20%"
+    dialogConfig.width = "40%"
+    dialogConfig.height = "90%"
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.autoFocus = true;

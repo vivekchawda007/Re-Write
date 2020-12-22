@@ -6,8 +6,10 @@ import { Product } from '../../models/product'
 import { FilteredDataSource } from '../data-source/filtered-data-source';
 import * as XLSX from "xlsx";
 import { TableUtil } from '../../utils/table-util'
-import { MatSort } from '@angular/material/sort';
-import { AuthenticationService } from '../../services/authentication.service'
+import { MatSort, MatSortable } from '@angular/material/sort';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service'
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-audit',
   templateUrl: './audit.component.html',
@@ -17,6 +19,8 @@ export class AuditComponent implements OnInit {
   @ViewChild(DynamicTableComponent) dynamicTable: DynamicTableComponent;
   @ViewChild(MatSort) sort: MatSort;
   currentUser;
+  audits: Audit[];
+  spinner;
   columns: ColumnConfig[] = [
     {
       name: 'activity',
@@ -36,10 +40,7 @@ export class AuditComponent implements OnInit {
     {
       name: 'auditTime',
       displayName: 'Audit Date/Time',
-      type: 'date',
-      options: {
-        dateFormat: 'shortDate'
-      }
+      type: 'date'
     },
     {
       name: 'metadata',
@@ -47,60 +48,86 @@ export class AuditComponent implements OnInit {
       type: 'string'
     },
   ];
-  dataSource = new FilteredDataSource<Audit>();
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
-/*  data : Audit[] = [
-  {
-      "id": "1",
-      "userId": "4c1e15c4-e35a-4989-acdc-b4c16701597f",
-      "userName": "Jahnavi.Thacker",
-      "activity": "SEARCH_EVENT",
+
+  data: Audit[] = [
+    {
+      "id": "",
+      "userId": "",
+      "userName": "",
+      "activity": "",
       "auditTime": new Date(),
-      "role": "Registrar"
-  },
-  {
-    "id": "1",
-    "userId": "4c1e15c4-e35a-4989-acdc-b4c16701597f",
-    "userName": "Vivek.Thacker",
-    "activity": "MyEvent",
-    "auditTime": new Date(),
-    "role": "Registrar"
-}
-] */
-//dataSource = new FilteredDataSource<Product>(this.data);
-  constructor(private authService : AuthenticationService ,private auditService: AuditService) {
-    const itemStr = localStorage.getItem("currentUser")
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const item = JSON.parse(itemStr)
-    const now = new Date();
-    if (now.getTime() > item.expiry) {
-      // If the item is expired, delete the item from storage
-      // and return null
-      localStorage.removeItem("currentUser");
-      this.authService.logout();
-      location.reload();
-    } 
-    this.auditService.getAudits()
-    .subscribe(result => {
-      //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
-      this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
+      "role": "",
+      "metadata": ""
     },
-      error => {
-
-      });
+    {
+      "id": "",
+      "userId": "",
+      "userName": "",
+      "activity": "",
+      "auditTime": new Date(),
+      "role": "",
+      "metadata": ""
+    }
+  ];
+  dataSource = new FilteredDataSource<Audit>(this.data);
+  constructor(private toastr: ToastrService, private authService: AuthService, private auditService: AuditService) {
+    this.spinner = true;
+    this.auditService.getAudits()
+      .subscribe(result => {
+        this.dataSource.data = result as Audit[];
+      this.spinner = false;
+      },
+        error => {
+          this.spinner = false;
+          this.toastr.error("Error while fetching Audits. Please refresh page.")
+        });
 
   }
 
-  ngOnInit(): void {
-   
+  ngOnInit() {
+
   }
-  clearFilters() {    
+  clearFilters() {
     this.dynamicTable.clearFilters();
   }
+  renderDateAndTime(data) {
+    if (!data) {
+      return "";
+    }
+    var date = new Date(data);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    return (date.getMonth() + 1) + "/" + date.getDate() + "/"
+      + date.getFullYear();
+  }
   exportTable() {
-    TableUtil.exportTableToExcel("auditTable");
+this.spinner = true;
+    this.audits = this.dataSource.filteredData;
+    this.auditService.getPdf(this.audits)
+      .subscribe(result => {
+        //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);
+        console.log(result);
+        var file = new Blob([result], { type: 'application/pdf' })
+        var fileURL = URL.createObjectURL(file);
+        var current = new Date();
+
+        // window.open(fileURL); 
+        var a = document.createElement('a');
+        a.href = fileURL;
+        a.target = '_blank';
+        
+        a.download = this.renderDateAndTime(new Date())+'_vAuth_Report.pdf';
+        document.body.appendChild(a);
+        a.click();
+        this.spinner = false;
+      },
+        error => {
+          this.spinner = false;
+          this.toastr.error("Error while downloading file. Please try again later.");
+        });
+
+
   }
 }
 

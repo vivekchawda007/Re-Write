@@ -22,11 +22,11 @@
                         </div>
                         <div class="col-md-2 text-right mt-3" >
 
-                            <a (click)="openBlockModel()" class="mr-4">
+                            <a *ngIf='isBlockPermission' (click)="openBlockModel()" class="mr-4"   matTooltip="Blcok volunteer with fingerprint" >
                                 <i class="fa fa-lock fa-4x" aria-hidden="true"></i>
                             </a>
 
-                            <a (click)="openAddModal()" >
+                            <a *ngIf='isAddPermission' (click)="openAddModal()"  matTooltip="Add volunteer with fingerprint">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                              </a> 
                         </div>
@@ -46,9 +46,13 @@
                                 <th>
                                     Mobile Number
                                 </th>
+                                <th>
+                                    Is Blocked
+                                </th>
                                 <th style="padding-left: 7%">
                                     Action
                                 </th>
+                                
                             </thead>
                             <tbody>
                                 <tr *ngFor="let volunteer of volunteers; let i = index" [attr.data-index]="i">
@@ -60,6 +64,9 @@
                                     </td>
                                     <td>
                                         {{volunteer.mobileNumber}}
+                                    </td>
+                                    <td>
+                                        {{volunteer.blocked}}
                                     </td>
                                     <td>
                                         <a *ngIf='isViewPermission' (click)="openViewModal(volunteer.id)"
@@ -78,6 +85,12 @@
                                             matTooltip="Edit Volunteer">
                                             <i class="material-icons">
                                                 edit
+                                            </i>
+                                        </a>
+                                        <a *ngIf='isBlockPermissionSpecial' (click)="openFinalBlockModel(volunteer.id)"
+                                            matTooltip="Block Volunteer">
+                                            <i class="material-icons">
+                                                block
                                             </i>
                                         </a>
                                     </td>

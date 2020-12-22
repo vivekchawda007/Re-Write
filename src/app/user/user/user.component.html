@@ -4,15 +4,31 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <div style="float: right;">
-                            <a (click)="openAddModal()">
-                                <i class="material-icons" style="font-size: 40px" matTooltip="Add Volunteer">
-                                    add_box
-                                </i>
-                            </a>
+
+                        <div class="row">
+                            <div class="col-md-2 mt-1">
+                                <div>
+                                    <h4 class="card-title m-2">Users</h4>
+                                    <p class="card-category m-2">List of Users</p>
+                                </div>
+                            </div>
+                            <div class="col-md-8 text-center mt-3">
+                                    <form class="navbar-search">
+                                        <div class="input-group text-center">
+                                            <input (keyup)="filterData($event)" type="text" class="form-control text-center bg-light border-1 small"
+                                                placeholder="Search Users" aria-label="Search">
+                                        </div>
+                                    </form>
+                            </div>
+                            <div class="col-md-2 text-right mt-3" >
+    
+    
+                                <a (click)="openAddModal()"  matTooltip="Add User">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                 </a> 
+                            </div>
                         </div>
-                        <h4 class="card-title ">Users</h4>
-                        <p class="card-category">List of Users</p>
+    
                     </div>
                     <div class="card-body">
                         <div class="table-container">
@@ -54,7 +70,7 @@
                                                 </i>
                                             </a>
                                             <a (click)="passwordReset(user.id)" matTooltip="Password Reset" >
-                                                <i class="material-icons" matTooltip="View Single User">
+                                                <i class="material-icons" matTooltip="Reset Password">
                                                     settings_backup_restore
                                                 </i>
                                             </a>

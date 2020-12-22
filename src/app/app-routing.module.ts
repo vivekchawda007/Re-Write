@@ -15,7 +15,7 @@ import { AuditComponent } from './audit/audit/audit.component';
 
 
 const routes: Routes = [
-  { path: "", component: DashboardComponent},
+  { path: "", component: DashboardComponent,canActivate: [AuthGuard]},
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent,  canActivate: [AuthGuard]},
   { path: "dashboard", component: DashboardComponent, canActivate: [AuthGuard] },

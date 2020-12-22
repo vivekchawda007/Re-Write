@@ -10,7 +10,6 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule,ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertService } from './services/alert.service';
-import { AuthenticationService} from './services/authentication.service';
 import { UserService } from './services/user.service';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AuthGuard } from './guards/auth.guard';
@@ -20,6 +19,7 @@ import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -47,10 +47,11 @@ import { DateFilterComponent } from './audit/filters/date-filter/date-filter.com
 import { TextFilterComponent } from './audit/filters/text-filter/text-filter.component';
 
 import { CellService, ColumnFilterService, DynamicTableModule } from 'material-dynamic-table';
-import { OptionsCellComponent } from './audit/cells/options-cell/options-cell.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { BlockVolunteerComponent } from './volunteer/block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/final-block-volunteer.component';
+import { MatSortModule } from '@angular/material/sort';
+import { DeleteUserComponent } from './user/delete-user/delete-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,6 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     AddUserComponent,
     ViewVolunteerComponent,
     EditVolunteerComponent,
-    OptionsCellComponent,
     EditUserComponent,
     ViewUserComponent,
     UserResetPasswordComponent,
@@ -78,6 +78,7 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     ForgotPasswordComponent,
     BlockVolunteerComponent,
     FinalBlockVolunteerComponent,
+    DeleteUserComponent,
   
   ],
   imports: [
@@ -97,16 +98,17 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     MatInputModule,
     MatSelectModule,
     BrowserAnimationsModule,
+    MatSortModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
+    MatTooltipModule,
     ToastrModule.forRoot({
-      timeOut: 2000,
+      timeOut: 4000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     })],
     entryComponents: [
-      OptionsCellComponent,  
       TextFilterComponent,
       DateFilterComponent
     ],
@@ -114,7 +116,6 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
     AuthGuard,
         AlertService,
         AuthService,
-        AuthenticationService,
         MatDatepickerModule,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },
@@ -122,8 +123,7 @@ import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(private readonly cellService: CellService, private readonly columnFilterService: ColumnFilterService) {
-    cellService.registerCell('options', OptionsCellComponent);
+  constructor(private readonly columnFilterService: ColumnFilterService) {
 
     columnFilterService.registerFilter('string', TextFilterComponent);
     columnFilterService.registerFilter('date', DateFilterComponent);

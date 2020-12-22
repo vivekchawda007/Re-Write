@@ -13,6 +13,7 @@ import { VolunteerService } from '../../services/volunteer.service'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { User } from '../../models/user'
+import { Block } from '../../models/block'
 @Component({
   selector: 'app-block-volunteer',
   templateUrl: './block-volunteer.component.html',
@@ -20,6 +21,7 @@ import { User } from '../../models/user'
 })
 export class BlockVolunteerComponent implements OnInit {
   currentUser;
+  data : Block;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<BlockVolunteerComponent>,
@@ -30,10 +32,8 @@ export class BlockVolunteerComponent implements OnInit {
     private toastrService: ToastrService,
     private volunteerService: VolunteerService,
     @Inject(MAT_DIALOG_DATA) data) {
+      this.data = data;
       this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      if(this.currentUser.currentUser.roleId == "1") {
-
-      } 
   }
   documents = [
     {
@@ -62,7 +62,7 @@ export class BlockVolunteerComponent implements OnInit {
   primaryDiv = true;
   secondaryDiv = false;
   submitted = true;
-  data: ShareData;
+
   fingerDataImage;
   pictureClicked = false;
   liveVideo = true;
@@ -105,13 +105,8 @@ export class BlockVolunteerComponent implements OnInit {
         const map = new Map(Object.entries(result));
         
         if(map.get("volunteerInfo").volunteerId == null) {
-        this.fingerDataImage = map.get("fingerPrintInfo").BMPBase64;
-        this.fingerPrintData = map.get("fingerPrintInfo").TemplateBase64;
-        this.model = map.get("fingerPrintInfo").Model;
-        this.serialNumber = map.get("fingerPrintInfo").SerialNumber;
-        this.manufacturer = map.get("fingerPrintInfo").Manufacturer;
-        this.primaryDiv = false;
-        this.secondaryDiv = true;
+        this.dialogRef.close(null);
+        this.toastrService.error("Volunteer is not registered in the system.  ")
         }else {
           this.dialogRef.close(map.get("volunteerInfo").volunteerId);
         }
@@ -155,9 +150,10 @@ export class BlockVolunteerComponent implements OnInit {
     const volunteer: Volunteer = new Volunteer();
     volunteer.firstName = this.f.firstName.value;
     volunteer.lastName = this.f.lastName.value;
-    volunteer.createdBy = "b9805a32-6410-42a2-8b2b-3be94a753722";
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    volunteer.modifiedBy = this.currentUser.currentUser.id;
     volunteer.mobileNumber = this.f.mobileNumber.value;
-    volunteer.fingerPrint = this.fingerPrintData
+  volunteer.fingerPrint = this.fingerPrintData
     volunteer.endDate = new Date();
     volunteer.fingerPrintImage = this.fingerDataImage;
     volunteer.volunteerImage = this.imageData;

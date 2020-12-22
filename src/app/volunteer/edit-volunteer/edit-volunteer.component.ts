@@ -33,6 +33,7 @@ export class EditVolunteerComponent implements OnInit {
   }
   volunteerAdd: Volunteer;
   Volunteer;
+  currentUser;
   checked = false;
   editVolunteerForm: FormGroup;
   primaryDiv = false;
@@ -126,7 +127,8 @@ export class EditVolunteerComponent implements OnInit {
     volunteer.id = this.volunteer.volunteerInfo.volunteerId;
     volunteer.firstName = this.f.firstName.value;
     volunteer.lastName = this.f.lastName.value;
-    volunteer.createdBy = "b9805a32-6410-42a2-8b2b-3be94a753722";
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    volunteer.modifiedBy = this.currentUser.currentUser.id;
     volunteer.mobileNumber = this.f.mobileNumber.value;
     volunteer.fingerPrint = this.fingerPrintData
     volunteer.endDate = new Date();

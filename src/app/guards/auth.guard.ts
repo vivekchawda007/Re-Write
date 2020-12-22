@@ -14,6 +14,10 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((isLoggedIn: boolean) => {
         const itemStr = localStorage.getItem("currentUser")
+        if(itemStr == null) {
+          this.authService.logout();
+          return;
+        }
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         const item = JSON.parse(itemStr)
         const now = new Date();

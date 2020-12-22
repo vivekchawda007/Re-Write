@@ -10,9 +10,10 @@ import { AddVolunteerComponent } from '../add-volunteer/add-volunteer.component'
 import { DeleteVolunteerComponent } from '../delete-volunteer/delete-volunteer.component';
 import { EditVolunteerComponent } from '../edit-volunteer/edit-volunteer.component';
 import { ViewVolunteerComponent } from '../view-volunteer/view-volunteer.component';
-import { AuthenticationService } from '../../services/authentication.service'
 import { BlockVolunteerComponent } from '../block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from '../final-block-volunteer/final-block-volunteer.component';
+import { Block } from '../../models/block'
+import { AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-volunter',
@@ -26,8 +27,11 @@ export class VolunterComponent implements OnInit {
   isViewPermission;
   isEditPermission;
   isDeletePermission;
+  isAddPermission;
+  isBlockPermission;
+  isBlockPermissionSpecial;
   filterQuery;
-  constructor(private authService: AuthenticationService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
 
   ) {
 
@@ -43,19 +47,31 @@ export class VolunterComponent implements OnInit {
       location.reload();
     }
     if (this.currentUser.currentUser.roleId == '1') {
+      //Admin
       this.isDeletePermission = true;
       this.isEditPermission = true;
       this.isViewPermission = true;
+      this.isBlockPermission = true;
+      this.isAddPermission = true;
+      this.isBlockPermissionSpecial = true;
     }
     if (this.currentUser.currentUser.roleId == '2') {
+      //Registrar
       this.isDeletePermission = false;
       this.isEditPermission = true;
       this.isViewPermission = true;
+      this.isBlockPermission = true;
+      this.isAddPermission = true;
+      this.isBlockPermissionSpecial = false;
     }
     if (this.currentUser.currentUser.roleId == '3') {
+      //Reveiver
       this.isDeletePermission = false;
       this.isEditPermission = false;
       this.isViewPermission = true;
+      this.isBlockPermission = false;
+      this.isAddPermission = false;
+      this.isBlockPermissionSpecial = false;
     }
   }
 
@@ -73,6 +89,13 @@ export class VolunterComponent implements OnInit {
       .subscribe(result => {
         console.log(result)
         this.volunteers = result as Volunteers;
+        for(var i = 0 ; i< this.volunteers.length ; i++) {
+          if(this.volunteers[i].blocked == true) {
+            this.volunteers[i].blocked = "Yes";
+          } else {
+            this.volunteers[i].blocked = "No";
+          }
+        }
         this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
       },
         error => {
@@ -84,12 +107,12 @@ export class VolunterComponent implements OnInit {
   //Get all surveys
 
 
-  openAddModal(volunteerId) {
+  openAddModal() {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
-    dialogConfig.height = "100%";
+    dialogConfig.height = "95%";
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
     this.dialog.open(AddVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
@@ -101,6 +124,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -114,6 +146,7 @@ export class VolunterComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
+    dialogConfig.height = "95%";
     const shareData: ShareDataVolunteer = new ShareDataVolunteer();
     shareData.volunteers = this.volunteers;
     shareData.volunteerId = volunteerId;
@@ -126,6 +159,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -135,14 +177,20 @@ export class VolunterComponent implements OnInit {
     });
   }
 
-  openBlockModel(volunteerId) {
-
+  openBlockModel() {
+    const shareData: Block = new Block();
+   
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
-    dialogConfig.height = "100%";
+    dialogConfig.height = "95%";
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
+   
+  
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = shareData;
+
     this.dialog.open(BlockVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
       if (result != null) {
         this.openFinalBlockModel(result);
@@ -152,6 +200,16 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -179,6 +237,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result;
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Volunteers, Please refresh page.")
@@ -192,6 +259,7 @@ export class VolunterComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.width = "60%"
+    dialogConfig.height = "95%";
     const shareData: ShareDataVolunteer = new ShareDataVolunteer();
     shareData.volunteers = this.volunteers;
     shareData.volunteerId = volunteerId;
@@ -204,6 +272,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")
@@ -212,35 +289,13 @@ export class VolunterComponent implements OnInit {
       }
     });
   }
-
-  /* 
- 
-  openDeleteModal(surveyId) {
-    var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-    element.disabled = true;
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const shareData: ShareData = new ShareData();
-    shareData.surveys = this.surveys;
-    shareData.surveyid = surveyId;
-    dialogConfig.data = shareData;
-    this.dialog.open(DeleteSurveyComponent, dialogConfig).afterClosed().subscribe(result => {
-      if (result != null) {
-        for (var survey of this.surveys) {
-          if (survey.surveyid == result) {
-            this.surveys.splice(this.surveys.indexOf(survey), 1);
-          }
-        }
-      }
-    });
-  }
-*/
   openViewModal(volunteerId) {
     const shareData: ShareDataVolunteer = new ShareDataVolunteer();
     shareData.volunteers = this.volunteers;
     shareData.volunteerId = volunteerId;
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "60%"
+    dialogConfig.height = "95%";
     dialogConfig.autoFocus = false;
     dialogConfig.data = shareData;
     this.dialog.open(ViewVolunteerComponent, dialogConfig).afterClosed().subscribe(result => {
@@ -250,6 +305,15 @@ export class VolunterComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.volunteers = result as Volunteers;
+            for(var i = 0 ; i< this.volunteers.length ; i++) {
+              if(this.volunteers[i].blocked == true) {
+                this.volunteers[i].blocked = "Yes";
+              } else {
+                this.volunteers[i].blocked = "No";
+              }
+            }
+            this.volunteersBackup = [];
+            this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Survey, Please refresh page.")

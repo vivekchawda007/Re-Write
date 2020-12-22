@@ -7,7 +7,8 @@ import { AddUserComponent } from '../add-user/add-user.component';
 import { ShareDataUser } from '../../models/shareDataUser';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { UserResetPasswordComponent } from '../user-reset-password/user-reset-password.component';
-import { AuthenticationService } from '../../services/authentication.service'
+import { AuthService } from '../../services/auth.service'
+import { DeleteUserComponent } from '../delete-user/delete-user.component';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +18,8 @@ import { AuthenticationService } from '../../services/authentication.service'
 export class UserComponent implements OnInit {
   users;
   currentUser;
-  constructor( private authService : AuthenticationService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
+  usersBackup;
+  constructor( private authService : AuthService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
 
   ) { 
     const itemStr = localStorage.getItem("currentUser")
@@ -37,6 +39,8 @@ export class UserComponent implements OnInit {
     this.userService.getAllUser()
       .subscribe(result => {
         this.users = result;
+        this.usersBackup = [];
+        this.usersBackup = this.users.map(x => Object.assign({}, x))
       },
         error => {
           console.log("Error While Fetching Users, Please refresh page.")
@@ -44,6 +48,14 @@ export class UserComponent implements OnInit {
         });
   }
 
+  filterData(data) {
+
+
+    this.users = this.usersBackup.filter(function (tag) {
+      data.target.value = data.target.value.toUpperCase();
+      return (tag.firstName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.lastName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.userName.toUpperCase().indexOf(data.target.value) >= 0);
+    });
+  }
   passwordReset(userId) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -61,6 +73,8 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            this.usersBackup = [];
+            this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Users, Please refresh page.")
@@ -69,11 +83,12 @@ export class UserComponent implements OnInit {
       }
     });
   }
-  openAddModal(volunteerId) {
+  openAddModal() {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    dialogConfig.width = "20%"
+    dialogConfig.width = "40%"
+    dialogConfig.height = "90%"
     dialogConfig.hasBackdrop = true;
     dialogConfig.closeOnNavigation = true;
     dialogConfig.autoFocus = true;
@@ -84,6 +99,8 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            this.usersBackup = [];
+            this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Users, Please refresh page.")
@@ -96,7 +113,8 @@ export class UserComponent implements OnInit {
   openEditModal(userId) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
-    dialogConfig.width = "20%"
+    dialogConfig.width = "40%"
+    dialogConfig.height = "90%"
     const shareData: ShareDataUser = new ShareDataUser();
     shareData.id = userId;
     shareData.user = this.users;
@@ -109,6 +127,8 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            this.usersBackup = [];
+            this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
             error => {
               console.log("Error While Fetching Users, Please refresh page.")
@@ -138,39 +158,35 @@ export class UserComponent implements OnInit {
        }
      });;
    }
+  */
  
- 
-   openDeleteModal(surveyId) {
-     var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-     element.disabled = true;
-     const dialogConfig = new MatDialogConfig();
-     dialogConfig.disableClose = true;
-     dialogConfig.autoFocus = true;
-     const shareData: ShareData = new ShareData();
-     shareData.surveys = this.surveys;
-     shareData.surveyid = surveyId;
-     dialogConfig.data = shareData;
-     this.dialog.open(DeleteSurveyComponent, dialogConfig).afterClosed().subscribe(result => {
-       if (result != null) {
-         for (var survey of this.surveys) {
-           if (survey.surveyid == result) {
-             this.surveys.splice(this.surveys.indexOf(survey), 1);
-           }
-         }
-       }
-     });
-   }
- 
-   openViewModal(surveyId) {
-     var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-     element.disabled = true;
-     const shareData: ShareData = new ShareData();
-     shareData.surveys = this.surveys;
-     shareData.surveyid = surveyId;
-     const dialogConfig = new MatDialogConfig();
-     dialogConfig.autoFocus = false;
-     dialogConfig.data = shareData;
-     this.dialog.open(ViewSurveyComponent, dialogConfig);
-   } */
+ openDeleteModal(userId) {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.width = "20%"
+  dialogConfig.hasBackdrop = true;
+  dialogConfig.closeOnNavigation = true;
+  dialogConfig.autoFocus = true;
+  const shareData: ShareDataUser = new ShareDataUser();
+  shareData.id = userId;
+  dialogConfig.data = shareData;
+  this.dialog.open(DeleteUserComponent, dialogConfig).afterClosed().subscribe(result => {
+    if (result != null) {
+      this.users = [];
+      this.userService.getAllUser()
+        .subscribe(result => {
+          console.log(result)
+          this.users = result;
+          this.usersBackup = [];
+          this.usersBackup = this.users.map(x => Object.assign({}, x))
+        },
+          error => {
+            console.log("Error While Fetching Users, Please refresh page.")
+            this.toastr.error("Error while fetching Users. Please refresh page.")
+          });
+    }
+  });
+}
+
 
 }

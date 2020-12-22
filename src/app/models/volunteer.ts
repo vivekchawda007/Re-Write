@@ -7,13 +7,14 @@ export class Volunteer {
     mobileNumber : string;
     fingerPrint : string;
     endDate : Date;
+    isBlocked : boolean;
     fingerPrintImage : string;
     volunteerImage : string; 
     address : string;  
     manufacturer : string;
     model : string;
     serialNumber : string;
-    id:string;
+    id:number;
     birthDate : Date;
     gender : string;
     documentType : string;
