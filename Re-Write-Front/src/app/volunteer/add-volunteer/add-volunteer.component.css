@@ -62,3 +62,7 @@ ngx-growl {
 #blueId {
     background-color: #4e73df !important;
 }
+
+.card .card-header-danger .card-icon, .card .card-header-danger .card-text, .card .card-header-danger:not(.card-header-icon):not(.card-header-text), .card.bg-danger, .card.card-rotate.bg-danger .front, .card.card-rotate.bg-danger .back {
+    background: linear-gradient(60deg, #31314a, #4e73df) !important;
+}

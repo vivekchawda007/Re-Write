@@ -117,7 +117,7 @@ this.spinner = true;
         a.href = fileURL;
         a.target = '_blank';
         
-        a.download = this.renderDateAndTime(new Date())+'_Report.pdf';
+        a.download = this.renderDateAndTime(new Date())+'_vAuth_Report.pdf';
         document.body.appendChild(a);
         a.click();
         this.spinner = false;

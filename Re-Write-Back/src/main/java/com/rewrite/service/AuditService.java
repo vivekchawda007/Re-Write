@@ -81,7 +81,7 @@ public class AuditService {
 
 	public void generatePdf(String requestBody, HttpHeaders headers) {
 		List<String> who = headers.get("who");
-		PdfPTable table = new PdfPTable(new float[] { 20, 17, 13, 28, 22 });
+		PdfPTable table = new PdfPTable(new float[] {8 ,16, 15, 13, 28, 20 });
 		Optional<UserDetail> ud = userDetailRepository.findById(who.get(0));
 		Gson gson2 = new GsonBuilder().create();
 		AuditReq[] audits = gson2.fromJson(requestBody, AuditReq[].class);
@@ -131,12 +131,14 @@ public class AuditService {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		generateCell("No", true,table);
 		generateCell("Activity", true,table);
 		generateCell("User", true,table);
 		generateCell("Role", true,table);
 		generateCell("Audit Date/Time", true,table);
 		generateCell("Metadata", true,table);
 		for (int i = 0; i < audits.length; i++) {
+			generateCell(String.valueOf(i+1), false,table);
 			generateCell(audits[i].getActivity(), false,table);
 			generateCell(audits[i].getUserId(), false,table);
 			generateCell(audits[i].getRole(), false,table);

@@ -6,6 +6,9 @@ ngx-growl {
     top: 50px !important
 }
 
+.card .card-header-danger .card-icon, .card .card-header-danger .card-text, .card .card-header-danger:not(.card-header-icon):not(.card-header-text), .card.bg-danger, .card.card-rotate.bg-danger .front, .card.card-rotate.bg-danger .back {
+    background: linear-gradient(60deg, #31314a, #4e73df) !important;
+}
 .vid {
     width: 100%;
     height: 100%;
