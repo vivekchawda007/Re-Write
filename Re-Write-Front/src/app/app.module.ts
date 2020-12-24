@@ -51,6 +51,7 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { BlockVolunteerComponent } from './volunteer/block-volunteer/block-volunteer.component';
 import { FinalBlockVolunteerComponent } from './volunteer/final-block-volunteer/final-block-volunteer.component';
 import { MatSortModule } from '@angular/material/sort';
+import { ChartsModule } from 'ng2-charts';
 import { DeleteUserComponent } from './user/delete-user/delete-user.component';
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { DeleteUserComponent } from './user/delete-user/delete-user.component';
   ],
   imports: [
     BrowserModule,
+    ChartsModule,
     NgxSpinnerModule,
     MatRadioModule,
     AppRoutingModule,
