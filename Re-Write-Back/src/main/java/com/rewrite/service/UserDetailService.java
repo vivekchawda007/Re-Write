@@ -90,13 +90,14 @@ public class UserDetailService {
 		UserDetail userDetail = new UserDetail();
 		if(!userDetailList.isEmpty()) {
 			userDetail = userDetailList.get(0);
+			userDetail.setBlocked(blocked);
+			userDetail.setPassword("vAuth123");
+			//userDetail.setModifiedBy(user.getModifiedBy());
+			userDetail.setModifiedDate(new Date());
+			UserDetail savedUser = userRepo.save(userDetail);
+			auditService.saveAudit("17", savedUser.getId().toString(), savedUser.getCreatedBy());
 		}
-		userDetail.setBlocked(blocked);
-		userDetail.setPassword("vAuth123");
-		//userDetail.setModifiedBy(user.getModifiedBy());
-		userDetail.setModifiedDate(new Date());
-		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("17", savedUser.getId().toString(), savedUser.getCreatedBy());
+		
 	}
 
 	public void deleteUser(UserRequest user) {
