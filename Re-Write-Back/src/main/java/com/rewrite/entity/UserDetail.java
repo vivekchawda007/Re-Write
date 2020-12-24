@@ -43,6 +43,9 @@ public class UserDetail {
 	@Column(name="is_new")
 	private boolean isNew;
 	
+	@Column(name="is_blocked")
+	private boolean isBlocked;
+	
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
@@ -78,6 +81,14 @@ public class UserDetail {
 
 	public boolean isNew() {
 		return isNew;
+	}
+
+	public boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void setBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
 	}
 
 	public void setNew(boolean isNew) {

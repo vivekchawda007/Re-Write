@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   jol: Boolean = false;
   loginForm: FormGroup;
   users;
+  counter: number = 0;
   resetPasswordForm: FormGroup;
   resetPasswordModal: Boolean;
   passwordChanged: String;
@@ -80,12 +81,35 @@ export class LoginComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userService.loginUser(user).subscribe(
       result => {
-        
         const map = new Map(Object.entries(result));
         if (map.get("userName") == "NO_USER_FOUND") {
+          this.counter = this.counter+1;
           this.spinner = false;
+          if (this.counter != 3) {
           this.toastrService.error("User name and/or password is wrong.")
+          }
+          if (this.counter >= 3) {
+            this.counter = 0;
+            const user: User = new User();
+            user.userName = this.f.userName.value;
+            user.blocked = true;
+            this.userService.blockUser(user)
+              .subscribe(result => {
+                this.toastrService.error("User is blocked because of you have entered wrong password 3 times.")
+              },
+                error => {
+                  this.toastrService.error("Internal Server Error.")
+                  //console.log("Error while creating user !");
+                });
+          }
+          
+          
         } else {
+          if(map.get("blocked") == true) {
+            this.toastrService.error("Can't login because user is blocked. Contact Admin.");
+            this.spinner = false;
+            return;
+          }
           const now = new Date()
           const item = {
             'currentUser': result,
@@ -102,7 +126,7 @@ export class LoginComponent implements OnInit {
             dialogConfig.autoFocus = true;
             const shareData: ShareDataUser = new ShareDataUser();
             shareData.id = map.get("id");
-            shareData.password =  this.f.password.value;
+            shareData.password = this.f.password.value;
             dialogConfig.data = shareData;
             this.dialog.open(ForgotPasswordComponent, dialogConfig).afterClosed().subscribe(result => {
               if (result != null) {

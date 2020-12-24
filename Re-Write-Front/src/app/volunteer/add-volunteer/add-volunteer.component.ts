@@ -21,6 +21,7 @@ import { User } from '../../models/user'
 export class AddVolunteerComponent implements OnInit {
   currentUser;
   cameraManager;
+  spinner;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<AddVolunteerComponent>,
@@ -54,7 +55,7 @@ export class AddVolunteerComponent implements OnInit {
       name : 'License'
     }
     ]
-  spinner;
+  
   spinnerImage;
   
   volunteerAdd : Volunteer;
@@ -152,6 +153,7 @@ export class AddVolunteerComponent implements OnInit {
     return this.addVolunteerForm.controls;
   }
   save() {
+    this.spinner = true;
     this.submitted = false;
     if(this.imageData == 'undefined' || this.imageData == null) {
       this.toastrService.error("Please capture volunteer image. and try again.")
@@ -184,9 +186,11 @@ export class AddVolunteerComponent implements OnInit {
         this.toastrService.success("Voluntter added successfully !")
 
         this.dialogRef.close(null);
+        this.spinner = false;
 
       },
         error => {
+          this.spinner.false;
           this.toastrService.error("Error while saving volunteer. Please contact admin.")
           console.log("Error while creating survey !");
         });

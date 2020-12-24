@@ -37,6 +37,10 @@ export class UserService {
     return this.http.put(baseUrl+"/update-password", user);
   }
 
+  blockUser(user: User) {
+    return this.http.put(baseUrl+"/block-user", user);
+  }
+
   deleteUser(user: User) {
     return this.http.put(baseUrl+"/delete-user", user);
   }

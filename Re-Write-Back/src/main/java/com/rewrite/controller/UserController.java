@@ -59,6 +59,12 @@ public class UserController {
 		userService.passwordReset(user);
 		return new RewriteResponse("User updated successfully", "200");
 	}
+	
+	@PutMapping(value = "/api/v1/block-user")
+	public RewriteResponse blockUser(@RequestBody UserRequest user) {
+		userService.blockUser(user);
+		return new RewriteResponse("User updated successfully", "200");
+	}
 
 	@PutMapping(value = "/api/v1/delete-user")
 	public RewriteResponse deleteUser(@RequestBody UserRequest user) {

@@ -77,14 +77,17 @@
                     height="175px" style="margin-left: 90px;"></video>
                 <br />
                 <br />
-                <button  mat-raised-button color="primary" [disabled]="cameraManager" id="openCameraId" (click)="startCamera()"
-                    style="margin-left: 30px;">Start Camera
+                <button mat-raised-button color="primary" [disabled]="cameraManager" id="openCameraId"
+                    (click)="startCamera()" style="margin-left: 30px;">Start Camera
                     <i class="material-icons" (click)="startCamera()">camera</i></button>
                 &nbsp;
-                <button id ="blueId" mat-raised-button color="warn" (click)="clickPicture()">Click Picture
+                <button id="blueId" mat-raised-button color="warn" (click)="clickPicture()">Click Picture
                     <i class="material-icons" (click)="clickPicture()">camera_enhance</i></button>
-
+            <br/>
+            <hr/>
+            <mat-progress-bar *ngIf='spinner' mode='indeterminate'></mat-progress-bar>        
             </div>
+            
         </div>
     </div>
 </div>
@@ -103,11 +106,13 @@
         <br />
         <br />
         <mat-dialog-actions>
-            <button id ="blueId" mat-raised-button color="warn" (click)="getFingerPrint()">Validate Fingerprint <i
+            <button id="blueId" mat-raised-button color="warn" (click)="getFingerPrint()">Validate Fingerprint <i
                     class="material-icons" (click)="getFingerPrint()">fingerprint</i></button>
-            <button id ="blueId" mat-raised-button color="warn" (click)="close()">Close</button>
+            <button id="blueId" mat-raised-button color="warn" (click)="close()">Close</button>
         </mat-dialog-actions>
+
     </div>
+    <mat-progress-bar *ngIf='spinner' mode='indeterminate'></mat-progress-bar>
 </div>
 
 

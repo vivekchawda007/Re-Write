@@ -10,6 +10,7 @@ export class User {
     modifiedBy : string;
     id : number;
     new: boolean
+    blocked: boolean;
 
 
 }

@@ -15,6 +15,11 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, String> 
 	@Query(value="select * from User_detail where is_deleted = false AND user_name =:userName AND password =:password", nativeQuery = true)
 	public List<UserDetail> findByUserNameAndPassword1(@Param("userName") String userName, @Param("password") String password);
 	
+	
+	@Query(value="select * from User_detail where is_deleted = false AND user_name =:userName", nativeQuery = true)
+	public List<UserDetail> findByUserName(@Param("userName") String userName);
+	
+	
 	@Query(value="select * from User_detail where is_deleted = false order by modified_date desc", nativeQuery = true)
 	List<UserDetail> getAllUser(); 
 	
