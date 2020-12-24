@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getStats()
       .subscribe(result => {
         this.stats = result;
-        this.pieChartData = [this.stats.totalVolunteers, this.stats.blockedVolunteers];
+        this.pieChartData = [this.stats.totalVolunteers-this.stats.blockedVolunteers, this.stats.blockedVolunteers];
         this.chartReady = true;
         this.spinner = false;
         //this.dataSource =new FilteredDataSource<Audit>(result as Audit[]);

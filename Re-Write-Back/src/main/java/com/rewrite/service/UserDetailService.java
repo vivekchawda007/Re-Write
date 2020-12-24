@@ -35,7 +35,7 @@ public class UserDetailService {
 		userDetail.setUserName(user.getUserName());
 		userDetail.setFirstName(user.getFirstName());
 		userDetail.setLastName(user.getLastName());
-		userDetail.setPassword("Vivek123");
+		userDetail.setPassword("vAuth123");
 		userDetail.setCreatedBy(user.getCreatedBy());
 		userDetail.setCreatedDate(new Date());
 		userDetail.setModifiedDate(new Date());
@@ -53,7 +53,7 @@ public class UserDetailService {
 		userDetail.setFirstName(user.getFirstName());
 		userDetail.setLastName(user.getLastName());
 		userDetail.setUserName(user.getUserName());
-		userDetail.setPassword("Vivek123");
+		userDetail.setPassword("vAuth123");
 		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
 		userDetail.setRoleId(user.getRole());
@@ -75,7 +75,7 @@ public class UserDetailService {
 		boolean password = true;
 		UserDetail userDetail = userRepo.getOne(user.getId());
 		userDetail.setNew(password);
-		userDetail.setPassword("Vivek123");
+		userDetail.setPassword("vAuth123");
 		userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
 		userDetail.setBlocked(Boolean.FALSE);
@@ -92,7 +92,7 @@ public class UserDetailService {
 			userDetail = userDetailList.get(0);
 		}
 		userDetail.setBlocked(blocked);
-		userDetail.setPassword("Vivek123");
+		userDetail.setPassword("vAuth123");
 		//userDetail.setModifiedBy(user.getModifiedBy());
 		userDetail.setModifiedDate(new Date());
 		UserDetail savedUser = userRepo.save(userDetail);
