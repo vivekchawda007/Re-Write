@@ -9,6 +9,7 @@ import { User } from '../models/user';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
 
   isLoggedIn$: Observable<boolean>;

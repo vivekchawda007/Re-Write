@@ -31,6 +31,12 @@ public class AuditController {
 	public List<AuditResponse> getAllAuditRecord(@RequestHeader HttpHeaders headers) {
 		return auditService.getAllAudits(headers);
 	}
+	
+	@GetMapping(value = "/api/v1/get-all-registrar-audit")
+	public List<AuditResponse> getAllRegistrarAudit(@RequestHeader HttpHeaders headers) {
+		return auditService.getAllRegistrarAudit(headers);
+	}
+
 
 	@PostMapping(value = "/api/v1/generate-pdf")
 	public ResponseEntity<InputStreamResource> generatePdf(@RequestBody String body,@RequestHeader HttpHeaders header) {

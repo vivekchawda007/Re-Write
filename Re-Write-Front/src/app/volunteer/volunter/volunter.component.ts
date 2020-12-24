@@ -31,6 +31,7 @@ export class VolunterComponent implements OnInit {
   isBlockPermission;
   isBlockPermissionSpecial;
   filterQuery;
+  spinner;
   constructor(private authService: AuthService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private volunteerService: VolunteerService
 
   ) {
@@ -85,6 +86,9 @@ export class VolunterComponent implements OnInit {
     
   }
   ngOnInit() {
+   
+    
+    this.spinner = true;
     this.volunteerService.getVolunteers()
       .subscribe(result => {
         console.log(result)
@@ -97,8 +101,10 @@ export class VolunterComponent implements OnInit {
           }
         }
         this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))
+        this.spinner = false;
       },
         error => {
+          this.spinner = false;
           console.log("Error While Fetching Survey, Please refresh page.")
           this.toastr.error("Error while fetching volunteer. Please refresh page.")
         });

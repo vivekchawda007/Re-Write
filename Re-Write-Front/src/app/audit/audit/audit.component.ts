@@ -19,6 +19,8 @@ export class AuditComponent implements OnInit {
   @ViewChild(DynamicTableComponent) dynamicTable: DynamicTableComponent;
   @ViewChild(MatSort) sort: MatSort;
   currentUser;
+  auditTitle;
+  isRegistrar: boolean = false;;
   audits: Audit[];
   spinner;
   columns: ColumnConfig[] = [
@@ -71,16 +73,37 @@ export class AuditComponent implements OnInit {
   ];
   dataSource = new FilteredDataSource<Audit>(this.data);
   constructor(private toastr: ToastrService, private authService: AuthService, private auditService: AuditService) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser) {
+      if (this.currentUser.currentUser.roleId == "2") {
+        this.isRegistrar = true;
+      }
+    }
     this.spinner = true;
-    this.auditService.getAudits()
-      .subscribe(result => {
-        this.dataSource.data = result as Audit[];
-      this.spinner = false;
-      },
-        error => {
+    if (this.isRegistrar) {
+      this.auditTitle = "Report";
+      this.auditService.getAllRegistrarAudits()
+        .subscribe(result => {
+          this.dataSource.data = result as Audit[];
           this.spinner = false;
-          this.toastr.error("Error while fetching Audits. Please refresh page.")
-        });
+        },
+          error => {
+            this.spinner = false;
+            this.toastr.error("Error while fetching Audits. Please refresh page.")
+          });
+
+    } else {
+      this.auditTitle = "Audit";
+      this.auditService.getAllAudits()
+        .subscribe(result => {
+          this.dataSource.data = result as Audit[];
+          this.spinner = false;
+        },
+          error => {
+            this.spinner = false;
+            this.toastr.error("Error while fetching Audits. Please refresh page.")
+          });
+    }
 
   }
 
@@ -102,7 +125,7 @@ export class AuditComponent implements OnInit {
       + date.getFullYear();
   }
   exportTable() {
-this.spinner = true;
+    this.spinner = true;
     this.audits = this.dataSource.filteredData;
     this.auditService.getPdf(this.audits)
       .subscribe(result => {
@@ -116,8 +139,8 @@ this.spinner = true;
         var a = document.createElement('a');
         a.href = fileURL;
         a.target = '_blank';
-        
-        a.download = this.renderDateAndTime(new Date())+'_vAuth_Report.pdf';
+
+        a.download = this.renderDateAndTime(new Date()) + '_vAuth_Report.pdf';
         document.body.appendChild(a);
         a.click();
         this.spinner = false;

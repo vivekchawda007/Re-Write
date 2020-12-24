@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://192.168.43.32:8444',
+  apiUrl: 'https://192.168.43.63:8444',
 
   secugenUrl : "https://localhost:8443/SGIFPCapture",
   expireTime: 6

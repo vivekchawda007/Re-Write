@@ -9,6 +9,7 @@ import { EditUserComponent } from '../edit-user/edit-user.component';
 import { UserResetPasswordComponent } from '../user-reset-password/user-reset-password.component';
 import { AuthService } from '../../services/auth.service'
 import { DeleteUserComponent } from '../delete-user/delete-user.component';
+import { User } from '../../models/user'
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,8 @@ import { DeleteUserComponent } from '../delete-user/delete-user.component';
 })
 export class UserComponent implements OnInit {
   users;
+  user: User;
+  spinner;
   currentUser;
   usersBackup;
   constructor( private authService : AuthService,private userService: UserService, private router: Router, private dialog: MatDialog, private toastr: ToastrService
@@ -36,13 +39,27 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner = true;
     this.userService.getAllUser()
       .subscribe(result => {
-        this.users = result;
+        this.users = result as User[];
+        
+        for(var i = 0 ; i< this.users.length;i++) {
+          if(this.users[i].roleId == '1'){
+            this.users[i].roleId = 'Admin'
+          }else if(this.users[i].roleId == '2'){
+            this.users[i].roleId = 'Registrar'
+          }
+         else {
+          this.users[i].roleId = 'Reviever'
+         }
+        }
         this.usersBackup = [];
         this.usersBackup = this.users.map(x => Object.assign({}, x))
+        this.spinner = false;
       },
         error => {
+          this.spinner = false;
           console.log("Error While Fetching Users, Please refresh page.")
           this.toastr.error("Error while fetching Users. Please refresh page.")
         });
@@ -73,6 +90,16 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            for(var i = 0 ; i< this.users.length;i++) {
+              if(this.users[i].roleId == '1'){
+                this.users[i].roleId = 'Admin'
+              }else if(this.users[i].roleId == '2'){
+                this.users[i].roleId = 'Registrar'
+              }
+             else {
+              this.users[i].roleId = 'Reviever'
+             }
+            }
             this.usersBackup = [];
             this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
@@ -99,6 +126,16 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            for(var i = 0 ; i< this.users.length;i++) {
+              if(this.users[i].roleId == '1'){
+                this.users[i].roleId = 'Admin'
+              }else if(this.users[i].roleId == '2'){
+                this.users[i].roleId = 'Registrar'
+              }
+             else {
+              this.users[i].roleId = 'Reviever'
+             }
+            }
             this.usersBackup = [];
             this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
@@ -127,6 +164,16 @@ export class UserComponent implements OnInit {
           .subscribe(result => {
             console.log(result)
             this.users = result;
+            for(var i = 0 ; i< this.users.length;i++) {
+              if(this.users[i].roleId == '1'){
+                this.users[i].roleId = 'Admin'
+              }else if(this.users[i].roleId == '2'){
+                this.users[i].roleId = 'Registrar'
+              }
+             else {
+              this.users[i].roleId = 'Reviever'
+             }
+            }
             this.usersBackup = [];
             this.usersBackup = this.users.map(x => Object.assign({}, x))
           },
@@ -177,6 +224,16 @@ export class UserComponent implements OnInit {
         .subscribe(result => {
           console.log(result)
           this.users = result;
+          for(var i = 0 ; i< this.users.length;i++) {
+            if(this.users[i].roleId == '1'){
+              this.users[i].roleId = 'Admin'
+            }else if(this.users[i].roleId == '2'){
+              this.users[i].roleId = 'Registrar'
+            }
+           else {
+            this.users[i].roleId = 'Reviever'
+           }
+          }
           this.usersBackup = [];
           this.usersBackup = this.users.map(x => Object.assign({}, x))
         },

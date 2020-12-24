@@ -14,12 +14,19 @@ export class SidebarComponent implements OnInit {
   }
   currentUser;
   isUserPermission;
+  auditTitle;
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if(this.currentUser.currentUser.roleId == "1") {
       this.isUserPermission = true
     }else {
       this.isUserPermission = false;
+    }
+
+    if(this.currentUser.currentUser.roleId == "2") {
+      this.auditTitle = "Report";
+    }else {
+      this.auditTitle = "Audit";
     }
   }
   navigateToAddUser() {

@@ -78,6 +78,29 @@ public class AuditService {
 		saveAudit("16", "", who.get(0));
 		return lst;
 	}
+	
+	@SuppressWarnings("null")
+	public List<AuditResponse> getAllRegistrarAudit(HttpHeaders headers) {
+		List<String> who = headers.get("who");
+		List<AuditResponse> lst = new ArrayList<>();
+		List<Audit> audits = auditRepository.getAllRegistrarAudit();
+		for (Audit a : audits) {
+			Optional<UserDetail> ud = Optional.empty();
+			Optional<Object> act = Optional.empty();
+			ud = userDetailRepository.findById(a.getUserId());
+			AuditResponse auditsResponse = new AuditResponse();
+			auditsResponse.setId(a.getId());
+			auditsResponse.setActivity(activityRepository.findById(a.getActivityId()).get().getName());
+			auditsResponse.setMetadata(a.getMetadata());
+			auditsResponse.setUserId(a.getUserId());
+			auditsResponse.setUserName(ud.get().getUserName());
+			auditsResponse.setRole(roleRepository.findById(ud.get().getRoleId()).get().getName());
+			auditsResponse.setAuditTime(a.getAuditTime());
+			lst.add(auditsResponse);
+		}
+		saveAudit("16", "", who.get(0));
+		return lst;
+	}
 
 	public void generatePdf(String requestBody, HttpHeaders headers) {
 		List<String> who = headers.get("who");

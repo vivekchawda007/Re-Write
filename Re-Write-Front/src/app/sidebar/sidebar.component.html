@@ -110,7 +110,7 @@
       aria-expanded="true"
       aria-controls="collapseThree"
     >
-      <i class="fas fa-fw fa-list-ol"></i> <span>Audit</span>
+      <i class="fas fa-fw fa-list-ol"></i> <span>{{auditTitle}}</span>
     </a>
     <div
       id="collapseThree"
@@ -119,12 +119,12 @@
       data-parent="#accordionSidebar"
     >
       <div class="bg-white py-2 collapse-inner rounded">
-        <h6 class="collapse-header">Audit Info</h6>
+        <h6 class="collapse-header">{{auditTitle}} Info</h6>
         <a
           class="collapse-item"
           style="cursor: pointer;"
           (click)="navigateToAudit()"
-          >Audit List</a
+          >{{auditTitle}}</a
         >
       </div>
     </div>

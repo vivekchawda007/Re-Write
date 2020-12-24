@@ -33,9 +33,12 @@
                     </div>
 
                 </div>
+               
                 <div class="card-body">
+                    <mat-progress-bar *ngIf='spinner' mode='indeterminate'></mat-progress-bar>        
                     <div class="table-container">
                         <table class="table">
+                            
                             <thead class=" text-primary">
                                 <th>
                                     No.

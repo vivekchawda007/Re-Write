@@ -10,34 +10,47 @@ const baseUrl = `${environment.apiUrl}/rewrite/api/v1`;
 export class AuditService {
   currentUser;
   who;
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getAudits() {
+  getAllAudits() {
 
-    
+
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.who = this.currentUser.currentUser.id;
     const headerDict = {
-      'who':this.who
+      'who': this.who
     }
-    
-    const requestOptions = {                                                                                                                                                                                 
-      headers: new HttpHeaders(headerDict), 
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
     };
-    return this.http.get(baseUrl+"/get-all-audit",requestOptions);
+    return this.http.get(baseUrl + "/get-all-audit", requestOptions);
   }
 
+  getAllRegistrarAudits() {
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.who = this.currentUser.currentUser.id;
+    const headerDict = {
+      'who': this.who
+    }
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+    return this.http.get(baseUrl + "/get-all-registrar-audit", requestOptions);
+  }
   getPdf(audits) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.who = this.currentUser.currentUser.id;
     const headerDict = {
-      'who':this.who
+      'who': this.who
     }
-    
-    const requestOptions = {         
-      responseType:'blob' as 'json',                                                                                                                                                                        
-      headers: new HttpHeaders(headerDict), 
+
+    const requestOptions = {
+      responseType: 'blob' as 'json',
+      headers: new HttpHeaders(headerDict),
     };
-    return this.http.post<Blob>(baseUrl+"/generate-pdf",audits,requestOptions);
+    return this.http.post<Blob>(baseUrl + "/generate-pdf", audits, requestOptions);
   }
 }

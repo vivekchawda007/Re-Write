@@ -156,7 +156,7 @@ export class AddVolunteerComponent implements OnInit {
     this.spinner = true;
     this.submitted = false;
     if(this.imageData == 'undefined' || this.imageData == null) {
-      this.toastrService.error("Please capture volunteer image. and try again.")
+      this.toastrService.error("Please capture volunteer image & try again.")
       return;
     }
     const volunteer: Volunteer = new Volunteer();

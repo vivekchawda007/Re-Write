@@ -44,7 +44,7 @@ public class UserDetailService {
 		userDetail.setRoleId(user.getRole());
 		userDetail.setNew(Boolean.TRUE);
 		UserDetail savedUser = userRepo.save(userDetail);
-		auditService.saveAudit("4", savedUser.getUserName(), savedUser.getCreatedBy());
+		auditService.saveAudit("4", savedUser.getId(), savedUser.getCreatedBy());
 	}
 
 	public void updateUser(UserRequest user) {
