@@ -14,17 +14,20 @@ export class AppComponent {
   isLoggedIn$: Observable<boolean>;
   currentUser: User;
   constructor(private authService: AuthService,private router : Router) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
    }
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.isLoggedIn$ = this.authService.isLoggedIn;
+    this.isLoggedIn$.subscribe(
+      result => { 
+        if(result == true) {
+          this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        }
+      });
   }
 
-  pageTop() {
-    alert("Ho")
-  }
   onLogout() {
     
     document.getElementById("myForceCancel").click();

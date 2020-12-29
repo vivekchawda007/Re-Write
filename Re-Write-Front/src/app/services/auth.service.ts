@@ -9,17 +9,29 @@ export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-
+  currentUser: User;
   get isLoggedIn() {
     return this.loggedIn.asObservable();
   }
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService) {
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    //    this.isLoggedIn = this.authService.isLoggedIn;
+    if (this.currentUser) {
+      this.loggedIn.next(true);
+    }
+  }
+
+  ngOnInit() {
+
+  }
+
 
   login() {
     this.loggedIn.next(true);
     this.router.navigate(["/"]);
-    
+
   }
 
   logout() {
