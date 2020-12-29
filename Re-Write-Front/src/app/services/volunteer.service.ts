@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment'
 import { Volunteer } from '../models/volunteer';
+import { VolunteerBlock } from '../models/volunteerBlock';
 const baseUrl = `${environment.apiUrl}/rewrite/api/v1`;
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class VolunteerService {
     return this.http.put(baseUrl+"/update-volunteer", volunteer);
   }
 
-  blockVolunteer(volunteer: Volunteer) {
+  blockVolunteer(volunteer: VolunteerBlock) {
     return this.http.put(baseUrl+"/block-volunteer", volunteer);
   }
 

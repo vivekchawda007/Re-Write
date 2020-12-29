@@ -6,7 +6,6 @@ export class Volunteer {
     modifiedBy : string;
     mobileNumber : string;
     fingerPrint : string;
-    endDate : Date;
     isBlocked : boolean;
     fingerPrintImage : string;
     volunteerImage : string; 
@@ -19,5 +18,4 @@ export class Volunteer {
     gender : string;
     documentType : string;
     documentNumber : string;
-    studyNumber : string;
 }

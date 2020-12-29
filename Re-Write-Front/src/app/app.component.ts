@@ -12,18 +12,29 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   spinner;
   isLoggedIn$: Observable<boolean>;
-  currentUser: User;
+  currentUser;
   constructor(private authService: AuthService,private router : Router) {
     
    }
 
   ngOnInit() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+   
+
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.isLoggedIn$.subscribe(
       result => { 
         if(result == true) {
           this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+          if(this.currentUser.currentUser.roleId == '1'){
+            this.currentUser.currentUser.roleId = 'ADMIN'
+          }else if(this.currentUser.currentUser.roleId == '2'){
+            this.currentUser.currentUser.roleId = 'REGISTRAR'
+          }
+         else {
+          this.currentUser.currentUser.roleId = 'REVIEVER'
+         }
         }
       });
   }

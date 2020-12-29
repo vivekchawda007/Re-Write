@@ -124,7 +124,6 @@ export class BlockVolunteerComponent implements OnInit {
   
   ngOnInit() {
     this.addVolunteerForm = this.formBuilder.group({
-      studyNumber : ['',Validators.required],
       gender : ['1',Validators.required],
       documentType : ['',Validators.required],
       documentNumber : ['',Validators.required],
@@ -153,15 +152,13 @@ export class BlockVolunteerComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     volunteer.modifiedBy = this.currentUser.currentUser.id;
     volunteer.mobileNumber = this.f.mobileNumber.value;
-  volunteer.fingerPrint = this.fingerPrintData
-    volunteer.endDate = new Date();
+    volunteer.fingerPrint = this.fingerPrintData;
     volunteer.fingerPrintImage = this.fingerDataImage;
     volunteer.volunteerImage = this.imageData;
     volunteer.address = this.f.address.value;
     volunteer.model = this.model;
     volunteer.manufacturer = this.manufacturer;
     volunteer.serialNumber = this.serialNumber;
-    volunteer.studyNumber = this.f.studyNumber.value;
     volunteer.birthDate = this.f.birthDate.value;
     volunteer.documentNumber = this.f.documentNumber.value;
     volunteer.documentType = this.f.documentType.value;

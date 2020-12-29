@@ -45,8 +45,45 @@ public class VolunteerInfo {
 	private Integer documentType;
 	private Date birthDate;
 	private Integer gender;
-	private String studyNumber;
+	private boolean isBlocked;
 	
+	private String studyNumber;
+	private String remarks;
+	private Date blockStartDate;
+	private Date blockEndDate;
+	
+	public Date getBlockStartDate() {
+		return blockStartDate;
+	}
+
+	public void setBlockStartDate(Date blockStartDate) {
+		this.blockStartDate = blockStartDate;
+	}
+
+	public boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void setBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+
+	public Date getBlockEndDate() {
+		return blockEndDate;
+	}
+
+	public void setBlockEndDate(Date blockEndDate) {
+		this.blockEndDate = blockEndDate;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	public Boolean getIsNew() {
 		return isNew;
 	}

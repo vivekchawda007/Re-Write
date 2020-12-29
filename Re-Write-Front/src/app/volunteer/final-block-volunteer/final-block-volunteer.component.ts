@@ -11,6 +11,7 @@ import Webcam from 'webcam-easy';
 import { Volunteer } from '../../models/volunteer'
 import { VolunteerService } from '../../services/volunteer.service'
 import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
+import { VolunteerBlock } from '../../models/volunteerBlock'
 
 @Component({
   selector: 'final-block-volunteer',
@@ -19,7 +20,7 @@ import { ShareDataVolunteer } from '../../models/shareDataVolunteer';
 })
 export class FinalBlockVolunteerComponent implements OnInit {
   isDisabled: boolean = false;
-  blockedTill ;
+  blockedTill;
   constructor(
     private renderer: Renderer2,
     private dialogRef: MatDialogRef<FinalBlockVolunteerComponent>,
@@ -74,7 +75,6 @@ export class FinalBlockVolunteerComponent implements OnInit {
   ngOnInit() {
 
     this.editVolunteerForm = this.formBuilder.group({
-      studyNumber: [''],
       gender: ['1'],
       documentType: [''],
       documentNumber: [''],
@@ -82,6 +82,8 @@ export class FinalBlockVolunteerComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       block: ['', Validators.required],
+      remarks: ['', Validators.required],
+      studyNumber: ['', Validators.required],
       mobileNumber: [''],
       address: [''],
     });
@@ -91,7 +93,9 @@ export class FinalBlockVolunteerComponent implements OnInit {
         /*  var element = <HTMLInputElement>document.getElementById("modelFirstName");
         element.value = this.volunteer.volunteerInfo.firstName; 
          */
-        this.blockedTill = this.renderDateAndTime(this.volunteer.volunteerInfo.endDate);
+
+
+        this.blockedTill = this.renderDateAndTime(this.volunteer.volunteerInfo.blockEndDate);
         this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
         this.imageData = this.volunteer.volunteerInfo.volunteerImage;
         this.liveVideo = true;
@@ -101,7 +105,17 @@ export class FinalBlockVolunteerComponent implements OnInit {
         } else {
           this.volunteer.volunteerInfo.gender = "Female";
         }
-        this.volunteer.volunteerInfo.birthDate = this.renderDateAndTime(this.volunteer.volunteerInfo.birthDate);
+        if (this.volunteer.volunteerInfo.blocked == true) {
+
+          var startDate = new Date();
+          var endDate = new Date(this.volunteer.volunteerInfo.blockEndDate);
+          var days = (Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()) -
+            Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) / 86400000;
+          this.editVolunteerForm.controls['studyNumber'].setValue(this.volunteer.volunteerInfo.studyNumber);
+          this.editVolunteerForm.controls['block'].setValue(days);
+          this.editVolunteerForm.controls['remarks'].setValue(this.volunteer.volunteerInfo.remarks);
+        }
+        //this.volunteer.volunteerInfo.birthDate = this.renderDateAndTime(this.volunteer.volunteerInfo.birthDate);
         //console.log("Volunteer View Completed !");
       },
         error => {
@@ -126,6 +140,7 @@ export class FinalBlockVolunteerComponent implements OnInit {
   public hasError = (controlName: string, errorName: string) => {
     return this.editVolunteerForm.controls[controlName].hasError(errorName);
   }
+
   get f() {
     return this.editVolunteerForm.controls;
   }
@@ -134,13 +149,16 @@ export class FinalBlockVolunteerComponent implements OnInit {
     var finalDate = new Date();
     var todaysDate = new Date();
     var numberOfDaysToAdd = this.f.block.value;
-    
-    finalDate.setDate(finalDate.getDate() +  parseInt(numberOfDaysToAdd));
-    const volunteer: Volunteer = new Volunteer();
-    volunteer.endDate = finalDate;
-    volunteer.id = this.volunteer.volunteerInfo.volunteerId;
+
+    finalDate.setDate(finalDate.getDate() + parseInt(numberOfDaysToAdd));
+    const volunteer: VolunteerBlock = new VolunteerBlock();
+    volunteer.blockEndDate = finalDate;
+    volunteer.volunteerId = this.volunteer.volunteerInfo.volunteerId;
+    volunteer.remarks = this.f.remarks.value;
+    volunteer.studyNumber = this.f.studyNumber.value;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     volunteer.modifiedBy = this.currentUser.currentUser.id;
+    volunteer.createdBy = this.currentUser.currentUser.id;
     this.volunteerService.blockVolunteer(volunteer)
       .subscribe(result => {
         this.volunteerAdd = result as Volunteer;

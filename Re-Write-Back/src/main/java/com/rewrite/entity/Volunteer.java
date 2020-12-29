@@ -2,14 +2,10 @@ package com.rewrite.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -41,7 +37,7 @@ public class Volunteer {
 	@Column(name="ADDRESS")
 	private String address;
 	
-	@Column(name="FINGER_PRINT")
+	@Column(name="FINGER_PRINT",length = 9999)
 	private String fingerPrint;
 	
 	@Column(name="MANUFACTURER")
@@ -49,9 +45,6 @@ public class Volunteer {
 	
 	@Column(name="SERIAL_NUMBER")
 	private String serialNumber;
-	
-	@Column(name="STUDY_NUMBER")
-	private String studyNumber;
 	
 	@Column(name = "BIRTH_DATE")
 	private Date birthDate;
@@ -73,9 +66,6 @@ public class Volunteer {
 	
 	@Column(name="IS_ACTIVE")
 	private boolean isActive;
-	
-	@Column(name="END_DATE")
-	private Date endDate;
 	
 	@Column(name="ROLE_ID")
 	private String roleId;
@@ -104,13 +94,6 @@ public class Volunteer {
 		this.isBlocked = isBlocked;
 	}
 
-	public String getStudyNumber() {
-		return studyNumber;
-	}
-
-	public void setStudyNumber(String studyNumber) {
-		this.studyNumber = studyNumber;
-	}
 
 	public Date getBirthDate() {
 		return birthDate;
@@ -207,14 +190,6 @@ public class Volunteer {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
 	}
 
 	public String getRoleId() {

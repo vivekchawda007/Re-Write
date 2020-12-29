@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rewrite.entity.Volunteer;
+import com.rewrite.entity.VolunteerBlockDetail;
 import com.rewrite.request.FingerPrintRequest;
 import com.rewrite.request.VolunteerRequest;
-import com.rewrite.response.FingerPrintResponse;
 import com.rewrite.response.RewriteResponse;
 import com.rewrite.response.VolunteerResponse;
 import com.rewrite.service.VolunteerService;
@@ -41,7 +41,7 @@ public class VolunteerController {
 	}
 	
 	@PutMapping(value = "/api/v1/block-volunteer")
-	public RewriteResponse blockVolunteer(@RequestBody VolunteerRequest volunteer, @RequestHeader HttpHeaders header) {
+	public RewriteResponse blockVolunteer(@RequestBody VolunteerBlockDetail volunteer, @RequestHeader HttpHeaders header) {
 		volunteerService.blockVolunteer(volunteer);
 		return new RewriteResponse("Volunteer updated successfully", "200");
 	}
