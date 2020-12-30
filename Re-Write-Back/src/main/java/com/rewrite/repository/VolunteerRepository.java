@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.rewrite.entity.Volunteer;
+import com.rewrite.response.VolunteerInfo;
 
 @Repository
 public interface VolunteerRepository extends JpaRepository<Volunteer, String> {

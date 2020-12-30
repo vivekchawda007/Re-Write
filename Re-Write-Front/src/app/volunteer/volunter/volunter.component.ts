@@ -95,7 +95,11 @@ export class VolunterComponent implements OnInit {
         this.volunteers = result as Volunteers;
         for(var i = 0 ; i< this.volunteers.length ; i++) {
           if(this.volunteers[i].blocked == true) {
-            this.volunteers[i].blocked = "Yes";
+            var startDate = new Date();
+          var endDate = new Date(this.volunteers[i].blockEndDate);
+          var days = (Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()) -
+            Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) / 86400000;
+            this.volunteers[i].blocked = "Blocked for next "+days+" Days";
           } else {
             this.volunteers[i].blocked = "No";
           }
@@ -132,7 +136,11 @@ export class VolunterComponent implements OnInit {
             this.volunteers = result as Volunteers;
             for(var i = 0 ; i< this.volunteers.length ; i++) {
               if(this.volunteers[i].blocked == true) {
-                this.volunteers[i].blocked = "Yes";
+                var startDate = new Date();
+                var endDate = new Date(this.volunteers[i].blockEndDate);
+                var days = (Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()) -
+                Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) / 86400000;
+                this.volunteers[i].blocked = "Blocked for "+days+" Days";
               } else {
                 this.volunteers[i].blocked = "No";
               }

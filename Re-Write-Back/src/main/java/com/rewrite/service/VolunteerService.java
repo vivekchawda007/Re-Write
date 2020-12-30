@@ -1,5 +1,6 @@
 package com.rewrite.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -58,24 +59,23 @@ public class VolunteerService {
 		volunteer.setModifiedDate(new Date());
 		volunteer.setActive(Boolean.TRUE);
 		volunteer.setDelete(Boolean.FALSE);
-		
+
 		volunteer.setBirthDate(volunteerReq.getBirthDate());
 		volunteer.setGender(volunteerReq.getGender());
 		volunteer.setDocumentNumber(volunteerReq.getDocumentNumber());
 		volunteer.setDocumentType(volunteerReq.getDocumentType());
-		//detail.setId(UUID.randomUUID().toString());
-		Volunteer volunteerSaved =volunteerRepo.save(volunteer);
+		// detail.setId(UUID.randomUUID().toString());
+		Volunteer volunteerSaved = volunteerRepo.save(volunteer);
 		detail.setVolunteerId(volunteerSaved.getId());
 		detail.setFingerPrintImage(volunteerReq.getFingerPrintImage().getBytes());
 		detail.setVolunteerImage(volunteerReq.getVolunteerImage().getBytes());
-		
-		
+
 		VolunteerDetail volunteerDetailSaved = volunteerDetailRepo.save(detail);
-		
+
 		VolunteerInfo volunteerInfo = new VolunteerInfo();
 		volunteerInfo.setAddress(volunteer.getAddress());
 		volunteerInfo.setCreatedBy(volunteer.getCreatedBy());
-		
+
 		volunteerInfo.setFingerPrint(volunteer.getFingerPrint());
 		volunteerInfo.setFirstName(volunteer.getFirstName());
 		volunteerInfo.setLastName(volunteer.getLastName());
@@ -86,9 +86,13 @@ public class VolunteerService {
 		volunteerInfo.setIsNew(Boolean.FALSE);
 		volunteerInfo.setVolunteerId(volunteer.getId());
 		VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(volunteer.getId());
-		volunteerInfo.setFingerPrintImage(volunteerDetail.getFingerPrintImage() != null ?  new String(volunteerDetail.getFingerPrintImage()) :null);
-		volunteerInfo.setVolunteerImage(volunteerDetail.getVolunteerImage() != null ?  new String(volunteerDetail.getVolunteerImage()) :null);
-		auditService.saveAudit("8",volunteerSaved.getId() + "  DI - SN : "+volunteerSaved.getSerialNumber(), volunteerSaved.getCreatedBy());
+		volunteerInfo.setFingerPrintImage(
+				volunteerDetail.getFingerPrintImage() != null ? new String(volunteerDetail.getFingerPrintImage())
+						: null);
+		volunteerInfo.setVolunteerImage(
+				volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage()) : null);
+		auditService.saveAudit("8", volunteerSaved.getId() + "  DI - SN : " + volunteerSaved.getSerialNumber(),
+				volunteerSaved.getCreatedBy());
 	}
 
 	public void updateVolunteer(VolunteerRequest volunteerReq) {
@@ -133,11 +137,6 @@ public class VolunteerService {
 		volunteerRepo.save(volunteer.get());
 		List<String> who = header.get("who");
 		auditService.saveAudit("12", volunteer.get().getId(), who.get(0));
-	}
-
-	public List<Volunteer> get(String fingerPrint) {
-		List<Volunteer> vollst = volunteerRepo.getAllVolunteer();
-		return vollst;
 	}
 
 	public String getFingerPrint(HttpHeaders header, FingerPrintRequest body) {
@@ -249,10 +248,25 @@ public class VolunteerService {
 		return response;
 	}
 
-	public List<Volunteer> getAllVolunteer(HttpHeaders header) {
+	public List<VolunteerInfo> getAllVolunteer(HttpHeaders header) {
+		List<VolunteerInfo> volunteers = new ArrayList<VolunteerInfo>();
 		List<String> who = header.get("who");
 		auditService.saveAudit("11", "", who.get(0));
-		return volunteerRepo.getAllVolunteer();
+		volunteerRepo.getAllVolunteer().stream().forEach(i -> {
+			VolunteerInfo volunteerInfo = new VolunteerInfo();
+			volunteerInfo.setVolunteerId(i.getId());
+			volunteerInfo.setFirstName(i.getFirstName());
+			volunteerInfo.setLastName(i.getLastName());
+			volunteerInfo.setMobileNumber(i.getMobileNumber());
+			volunteerInfo.setBlocked(i.getIsBlocked());
+			VolunteerBlockDetail volBlockDetail = volunteerBlockDetailRepo.findByVolunteerId(i.getId());
+			if (volBlockDetail != null) {
+				volunteerInfo.setBlockStartDate(volBlockDetail.getBlockStartDate());
+				volunteerInfo.setBlockEndDate(volBlockDetail.getBlockEndDate());
+			}
+			volunteers.add(volunteerInfo);
+		});
+		return volunteers;
 	}
 
 }

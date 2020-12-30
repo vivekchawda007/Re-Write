@@ -18,6 +18,7 @@ import com.rewrite.entity.VolunteerBlockDetail;
 import com.rewrite.request.FingerPrintRequest;
 import com.rewrite.request.VolunteerRequest;
 import com.rewrite.response.RewriteResponse;
+import com.rewrite.response.VolunteerInfo;
 import com.rewrite.response.VolunteerResponse;
 import com.rewrite.service.VolunteerService;
 
@@ -60,7 +61,7 @@ public class VolunteerController {
 	}
 
 	@GetMapping(value = "/api/v1/get-all-volunteer")
-	public List<Volunteer> getAllVolunteer(@RequestHeader HttpHeaders header) {
+	public List<VolunteerInfo> getAllVolunteer(@RequestHeader HttpHeaders header) {
 		
 			return volunteerService.getAllVolunteer(header);
 	}
