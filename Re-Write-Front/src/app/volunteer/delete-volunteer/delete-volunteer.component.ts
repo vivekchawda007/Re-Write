@@ -13,6 +13,7 @@ import { VolunteerService } from '../../services/volunteer.service';
 export class DeleteVolunteerComponent implements OnInit {
   volunteer;
   data: ShareDataVolunteer;
+  currentUser;
   constructor(
     private dialogRef: MatDialogRef<DeleteVolunteerComponent>,
     private toastr : ToastrService,
@@ -40,6 +41,8 @@ export class DeleteVolunteerComponent implements OnInit {
   deleteVolunteer() {
     const volunteer : Volunteer = new Volunteer();
     volunteer.id = this.volunteer.volunteerInfo.volunteerId;
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    volunteer.modifiedBy = this.currentUser.currentUser.id;
     this.volunteerService.deleteVolunteer(volunteer)
       .subscribe(result => {
         this.toastr.success("Volunteer Delete Successfull")

@@ -1,5 +1,7 @@
 package com.rewrite.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,6 +30,74 @@ public class VolunteerDetail {
 	@Column(name="VOLUNTEER_IMAGE")
 	private byte[] volunteerImage;
 
+
+	@Column(name="IS_DELETED")
+	private boolean isDelete;
+	
+	@Column(name="IS_ACTIVE")
+	private boolean isActive;
+	
+
+	@Column(name="CREATED_BY")
+	private String createdBy;
+
+	@Column(name="CREATED_DATE")
+	private Date createdDate;
+	
+	@Column(name="MODIFIED_BY")
+	private String modifiedBy;
+
+	@Column(name="MODIFIED_DATE")
+	private Date modifiedDate;
+	
+	
+	public boolean isDelete() {
+		return isDelete;
+	}
+
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
 
 	public String getId() {
 		return id;

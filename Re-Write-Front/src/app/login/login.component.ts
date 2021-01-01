@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
           const now = new Date()
           const item = {
             'currentUser': result,
-            expiry: now.getTime() + 600000,
+            expiry: now.getTime() + 180000,
           }
           localStorage.setItem("currentUser", JSON.stringify(item));
           if (map.get("new") == true) {

@@ -69,7 +69,12 @@ public class VolunteerService {
 		detail.setVolunteerId(volunteerSaved.getId());
 		detail.setFingerPrintImage(volunteerReq.getFingerPrintImage().getBytes());
 		detail.setVolunteerImage(volunteerReq.getVolunteerImage().getBytes());
-
+		detail.setActive(Boolean.TRUE);
+		detail.setDelete(Boolean.FALSE);
+		detail.setCreatedBy(volunteerReq.getCreatedBy());
+		detail.setModifiedBy(volunteerReq.getCreatedBy());
+		detail.setCreatedDate(new Date());
+		detail.setModifiedDate(new Date());
 		VolunteerDetail volunteerDetailSaved = volunteerDetailRepo.save(detail);
 
 		VolunteerInfo volunteerInfo = new VolunteerInfo();
@@ -133,7 +138,21 @@ public class VolunteerService {
 
 	public void deleteVolunteer(VolunteerRequest volunteerReq, HttpHeaders header) {
 		Optional<Volunteer> volunteer = volunteerRepo.findById(volunteerReq.getId());
+		VolunteerDetail volunteerDetail = volunteerDetailRepo.findByVolunteerId(volunteerReq.getId());
+		VolunteerBlockDetail volunteerblockDetail = volunteerBlockDetailRepo.findByVolunteerId(volunteerReq.getId());
+		volunteerblockDetail.setActive(Boolean.FALSE);
+		volunteerblockDetail.setDelete(Boolean.TRUE);
+		volunteerblockDetail.setModifiedBy(volunteerReq.getModifiedBy());
+		volunteerblockDetail.setModifiedDate(new Date());
 		volunteer.get().setDelete(Boolean.TRUE);
+		volunteerDetail.setDelete(Boolean.TRUE);
+		volunteerDetail.setActive(Boolean.FALSE);
+		volunteer.get().setActive(Boolean.FALSE);
+		volunteerDetail.setModifiedBy(volunteerReq.getModifiedBy());
+		volunteer.get().setModifiedBy(volunteerReq.getModifiedBy());
+		volunteerDetail.setModifiedDate(new Date());
+		volunteer.get().setModifiedDate(new Date());
+		volunteerDetailRepo.save(volunteerDetail);
 		volunteerRepo.save(volunteer.get());
 		List<String> who = header.get("who");
 		auditService.saveAudit("12", volunteer.get().getId(), who.get(0));
@@ -144,7 +163,7 @@ public class VolunteerService {
 		VolunteerResponse volunteerResponse = new VolunteerResponse();
 
 		volunteerResponse.setFingerPrintInfo(body);
-		List<Volunteer> volunteers = volunteerRepo.findAll();
+		List<Volunteer> volunteers = volunteerRepo.getAllVolunteer();
 		boolean isMatch = false;
 
 		for (Volunteer volunteer : volunteers) {

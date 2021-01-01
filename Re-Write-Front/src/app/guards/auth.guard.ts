@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((isLoggedIn: boolean) => {
         const itemStr = localStorage.getItem("currentUser")
-        if(itemStr == null) {
+        if (itemStr == null) {
           this.authService.logout();
           return;
         }
@@ -29,6 +29,13 @@ export class AuthGuard implements CanActivate {
           this.authService.logout();
           return false;
         } else {
+          localStorage.removeItem("currentUser");
+          const now = new Date()
+          const item = {
+            'currentUser': this.currentUser.currentUser,
+            expiry: now.getTime() + 180000,
+          }
+          localStorage.setItem("currentUser", JSON.stringify(item));
           return true;
         }
       }))
