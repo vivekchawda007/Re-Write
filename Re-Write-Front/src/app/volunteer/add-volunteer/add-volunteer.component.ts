@@ -40,7 +40,7 @@ export class AddVolunteerComponent implements OnInit {
   documents = [
     {
       id : 1,
-      name : 'PAN Card'
+      name : 'Pan Card'
     },
     {
       id : 2,

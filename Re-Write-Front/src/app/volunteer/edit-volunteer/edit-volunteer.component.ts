@@ -96,7 +96,6 @@ export class EditVolunteerComponent implements OnInit {
         this.editVolunteerForm.controls['gender'].setValue(this.volunteer.volunteerInfo.gender);
         this.editVolunteerForm.controls['documentType'].setValue(this.volunteer.volunteerInfo.documentType);
         this.editVolunteerForm.controls['documentNumber'].setValue(this.volunteer.volunteerInfo.documentNumber);
-        //this.editVolunteerForm.controls['studyNumber'].setValue(this.volunteer.volunteerInfo.studyNumber);
         this.editVolunteerForm.controls['birthDate'].setValue(this.volunteer.volunteerInfo.birthDate);
         this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
         this.imageData = this.volunteer.volunteerInfo.volunteerImage;

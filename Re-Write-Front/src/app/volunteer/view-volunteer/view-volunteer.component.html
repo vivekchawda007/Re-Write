@@ -12,6 +12,18 @@
                         <form>
                             <mat-dialog-content>
                                 <mat-form-field danger>
+                                    <input matInput placeholder="Blocked Till"
+                                        value={{this.volunteer?.volunteerInfo.blocked}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Study Number"
+                                        value={{this.volunteer?.volunteerInfo.studyNumber}} disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
+                                    <input matInput placeholder="Remarks" value={{this.volunteer?.volunteerInfo.remarks}}
+                                        disabled>
+                                </mat-form-field>
+                                <mat-form-field danger>
                                     <input matInput placeholder="Gender"
                                         value={{this.volunteer?.volunteerInfo.gender}} disabled>
                                 </mat-form-field>

@@ -11,9 +11,9 @@
                     <mat-dialog-content>
                         <br />
                         <mat-radio-group aria-label="Select Gender" formControlName="gender">
-                            <mat-radio-button value="1">Male</mat-radio-button>
+                            <mat-radio-button [value]="1">Male</mat-radio-button>
                             &nbsp;
-                            <mat-radio-button value="2">Female</mat-radio-button>
+                            <mat-radio-button [value]="2">Female</mat-radio-button>
                             <mat-error *ngIf="hasError('gender', 'required')">Gender is required</mat-error>
                         </mat-radio-group>
                         

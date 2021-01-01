@@ -101,7 +101,7 @@ export class VolunterComponent implements OnInit {
             Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) / 86400000;
             this.volunteers[i].blocked = "Blocked for next "+days+" Days";
           } else {
-            this.volunteers[i].blocked = "No";
+            this.volunteers[i].blocked = "Not Blocked";
           }
         }
         this.volunteersBackup = this.volunteers.map(x => Object.assign({}, x))

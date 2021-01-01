@@ -33,6 +33,28 @@ export class ViewVolunteerComponent implements OnInit {
         } else {
           this.volunteer.volunteerInfo.gender = "Female";
         }
+
+        if (this.volunteer.volunteerInfo.documentType == '1') {
+          this.volunteer.volunteerInfo.documentType = "Pan Card";
+        } else if (this.volunteer.volunteerInfo.documentType == '2') {
+          this.volunteer.volunteerInfo.documentType = "Adhar Card";
+        }
+        else if (this.volunteer.volunteerInfo.documentType == '3') {
+          this.volunteer.volunteerInfo.documentType = "Voter Card";
+        } else {
+          this.volunteer.volunteerInfo.documentType = "License";
+        }
+
+        if(this.volunteer.volunteerInfo.blocked == true) {
+          var startDate = new Date();
+        var endDate = new Date(this.volunteer.volunteerInfo.blockEndDate);
+        var days = (Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()) -
+          Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) / 86400000;
+          this.volunteer.volunteerInfo.blocked = "Blocked for next "+days+" Days";
+        } else {
+          this.volunteer.volunteerInfo.blocked = "Not Blocked";
+        }
+
         this.volunteer.volunteerInfo.birthDate = this.renderDateAndTime(this.volunteer.volunteerInfo.birthDate);
         console.log("Volunteer View Completed !");
       },

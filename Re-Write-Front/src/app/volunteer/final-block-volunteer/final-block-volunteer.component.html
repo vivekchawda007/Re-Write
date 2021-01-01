@@ -11,18 +11,18 @@
                     <mat-dialog-content>
                         <br />
                         <mat-form-field>
-                            <input matInput placeholder="Block Days" formControlName="block">
+                            <input type="number" onkeypress="return event.charCode >= 48" min="1" matInput placeholder="Block Days" formControlName="block">
                             <mat-error *ngIf="hasError('block', 'required')">Block Days Number is required</mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
                             <input matInput placeholder="Remarks" formControlName="remarks">
-                            <mat-error *ngIf="hasError('block', 'required')">Remarks is required</mat-error>
+                            <mat-error *ngIf="hasError('remarks', 'required')">Remarks is required</mat-error>
                         </mat-form-field>
 
                         <mat-form-field>
                             <input matInput placeholder="Study Number" formControlName="studyNumber">
-                            <mat-error *ngIf="hasError('block', 'required')">Study number is required</mat-error>
+                            <mat-error *ngIf="hasError('studyNumber', 'required')">Study number is required</mat-error>
                         </mat-form-field>
 
                         <div>

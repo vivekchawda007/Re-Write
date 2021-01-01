@@ -94,7 +94,7 @@ export class FinalBlockVolunteerComponent implements OnInit {
         element.value = this.volunteer.volunteerInfo.firstName; 
          */
 
-
+        this.volunteer.volunteerInfo.birthDate = this.renderDateAndTime(this.volunteer.volunteerInfo.birthDate);
         this.blockedTill = this.renderDateAndTime(this.volunteer.volunteerInfo.blockEndDate);
         this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
         this.imageData = this.volunteer.volunteerInfo.volunteerImage;
@@ -104,6 +104,17 @@ export class FinalBlockVolunteerComponent implements OnInit {
           this.volunteer.volunteerInfo.gender = "Male";
         } else {
           this.volunteer.volunteerInfo.gender = "Female";
+        }
+
+        if (this.volunteer.volunteerInfo.documentType == '1') {
+          this.volunteer.volunteerInfo.documentType = "Pan Card";
+        } else if (this.volunteer.volunteerInfo.documentType == '2') {
+          this.volunteer.volunteerInfo.documentType = "Adhar Card";
+        }
+        else if (this.volunteer.volunteerInfo.documentType == '3') {
+          this.volunteer.volunteerInfo.documentType = "Voter Card";
+        } else {
+          this.volunteer.volunteerInfo.documentType = "License";
         }
         if (this.volunteer.volunteerInfo.blocked == true) {
 
