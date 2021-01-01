@@ -81,7 +81,7 @@ export class VolunterComponent implements OnInit {
 
     this.volunteers = this.volunteersBackup.filter(function (tag) {
       data.target.value = data.target.value.toUpperCase();
-      return (tag.firstName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.lastName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.id.toUpperCase().indexOf(data.target.value) >= 0);
+      return (tag.firstName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.lastName.toUpperCase().indexOf(data.target.value) >= 0) || (tag.volunteerId.toUpperCase().indexOf(data.target.value) >= 0);
     });
     
   }
