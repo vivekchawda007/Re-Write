@@ -189,7 +189,7 @@ export class AddVolunteerComponent implements OnInit {
         error => {
           this.spinner.false;
           this.toastrService.error("Error while saving volunteer. Please contact admin.")
-          console.log("Error while creating survey !");
+          console.log("Error while creating Volunteer !");
         });
     //var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
     //element.disabled = false;

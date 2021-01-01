@@ -25,6 +25,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.ListItem;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -55,7 +57,6 @@ public class AuditService {
 	@Autowired
 	RoleRepository roleRepository;
 
-
 	@SuppressWarnings("null")
 	public List<AuditResponse> getAllAudits(HttpHeaders headers) {
 		List<String> who = headers.get("who");
@@ -78,7 +79,7 @@ public class AuditService {
 		saveAudit("16", "", who.get(0));
 		return lst;
 	}
-	
+
 	@SuppressWarnings("null")
 	public List<AuditResponse> getAllRegistrarAudit(HttpHeaders headers) {
 		List<String> who = headers.get("who");
@@ -104,7 +105,10 @@ public class AuditService {
 
 	public void generatePdf(String requestBody, HttpHeaders headers) {
 		List<String> who = headers.get("who");
-		PdfPTable table = new PdfPTable(new float[] {8 ,16, 15, 13, 28, 20 });
+		PdfPTable table = new PdfPTable(new float[] { 8, 16, 15, 13, 28, 20 });
+		table.setSpacingBefore(10f);
+
+		table.setSpacingAfter(10f);
 		Optional<UserDetail> ud = userDetailRepository.findById(who.get(0));
 		Gson gson2 = new GsonBuilder().create();
 		AuditReq[] audits = gson2.fromJson(requestBody, AuditReq[].class);
@@ -131,7 +135,7 @@ public class AuditService {
 		Paragraph paragraphGstn = new Paragraph("GSTN Number  - 18AABCT3518Q1ZV", boldFontSmall);
 		paragraph.setAlignment(Element.ALIGN_LEFT);
 		String file = "tempPdf.pdf";
-		Document doc = new Document();
+		Document doc = new Document(PageSize.A4);
 		PdfWriter writer = null;
 		try {
 			writer = PdfWriter.getInstance(doc, new FileOutputStream(file));
@@ -154,17 +158,17 @@ public class AuditService {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		generateCell("No", true,table);
-		generateCell("Activity", true,table);
-		generateCell("User", true,table);
-		generateCell("Role", true,table);
-		generateCell("Audit Date/Time", true,table);
-		generateCell("Metadata", true,table);
+		generateCell("No", true, table);
+		generateCell("Activity", true, table);
+		generateCell("User", true, table);
+		generateCell("Role", true, table);
+		generateCell("Audit Date/Time", true, table);
+		generateCell("Metadata", true, table);
 		for (int i = 0; i < audits.length; i++) {
-			generateCell(String.valueOf(i+1), false,table);
-			generateCell(audits[i].getActivity(), false,table);
-			generateCell(audits[i].getUserId(), false,table);
-			generateCell(audits[i].getRole(), false,table);
+			generateCell(String.valueOf(i + 1), false, table);
+			generateCell(audits[i].getActivity(), false, table);
+			generateCell(audits[i].getUserId(), false, table);
+			generateCell(audits[i].getRole(), false, table);
 			Date date1 = null;
 			try {
 				date1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(audits[i].getAuditTime());
@@ -173,10 +177,11 @@ public class AuditService {
 			}
 			final long HOUR = 19800000;
 			Date finalDate = new Date(date1.getTime() + HOUR);
-			generateCell(new SimpleDateFormat("MM/dd/yy, hh:mm a").format(finalDate), false,table);
-			generateCell(audits[i].getMetadata(), false,table);
+			generateCell(new SimpleDateFormat("MM/dd/yy, hh:mm a").format(finalDate), false, table);
+
+			generateMetaData(audits[i].getMetadata(), false, table);
 		}
-		
+
 		try {
 			doc.add(table);
 		} catch (DocumentException e) {
@@ -199,21 +204,52 @@ public class AuditService {
 		return audit;
 	}
 
-	public Phrase getTablePhrase(String phrase, boolean isBold) {
+	public Paragraph getTablePhrase(String phrase, boolean isBold) {
 		if (isBold) {
 			Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-			return new Phrase(phrase, boldFont);
+			return new Paragraph(phrase, boldFont);
 		}
-		return new Phrase(phrase);
+		return new Paragraph(phrase);
 
 	}
 
-	public void generateCell(String cellContent, boolean isBold,PdfPTable table) {
+	public void generateCell(String cellContent, boolean isBold, PdfPTable table) {
 		
+
 		PdfPCell c1 = null;
+		
 		c1 = null;
 		c1 = new PdfPCell(getTablePhrase(cellContent, isBold));
 		c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+		table.addCell(c1);
+	}
+
+	public void generateMetaData(String cellContent, boolean isBold, PdfPTable table) {
+		String[] splits = null;
+		PdfPCell c1 = null;
+		c1 = new PdfPCell();
+		if(!cellContent.equals("")) {
+			splits = cellContent.split("DI");
+			if(splits.length>1) {
+				com.itextpdf.text.List list = new com.itextpdf.text.List(com.itextpdf.text.List.UNORDERED);
+				list.setListSymbol("•  ");
+				ListItem item = new ListItem(splits[0]);
+				ListItem item2 = new ListItem("DI" + splits[1]);
+				item.setAlignment(Element.ALIGN_JUSTIFIED);
+				list.add(item);
+				list.add(item2);
+				c1.addElement(list);
+				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+				
+		}
+		//String[] splits = cellContent.split("DI");
+		
+		}else {
+			c1 = new PdfPCell(getTablePhrase(cellContent, isBold));
+			c1.setHorizontalAlignment(Element.ALIGN_LEFT);
+		}
+		
+		
 		table.addCell(c1);
 	}
 }

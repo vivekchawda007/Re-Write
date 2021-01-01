@@ -173,15 +173,15 @@ export class FinalBlockVolunteerComponent implements OnInit {
     this.volunteerService.blockVolunteer(volunteer)
       .subscribe(result => {
         this.volunteerAdd = result as Volunteer;
-        console.log("Volunteer Successfully Added !");
-        this.toastrService.success("Voluntter added successfully !")
+        console.log("Volunteer Successfully Blocked !");
+        this.toastrService.success("Volunteer blocked successfully !")
 
         this.dialogRef.close(this.volunteerAdd);
 
       },
         error => {
-          this.toastrService.error("Error while saving volunteer. Please contact admin.")
-          console.log("Error while creating survey !");
+          this.toastrService.error("Error while blocking volunteer. Please contact admin.")
+          console.log("Error while blocking volunteer !");
         });
     //var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
     //element.disabled = false;

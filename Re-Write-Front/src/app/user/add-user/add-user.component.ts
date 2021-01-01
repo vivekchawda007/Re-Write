@@ -63,8 +63,8 @@ currentUser;
     this.roles = result; 
     },
       error => {
-        this.toastrService.error("Error while saving volunteer. Please contact admin.")
-        console.log("Error while creating survey !");
+        this.toastrService.error("Error while saving user. Please contact admin.")
+        console.log("Error while creating user !");
       });
   //var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
   //element.disabled = false;

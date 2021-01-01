@@ -167,8 +167,8 @@ export class BlockVolunteerComponent implements OnInit {
     this.volunteerService.addVolunteer(volunteer)
       .subscribe(result => {
         this.volunteerAdd = result as Volunteer;
-        console.log("Volunteer Successfully Added !");
-        this.toastrService.success("Voluntter added successfully !")
+        console.log("Volunteer Successfully Blocked !");
+        this.toastrService.success("Voluntter Blocked successfully !")
 
         this.dialogRef.close(null);
 

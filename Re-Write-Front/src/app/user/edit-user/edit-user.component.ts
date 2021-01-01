@@ -58,8 +58,8 @@ export class EditUserComponent implements OnInit {
         this.roles = result;
       },
         error => {
-          this.toastr.error("Error while saving volunteer. Please contact admin.")
-          console.log("Error while creating survey !");
+          this.toastr.error("Error while getting user. Please contact admin.")
+          console.log("Error while getting user !");
         });
     this.userService.getUser(this.data.id)
       .subscribe(result => {
@@ -71,11 +71,12 @@ export class EditUserComponent implements OnInit {
         this.editUserForm.controls['lastName'].setValue(this.user.lastName);
         this.editUserForm.controls['userName'].setValue(this.user.userName);
         this.editUserForm.controls['role'].setValue(this.user.roleId);
-        console.log("Volunteer View Completed !");
+        console.log("User View Completed !");
       },
         error => {
-          this.toastr.error("Error while view volunteer. Please refresh page.")
-          console.log("Error while viewing volunteer !");
+          
+          this.toastr.error("Error while view user. Please refresh page.")
+          console.log("Error while viewing user !");
         });
 
   }
@@ -105,8 +106,8 @@ export class EditUserComponent implements OnInit {
 
       },
         error => {
-          this.toastr.error("Error while saving user. Please contact admin.")
-          console.log("Error while creating user !");
+          this.toastr.error("Error while updating user. Please contact admin.")
+          console.log("Error while updating user !");
         });
     //var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
     //element.disabled = false;
