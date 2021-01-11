@@ -11,11 +11,11 @@
                     <mat-dialog-content>
                         <br />
                         <mat-form-field>
-                            <input type="number" onkeypress="return event.charCode >= 48" min="1" matInput placeholder="Block Days" formControlName="block">
+                            <input type="number" onkeypress="return event.charCode >= 48" min="1" matInput placeholder="Block Days" [disabled]="blockDaysEnable" formControlName="block">
                             <mat-error *ngIf="hasError('block', 'required')">Block Days Number is required</mat-error>
                         </mat-form-field>
 
-                        <mat-form-field>
+                        <mat-form-field >
                             <input matInput placeholder="Remarks" formControlName="remarks">
                             <mat-error *ngIf="hasError('remarks', 'required')">Remarks is required</mat-error>
                         </mat-form-field>
@@ -26,7 +26,8 @@
                         </mat-form-field>
 
                         <div>
-                        Volunteer is blocked till : {{blockedTill}}
+                        {{blockedTill}}
+                        
                         </div>
 
                         <hr>
@@ -69,8 +70,8 @@
 
                     </mat-dialog-content>
                     <mat-dialog-actions>
-                        <button ID="modelId" mat-raised-button color="primary" [disabled]="!editVolunteerForm.valid"
-                            (click)="save()">Block Volunteer</button>
+                        <button *ngIf="finalButton"ID="modelId" mat-raised-button color="primary" [disabled]="!editVolunteerForm.valid"
+                            (click)="save()">{{buttonName}}</button>
                         <button mat-raised-button color="warn" (click)="close()">Close</button>
                     </mat-dialog-actions>
                 </form>

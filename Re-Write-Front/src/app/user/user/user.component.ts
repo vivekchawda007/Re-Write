@@ -49,9 +49,11 @@ export class UserComponent implements OnInit {
             this.users[i].roleId = 'Admin'
           }else if(this.users[i].roleId == '2'){
             this.users[i].roleId = 'Registrar'
+          }else if(this.users[i].roleId == '3'){
+            this.users[i].roleId = 'Reviever'
           }
          else {
-          this.users[i].roleId = 'Reviever'
+          this.users[i].roleId = 'Superviser'
          }
         }
         this.usersBackup = [];
@@ -95,9 +97,11 @@ export class UserComponent implements OnInit {
                 this.users[i].roleId = 'Admin'
               }else if(this.users[i].roleId == '2'){
                 this.users[i].roleId = 'Registrar'
+              }else if(this.users[i].roleId == '3'){
+                this.users[i].roleId = 'Reviever'
               }
              else {
-              this.users[i].roleId = 'Reviever'
+              this.users[i].roleId = 'Superviser'
              }
             }
             this.usersBackup = [];
@@ -131,9 +135,11 @@ export class UserComponent implements OnInit {
                 this.users[i].roleId = 'Admin'
               }else if(this.users[i].roleId == '2'){
                 this.users[i].roleId = 'Registrar'
+              }else if(this.users[i].roleId == '3'){
+                this.users[i].roleId = 'Reviever'
               }
              else {
-              this.users[i].roleId = 'Reviever'
+              this.users[i].roleId = 'Superviser'
              }
             }
             this.usersBackup = [];
@@ -169,9 +175,11 @@ export class UserComponent implements OnInit {
                 this.users[i].roleId = 'Admin'
               }else if(this.users[i].roleId == '2'){
                 this.users[i].roleId = 'Registrar'
+              }else if(this.users[i].roleId == '3'){
+                this.users[i].roleId = 'Reviever'
               }
              else {
-              this.users[i].roleId = 'Reviever'
+              this.users[i].roleId = 'Superviser'
              }
             }
             this.usersBackup = [];
@@ -184,28 +192,6 @@ export class UserComponent implements OnInit {
       }
     });
   }
-  /*  openEditModal(surveyId) {
-     var element = <HTMLInputElement>document.getElementById("toggleNavigationId");
-     element.disabled = true;
-     const dialogConfig = new MatDialogConfig();
-     const shareData: ShareData = new ShareData();
-     shareData.surveys = this.surveys;
-     shareData.surveyid = surveyId;
-     dialogConfig.disableClose = true;
-     dialogConfig.autoFocus = true;
-     dialogConfig.data = shareData;
-     this.dialog.open(EditSurveyComponent, dialogConfig).afterClosed().subscribe(result => {
-       if (result != null) {
-         for (var survey of this.surveys) {
-           if (survey.surveyid == result.surveyid) {
-             this.surveys.splice(this.surveys.indexOf(survey), 1);
-           }
-         }
-         this.surveys.push(result);
-       }
-     });;
-   }
-  */
  
  openDeleteModal(userId) {
   const dialogConfig = new MatDialogConfig();
@@ -229,9 +215,11 @@ export class UserComponent implements OnInit {
               this.users[i].roleId = 'Admin'
             }else if(this.users[i].roleId == '2'){
               this.users[i].roleId = 'Registrar'
+            }else if(this.users[i].roleId == '3'){
+              this.users[i].roleId = 'Reviever'
             }
            else {
-            this.users[i].roleId = 'Reviever'
+            this.users[i].roleId = 'Superviser'
            }
           }
           this.usersBackup = [];

@@ -32,8 +32,11 @@ export class AppComponent {
           }else if(this.currentUser.currentUser.roleId == '2'){
             this.currentUser.currentUser.roleId = 'REGISTRAR'
           }
+          else if(this.currentUser.currentUser.roleId == '3'){
+            this.currentUser.currentUser.roleId = 'REVIEVER'
+          }
          else {
-          this.currentUser.currentUser.roleId = 'REVIEVER'
+          this.currentUser.currentUser.roleId = 'SUPERVISER'
          }
         }
       });

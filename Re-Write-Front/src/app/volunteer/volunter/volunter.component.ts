@@ -74,6 +74,15 @@ export class VolunterComponent implements OnInit {
       this.isAddPermission = false;
       this.isBlockPermissionSpecial = false;
     }
+    if (this.currentUser.currentUser.roleId == '4') {
+      //Superwiser
+      this.isDeletePermission = true;
+      this.isEditPermission = true;
+      this.isViewPermission = true;
+      this.isBlockPermission = true;
+      this.isAddPermission = true;
+      this.isBlockPermissionSpecial = true;
+    }
   }
 
   filterData(data) {

@@ -36,11 +36,14 @@ export class FinalBlockVolunteerComponent implements OnInit {
   volunteerAdd: Volunteer;
   Volunteer;
   checked = false;
+  finalButton : boolean = true;
   editVolunteerForm: FormGroup;
   primaryDiv = false;
+  isSuperwiser : boolean = false;;
   secondaryDiv = true;
   submitted = true;
   currentUser;
+  blockDaysEnable;
   fingerDataImage;
   pictureClicked = false;
   liveVideo = true;
@@ -50,6 +53,7 @@ export class FinalBlockVolunteerComponent implements OnInit {
   model: string;
   serialNumber: string;
   volunteer;
+  buttonName;
   data: ShareDataVolunteer;
   @ViewChild('autosize', { static: false }) autosize: CdkTextareaAutosize;
   documents = [
@@ -73,7 +77,8 @@ export class FinalBlockVolunteerComponent implements OnInit {
 
 
   ngOnInit() {
-
+    const itemStr = localStorage.getItem("currentUser")
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.editVolunteerForm = this.formBuilder.group({
       gender: ['1'],
       documentType: [''],
@@ -82,7 +87,7 @@ export class FinalBlockVolunteerComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       block: ['', Validators.required],
-      remarks: ['', Validators.required],
+      remarks: [''],
       studyNumber: ['', Validators.required],
       mobileNumber: [''],
       address: [''],
@@ -95,7 +100,7 @@ export class FinalBlockVolunteerComponent implements OnInit {
          */
 
         this.volunteer.volunteerInfo.birthDate = this.renderDateAndTime(this.volunteer.volunteerInfo.birthDate);
-        this.blockedTill = this.renderDateAndTime(this.volunteer.volunteerInfo.blockEndDate);
+       
         this.fingerDataImage = this.volunteer.volunteerInfo.fingerPrintImage;
         this.imageData = this.volunteer.volunteerInfo.volunteerImage;
         this.liveVideo = true;
@@ -117,7 +122,8 @@ export class FinalBlockVolunteerComponent implements OnInit {
           this.volunteer.volunteerInfo.documentType = "License";
         }
         if (this.volunteer.volunteerInfo.blocked == true) {
-
+          this.blockedTill = "Volunteer is blocked till :"+ this.renderDateAndTime(this.volunteer.volunteerInfo.blockEndDate);
+          
           var startDate = new Date();
           var endDate = new Date(this.volunteer.volunteerInfo.blockEndDate);
           var days = (Date.UTC(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()) -
@@ -125,7 +131,24 @@ export class FinalBlockVolunteerComponent implements OnInit {
           this.editVolunteerForm.controls['studyNumber'].setValue(this.volunteer.volunteerInfo.studyNumber);
           this.editVolunteerForm.controls['block'].setValue(days);
           this.editVolunteerForm.controls['remarks'].setValue(this.volunteer.volunteerInfo.remarks);
+         
+          this.editVolunteerForm.controls['block'].disable();
+          this.editVolunteerForm.controls['studyNumber'].disable();
+          this.isSuperwiser = true;
+          
+          if(this.currentUser.currentUser.roleId == '4' || this.currentUser.currentUser.roleId == '1') {
+            this.buttonName = "Add Remark";
+          } else {
+            this.buttonName = "Block Volunteer"
+            this.editVolunteerForm.controls['remarks'].disable();
+            this.finalButton = false;
+          }
+        }else {
+          
+          this.isSuperwiser = false;
+          this.buttonName = "Block Volunteer";
         }
+                
         //this.volunteer.volunteerInfo.birthDate = this.renderDateAndTime(this.volunteer.volunteerInfo.birthDate);
         //console.log("Volunteer View Completed !");
       },
@@ -167,6 +190,7 @@ export class FinalBlockVolunteerComponent implements OnInit {
     volunteer.volunteerId = this.volunteer.volunteerInfo.volunteerId;
     volunteer.remarks = this.f.remarks.value;
     volunteer.studyNumber = this.f.studyNumber.value;
+    volunteer.id = this.volunteer.volunteerInfo.blockId;
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     volunteer.modifiedBy = this.currentUser.currentUser.id;
     volunteer.createdBy = this.currentUser.currentUser.id;

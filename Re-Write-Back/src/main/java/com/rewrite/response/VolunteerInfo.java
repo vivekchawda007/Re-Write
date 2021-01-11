@@ -46,12 +46,22 @@ public class VolunteerInfo {
 	private Date birthDate;
 	private Integer gender;
 	private boolean isBlocked;
+	private String blockId;
 	
 	private String studyNumber;
 	private String remarks;
 	private Date blockStartDate;
 	private Date blockEndDate;
 	
+	
+	public String getBlockId() {
+		return blockId;
+	}
+
+	public void setBlockId(String blockId) {
+		this.blockId = blockId;
+	}
+
 	public Date getBlockStartDate() {
 		return blockStartDate;
 	}

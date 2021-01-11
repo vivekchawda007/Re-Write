@@ -119,21 +119,39 @@ public class VolunteerService {
 	}
 
 	public void blockVolunteer(VolunteerBlockDetail volunteerReq) {
-		Optional<Volunteer> volunteerOptional = volunteerRepo.findById(volunteerReq.getVolunteerId());
-		Volunteer volunteer = volunteerOptional.get();
-//		volunteer.setEndDate(volunteerReq.getEndDate());
-		volunteer.setBlocked(Boolean.TRUE);
-		volunteer.setModifiedBy(volunteerReq.getModifiedBy());
-		volunteer.setModifiedDate(new Date());
-		volunteerReq.setActive(true);
-		volunteerReq.setDelete(false);
-		volunteerReq.setModifiedDate(new Date());
-		volunteerReq.setCreatedDate(new Date());
-		volunteerReq.setBlockStartDate(new Date());
-		Volunteer volunteerSaved = volunteerRepo.save(volunteer);
-		volunteerBlockDetailRepo.save(volunteerReq);
-		auditService.saveAudit("14", volunteerSaved.getId() + "  DI -SN : " + volunteerSaved.getSerialNumber(),
-				volunteerSaved.getModifiedBy());
+
+		if (volunteerReq.getId() != null) {
+			Optional<Volunteer> volunteerOptional = volunteerRepo.findById(volunteerReq.getVolunteerId());
+			Optional<VolunteerBlockDetail> volBlockDetail = volunteerBlockDetailRepo.findById(volunteerReq.getId());
+			volBlockDetail.get().setBlockStartDate(new Date());
+			volBlockDetail.get().setBlockEndDate((volunteerReq.getBlockEndDate()));
+			volBlockDetail.get().setModifiedDate(new Date());
+			volBlockDetail.get().setModifiedBy(volunteerReq.getModifiedBy());
+			volBlockDetail.get().setRemarks(volunteerReq.getRemarks());
+			Volunteer volunteer = volunteerOptional.get();
+			volunteer.setBlocked(Boolean.TRUE);
+			volunteer.setModifiedBy(volunteerReq.getModifiedBy());
+			volunteer.setModifiedDate(new Date());
+			Volunteer volunteerSaved = volunteerRepo.save(volunteer);
+			volunteerBlockDetailRepo.save(volBlockDetail.get());
+			auditService.saveAudit("14", volunteerSaved.getId() + "  DI -SN : " + volunteerSaved.getSerialNumber(),
+					volunteerSaved.getModifiedBy());
+		} else {
+			Optional<Volunteer> volunteerOptional = volunteerRepo.findById(volunteerReq.getVolunteerId());
+			Volunteer volunteer = volunteerOptional.get();
+			volunteer.setBlocked(Boolean.TRUE);
+			volunteer.setModifiedBy(volunteerReq.getModifiedBy());
+			volunteer.setModifiedDate(new Date());
+			volunteerReq.setActive(true);
+			volunteerReq.setDelete(false);
+			volunteerReq.setModifiedDate(new Date());
+			volunteerReq.setCreatedDate(new Date());
+			volunteerReq.setBlockStartDate(new Date());
+			Volunteer volunteerSaved = volunteerRepo.save(volunteer);
+			volunteerBlockDetailRepo.save(volunteerReq);
+			auditService.saveAudit("14", volunteerSaved.getId() + "  DI -SN : " + volunteerSaved.getSerialNumber(),
+					volunteerSaved.getModifiedBy());
+		}
 	}
 
 	public void deleteVolunteer(VolunteerRequest volunteerReq, HttpHeaders header) {
@@ -255,6 +273,7 @@ public class VolunteerService {
 					volunteerDetail.getVolunteerImage() != null ? new String(volunteerDetail.getVolunteerImage())
 							: null);
 			if (volunteerBlockDetail != null) {
+				volunteerInfo.setBlockId(volunteerBlockDetail.getId());
 				volunteerInfo.setBlockStartDate(volunteerBlockDetail.getBlockStartDate());
 				volunteerInfo.setBlockEndDate(volunteerBlockDetail.getBlockEndDate());
 				volunteerInfo.setStudyNumber(volunteerBlockDetail.getStudyNumber());
